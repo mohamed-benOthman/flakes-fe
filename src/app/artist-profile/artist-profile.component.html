@@ -1,0 +1,99 @@
+<section class="profile-banner">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="profile-heading">
+          <h1> PROFILE</h1>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="content-profile">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-xs-12 col-sm-5 col-md-5">
+        <div class="content-title">
+          <h1>
+            Informations de votre profile
+          </h1>
+          <div class="table-responsive">
+            <table class="table table-condensed">
+              <thead>
+              <!--<tr>
+                 <th>Firstname</th>
+                 <th>Lastname</th>
+
+                 </tr>!-->
+              </thead>
+              <tbody>
+              <tr>
+                <td>Identifiant:</td>
+                <td class="detail">{{ currentProfile.username }}</td>
+              </tr>
+              <tr>
+                <td>Nom:</td>
+                <td class="detail">{{ currentProfile.lastName }}</td>
+              </tr>
+              <tr>
+                <td>Prénom:</td>
+                <td class="detail">{{ currentProfile.firstName }}</td>
+              </tr>
+              <tr>
+                <td>Téléphone:</td>
+                <td class="detail">{{ currentProfile.phone }}</td>
+              </tr>
+              <tr>
+                <td>Code postal:</td>
+                <td class="detail">{{ currentProfile.zipCode }}</td>
+              </tr>
+              <tr>
+                <td>Departement(s):</td>
+                <td class="detail">{{ currentProfile.departments }}</td>
+              </tr>
+              <tr>
+                <td>Type: </td>
+                <td class="detail">{{ currentProfile.business }}</td>
+              </tr>
+              <tr>
+                <td>E-mail:	</td>
+                <td class="detail">{{ currentProfile.emailAdress }}</td>
+              </tr>
+              <tr>
+                <td>Expertise:	</td>
+                <td class="detail">{{ currentProfile.expertise }}</td>
+              </tr>
+              <tr>
+                <td>Slogan: </td>
+                <td class="detail">{{ currentProfile.slogan }}</td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-12 col-sm-7 col-md-7">
+        <div class="gallery-fn text-center">
+          <h1> Mes Photos </h1>
+        </div>
+        <div class="gallery-fn pull-right">
+          <ul id="lightGallery" class="gallery">
+            <li data-title="Image 1" data-desc="" data-responsive-src="assets/images/face-1.png" data-src="assets/images/face-1.png"> <a href="#"> <img src="assets/images/face-1.png" /> </a> </li>
+            <li data-title="Image 2" data-desc="" data-src="assets/images/face2.png" data-responsive-src="assets/images/face2.png"> <a href="#"> <img src="assets/images/face2.png" /> </a> </li>
+            <li data-title="Image 3" data-desc="" data-src="assets/images/face-3.png" data-responsive-src="assets/images/face-3.png"> <a href="#"> <img src="assets/images/face-3.png" /> </a> </li>
+            <li data-title="Image 4" data-desc="" data-src="assets/images/face-4.png"  data-responsive-src="assets/images/face-4.png"> <a href="#"> <img src="assets/images/face-4.png" /> </a> </li>
+            <li data-title="Image 5" data-desc="" data-src="assets/images/face-5.png"  data-responsive-src="assets/images/face-5.png"> <a href="#"> <img src="assets/images/face-5.png" /> </a> </li>
+            <li data-title="Image 6" data-desc="" data-src="assets/images/face-6.png" data-responsive-src="assets/images/face-6.png" > <a href="#"> <img src="assets/images/face-6.png" /> </a> </li>
+            <li class="thumb-hiddeen" data-title="Image 7" data-desc="" data-responsive-src="assets/images/face-1.png" data-src="assets/images/face-1.png"> <a href="#"> <img src="assets/images/face-1.png" /> </a> </li>
+            <li  class="thumb-hiddeen" data-title="Image 8" data-desc="" data-src="assets/images/face2.png" data-responsive-src="assets/images/face2.png"> <a href="#"> <img src="assets/images/face2.png" /> </a> </li>
+            <li class="thumb-hiddeen" data-title="Image 9" data-desc="" data-src="assets/images/face-3.png" data-responsive-src="assets/images/face-3.png"> <a href="#"> <img src="assets/images/face-3.png" /> </a> </li>
+            <li class="thumb-hiddeen" data-title="Image 10" data-desc="" data-src="assets/images/face-4.png"  data-responsive-src="assets/images/face-4.png"> <a href="#"> <img src="assets/images/face-4.png" /> </a> </li>
+            <li class="thumb-hiddeen" data-title="Image 11" data-desc="" data-src="assets/images/face-5.png"  data-responsive-src="assets/images/face-5.png"> <a href="#"> <img src="assets/images/face-5.png" /> </a> </li>
+            <li class="thumb-hiddeen" data-title="Image 12" data-desc="" data-src="assets/images/face-6.png" data-responsive-src="assets/images/face-6.png" > <a href="#"> <img src="assets/images/face-6.png" /> </a> </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

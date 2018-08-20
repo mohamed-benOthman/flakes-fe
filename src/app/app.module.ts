@@ -8,9 +8,11 @@ import { FooterComponent } from './footer/footer.component';
 import { HomeComponent } from './home/home.component';
 import { SigninComponent } from './auth/signin/signin.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { ArtistProfileComponent } from './artist-profile/artist-profile.component';
 
 const appRoutes: Routes = [
   { path: 'home', component: HomeComponent },
+  { path: 'profile', component: ArtistProfileComponent },
   { path: '', redirectTo: 'home', pathMatch: 'full'},
   { path: '**', redirectTo: 'home'}
 ];
@@ -21,7 +23,8 @@ const appRoutes: Routes = [
     HeaderComponent,
     FooterComponent,
     HomeComponent,
-    SigninComponent
+    SigninComponent,
+    ArtistProfileComponent
   ],
   imports: [
     BrowserModule,
