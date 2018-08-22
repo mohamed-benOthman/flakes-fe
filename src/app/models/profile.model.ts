@@ -1,3 +1,4 @@
+/*
 export class Profile {
   username: string = 'perfectJohn';
   firstName: string = 'John';
@@ -10,4 +11,19 @@ export class Profile {
   expertise: Array<string> = ['Manucure'];
   slogan: string = 'Le client est roi';
   photosUrl = Array<string>;
+}
+*/
+
+export interface Profile {
+  username: string;
+  firstName: string;
+  lastName: string;
+  phone: string;
+  zipCode: string;
+  departments: string[];
+  business: string;
+  emailAdress: string;
+  expertise: Array<string>;
+  slogan: string;
+  photosUrl: string[];
 }

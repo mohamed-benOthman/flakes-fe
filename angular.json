@@ -56,7 +56,8 @@
             "scripts": [
               "src/assets/js/jquery.min.js",
               "src/assets/js/bootstrap.min.js",
-              "src/assets/js/bootstrap-select.min.js"
+              "src/assets/js/bootstrap-select.min.js",
+              "src/assets/js/light-gallery.js"
             ]
           },
           "configurations": {
