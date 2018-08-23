@@ -9,9 +9,10 @@ import {HomeComponent} from './home/home.component';
 import {SigninComponent} from './auth/signin/signin.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {ArtistProfileComponent} from './artist-profile/artist-profile.component';
-import {GalleriaModule} from 'primeng/primeng';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {NgxGalleryModule} from 'ngx-gallery';
+import {ButtonModule} from 'primeng/button';
+import {DialogModule} from 'primeng/primeng';
 
 const appRoutes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -32,8 +33,8 @@ const appRoutes: Routes = [
   imports: [
     BrowserModule,
     FormsModule,
-    ReactiveFormsModule,
-    GalleriaModule, NgxGalleryModule,
+    ReactiveFormsModule, NgxGalleryModule,
+    ButtonModule, DialogModule,
     BrowserAnimationsModule,
     RouterModule.forRoot(appRoutes),
   ],

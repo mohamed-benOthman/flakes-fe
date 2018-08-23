@@ -20,13 +20,7 @@
           </h1>
           <div class="table-responsive">
             <table class="table table-condensed">
-              <thead>
-              <!--<tr>
-                 <th>Firstname</th>
-                 <th>Lastname</th>
-
-                 </tr>!-->
-              </thead>
+              <thead></thead>
               <tbody>
               <tr>
                 <td>Identifiant:</td>
@@ -70,6 +64,8 @@
               </tr>
               </tbody>
             </table>
+            <button pButton type="button" label="Editer" class="ui-button-raised"
+                    (click)="editProfileClicked($event)"></button>
           </div>
         </div>
       </div>
@@ -79,58 +75,67 @@
         </div>
         <br>
         <br>
-
-        <div class="center-block">
-          <ngx-gallery [options]="galleryOptions" [images]="galleryImages"></ngx-gallery>
-        </div>
-
-        <!--p-galleria [images]="images" [showCaption]="false"
-                    panelWidth="590" panelHeight="300"
-                    styleClass="#img-full"
-                    [frameWidth]="100" [frameHeight]="50"
-                    (onImageClicked)="imageClicked($event)"></p-galleria>-->
-
-        <!--<div class="gallery-fn text-center">
-          <h1> Mes Photos </h1>
-        </div>-->
-
-        <!--<div class="gallery-fn pull-right">
-          <ul id="lightGallery" class="gallery">
-            <div *ngFor="let photoUrl of currentProfile.photosUrl">
-              <li data-title="Image 1" data-desc="" attr.data-responsive-src="{{photoUrl}}" attr.data-src={{photoUrl}}>
-                <a href="#"> <img src={{photoUrl}}/> </a></li>
-            </div>
-
-            <div *ngFor="let photoUrl of currentProfile.photosUrl">
-              <li class="thumb-hiddeen" data-title="Image 7" data-desc="" attr.data-src={{photoUrl}}
-                  attr.data-responsive-src={{photoUrl}}><a href="#"> <img src="{{photoUrl}}"/> </a></li>
-            </div>
-          </ul>
-        </div>-->
-
-
-        <!--<div class="gallery-fn pull-right">
-          <ul id="lightGallery" class="gallery">
-
-            <li data-title="Image 1" data-desc="" data-responsive-src="assets/images/face-1.png" data-src="assets/images/face-1.png"> <a href="#"> <img src="assets/images/face-1.png" /> </a> </li>
-            <li data-title="Image 2" data-desc="" data-src="assets/images/face2.png" data-responsive-src="assets/images/face2.png"> <a href="#"> <img src="assets/images/face2.png" /> </a> </li>
-            <li data-title="Image 3" data-desc="" data-src="assets/images/face-3.png" data-responsive-src="assets/images/face-3.png"> <a href="#"> <img src="assets/images/face-3.png" /> </a> </li>
-            <li data-title="Image 4" data-desc="" data-src="assets/images/face-4.png"  data-responsive-src="assets/images/face-4.png"> <a href="#"> <img src="assets/images/face-4.png" /> </a> </li>
-            <li data-title="Image 5" data-desc="" data-src="assets/images/face-5.png"  data-responsive-src="assets/images/face-5.png"> <a href="#"> <img src="assets/images/face-5.png" /> </a> </li>
-            <li data-title="Image 6" data-desc="" data-src="assets/images/face-6.png" data-responsive-src="assets/images/face-6.png" > <a href="#"> <img src="assets/images/face-6.png" /> </a> </li>
-
-            <li class="thumb-hiddeen" data-title="Image 7" data-desc="" data-src="assets/images/face-1.png" data-responsive-src="assets/images/face-1.png"> <a href="#"> <img src="assets/images/face-1.png" /> </a> </li>
-            <li class="thumb-hiddeen" data-title="Image 8" data-desc="" data-src="assets/images/face2.png" data-responsive-src="assets/images/face2.png"> <a href="#"> <img src="assets/images/face2.png" /> </a> </li>
-            <li class="thumb-hiddeen" data-title="Image 9" data-desc="" data-src="assets/images/face-3.png" data-responsive-src="assets/images/face-3.png"> <a href="#"> <img src="assets/images/face-3.png" /> </a> </li>
-            <li class="thumb-hiddeen" data-title="Image 10" data-desc="" data-src="assets/images/face-4.png"  data-responsive-src="assets/images/face-4.png"> <a href="#"> <img src="assets/images/face-4.png" /> </a> </li>
-            <li class="thumb-hiddeen" data-title="Image 11" data-desc="" data-src="assets/images/face-5.png"  data-responsive-src="assets/images/face-5.png"> <a href="#"> <img src="assets/images/face-5.png" /> </a> </li>
-            <li class="thumb-hiddeen" data-title="Image 12" data-desc="" data-src="assets/images/face-6.png" data-responsive-src="assets/images/face-6.png" > <a href="#"> <img src="assets/images/face-6.png" /> </a> </li>
-          </ul>
-        </div>-->
+        <ngx-gallery [options]="galleryOptions" [images]="galleryImages"></ngx-gallery>
 
       </div>
     </div>
   </div>
+
+
+  <p-dialog header="Editer le profile" [(visible)]="displayEditDialog" [modal]="true"
+            [width]="500" [minWidth]="200" [minY]="70" [dismissableMask]="true"
+            [maximizable]="true" [baseZIndex]="500000">
+    <table class="table table-condensed">
+      <thead></thead>
+      <tbody>
+      <tr>
+        <td>Identifiant</td>
+        <td class="detail"><input type="text" [value]="currentProfile.username"></td>
+      </tr>
+      <tr>
+        <td>Nom</td>
+        <td class="detail">{{ currentProfile.lastName }}</td>
+      </tr>
+      <tr>
+        <td>Prénom</td>
+        <td class="detail">{{ currentProfile.firstName }}</td>
+      </tr>
+      <tr>
+        <td>Téléphone</td>
+        <td class="detail">{{ currentProfile.phone }}</td>
+      </tr>
+      <tr>
+        <td>Code postal</td>
+        <td class="detail">{{ currentProfile.zipCode }}</td>
+      </tr>
+      <tr>
+        <td>Departement(s)</td>
+        <td class="detail">{{ currentProfile.departments }}</td>
+      </tr>
+      <tr>
+        <td>Type</td>
+        <td class="detail">{{ currentProfile.business }}</td>
+      </tr>
+      <tr>
+        <td>E-mail</td>
+        <td class="detail">{{ currentProfile.emailAdress }}</td>
+      </tr>
+      <tr>
+        <td>Expertise</td>
+        <td class="detail">{{ currentProfile.expertise }}</td>
+      </tr>
+      <tr>
+        <td>Slogan:</td>
+        <td class="detail">{{ currentProfile.slogan }}</td>
+      </tr>
+      </tbody>
+    </table>
+    <p-footer>
+      <button type="button" pButton icon="pi pi-check" (click)="displayEditDialog=false" label="Valider"></button>
+      <button type="button" pButton icon="pi pi-close" (click)="displayEditDialog=false" label="Annuler"
+              class="ui-button-secondary"></button>
+    </p-footer>
+  </p-dialog>
 </section>
 
 

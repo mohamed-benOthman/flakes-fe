@@ -31,11 +31,14 @@ export class ArtistProfileComponent implements OnInit {
 
   galleryOptions: NgxGalleryOptions[];
   galleryImages: NgxGalleryImage[];
+  displayEditDialog: boolean;
 
   constructor() {
   }
 
   ngOnInit() {
+    this.displayEditDialog = false;
+
     this.galleryOptions = [
       {width: '640px', height: '480px', thumbnailsColumns: 4, imageAnimation: NgxGalleryAnimation.Slide, previewCloseOnClick: true},
       {breakpoint: 800, width: '100%', height: '600px', imagePercent: 80, thumbnailsPercent: 10, thumbnailsMargin: 20, thumbnailMargin: 20},
@@ -46,7 +49,11 @@ export class ArtistProfileComponent implements OnInit {
     for (const img of this.currentProfile.photosUrl) {
       this.galleryImages.push({small: img, medium: img, big: img});
     }
+  }
 
+  editProfileClicked(event) {
+    console.log('edit the profile please!');
+    this.displayEditDialog = true;
   }
 
 }
