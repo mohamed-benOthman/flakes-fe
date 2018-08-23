@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Profile} from '../models/profile.model';
 import {NgxGalleryAnimation, NgxGalleryImage, NgxGalleryOptions} from 'ngx-gallery';
+import {SelectItem} from 'primeng/api';
 
 @Component({
   selector: 'app-artist-profile',
@@ -18,8 +19,8 @@ export class ArtistProfileComponent implements OnInit {
     departments: ['Paris', 'Hauts de seine'],
     business: 'Beauté',
     emailAdress: 'test@gmail.com',
-    expertise: ['Manucure'],
-    slogan: 'Le client est roi',
+    expertise: ['id1', 'id2'],
+    slogan: 'Integer posuere erat a ante venenatis dapibus posuere velit aliquet. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Etiam porta sem malesuada magna mollis euismod.',
     photosUrl: ['https://cdn.pixabay.com/photo/2017/06/02/14/11/girl-2366438_1280.jpg',
       'https://cdn.pixabay.com/photo/2015/05/31/13/29/lipstick-791761_1280.jpg',
       'https://cdn.pixabay.com/photo/2016/01/10/21/06/eye-1132531_1280.jpg',
@@ -33,6 +34,9 @@ export class ArtistProfileComponent implements OnInit {
   galleryImages: NgxGalleryImage[];
   displayEditDialog: boolean;
 
+  expertiseAvailable: any[];
+  expertiseCheck: boolean[];
+
   constructor() {
   }
 
@@ -40,7 +44,7 @@ export class ArtistProfileComponent implements OnInit {
     this.displayEditDialog = false;
 
     this.galleryOptions = [
-      {width: '640px', height: '480px', thumbnailsColumns: 4, imageAnimation: NgxGalleryAnimation.Slide, previewCloseOnClick: true},
+      {width: '100%', height: '480px', thumbnailsColumns: 4, imageAnimation: NgxGalleryAnimation.Slide, previewCloseOnClick: true},
       {breakpoint: 800, width: '100%', height: '600px', imagePercent: 80, thumbnailsPercent: 10, thumbnailsMargin: 20, thumbnailMargin: 20},
       {breakpoint: 400, preview: false}
     ];
@@ -49,6 +53,13 @@ export class ArtistProfileComponent implements OnInit {
     for (const img of this.currentProfile.photosUrl) {
       this.galleryImages.push({small: img, medium: img, big: img});
     }
+
+    this.expertiseAvailable = [
+      {id: 'id1', label: 'Peau claire', checked: false},
+      {id: 'id2', label: 'Peau foncée', checked: true},
+      {id: 'id3', label: 'Peau mate', checked: false},
+    ];
+
   }
 
   editProfileClicked(event) {
