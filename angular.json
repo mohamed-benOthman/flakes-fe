@@ -50,14 +50,19 @@
               "src/assets/css/animate.css",
               "src/assets/css/lignt-box.css",
               "src/assets/css/bootstrap-select.min.css",
+              "node_modules/primeicons/primeicons.css",
+              "node_modules/primeng/resources/themes/nova-light/theme.css",
+              "node_modules/primeng/resources/primeng.min.css",
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "src/styles.css"
             ],
             "scripts": [
-              "src/assets/js/jquery.min.js",
-              "src/assets/js/bootstrap.min.js",
+              //"src/assets/js/jquery.min.js",
+              "node_modules/jquery/dist/jquery.min.js",
+              "src/assets/js/light-gallery.js",
+              //"node_modules/lightgallery.js/dist/js/light-gallery.js",
               "src/assets/js/bootstrap-select.min.js",
-              "src/assets/js/light-gallery.js"
+              "src/assets/js/bootstrap.min.js"
             ]
           },
           "configurations": {

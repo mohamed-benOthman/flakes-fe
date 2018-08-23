@@ -53,19 +53,19 @@
                 <td class="detail">{{ currentProfile.departments }}</td>
               </tr>
               <tr>
-                <td>Type: </td>
+                <td>Type:</td>
                 <td class="detail">{{ currentProfile.business }}</td>
               </tr>
               <tr>
-                <td>E-mail:	</td>
+                <td>E-mail:</td>
                 <td class="detail">{{ currentProfile.emailAdress }}</td>
               </tr>
               <tr>
-                <td>Expertise:	</td>
+                <td>Expertise:</td>
                 <td class="detail">{{ currentProfile.expertise }}</td>
               </tr>
               <tr>
-                <td>Slogan: </td>
+                <td>Slogan:</td>
                 <td class="detail">{{ currentProfile.slogan }}</td>
               </tr>
               </tbody>
@@ -74,11 +74,44 @@
         </div>
       </div>
       <div class="col-xs-12 col-sm-7 col-md-7">
-        <div class="gallery-fn text-center">
-          <h1> Mes Photos </h1>
+        <div class="content-title">
+          <h1>Mes Photos</h1>
         </div>
-        <div class="gallery-fn pull-right">
+        <br>
+        <br>
+
+        <div class="center-block">
+          <ngx-gallery [options]="galleryOptions" [images]="galleryImages"></ngx-gallery>
+        </div>
+
+        <!--p-galleria [images]="images" [showCaption]="false"
+                    panelWidth="590" panelHeight="300"
+                    styleClass="#img-full"
+                    [frameWidth]="100" [frameHeight]="50"
+                    (onImageClicked)="imageClicked($event)"></p-galleria>-->
+
+        <!--<div class="gallery-fn text-center">
+          <h1> Mes Photos </h1>
+        </div>-->
+
+        <!--<div class="gallery-fn pull-right">
           <ul id="lightGallery" class="gallery">
+            <div *ngFor="let photoUrl of currentProfile.photosUrl">
+              <li data-title="Image 1" data-desc="" attr.data-responsive-src="{{photoUrl}}" attr.data-src={{photoUrl}}>
+                <a href="#"> <img src={{photoUrl}}/> </a></li>
+            </div>
+
+            <div *ngFor="let photoUrl of currentProfile.photosUrl">
+              <li class="thumb-hiddeen" data-title="Image 7" data-desc="" attr.data-src={{photoUrl}}
+                  attr.data-responsive-src={{photoUrl}}><a href="#"> <img src="{{photoUrl}}"/> </a></li>
+            </div>
+          </ul>
+        </div>-->
+
+
+        <!--<div class="gallery-fn pull-right">
+          <ul id="lightGallery" class="gallery">
+
             <li data-title="Image 1" data-desc="" data-responsive-src="assets/images/face-1.png" data-src="assets/images/face-1.png"> <a href="#"> <img src="assets/images/face-1.png" /> </a> </li>
             <li data-title="Image 2" data-desc="" data-src="assets/images/face2.png" data-responsive-src="assets/images/face2.png"> <a href="#"> <img src="assets/images/face2.png" /> </a> </li>
             <li data-title="Image 3" data-desc="" data-src="assets/images/face-3.png" data-responsive-src="assets/images/face-3.png"> <a href="#"> <img src="assets/images/face-3.png" /> </a> </li>
@@ -93,7 +126,8 @@
             <li class="thumb-hiddeen" data-title="Image 11" data-desc="" data-src="assets/images/face-5.png"  data-responsive-src="assets/images/face-5.png"> <a href="#"> <img src="assets/images/face-5.png" /> </a> </li>
             <li class="thumb-hiddeen" data-title="Image 12" data-desc="" data-src="assets/images/face-6.png" data-responsive-src="assets/images/face-6.png" > <a href="#"> <img src="assets/images/face-6.png" /> </a> </li>
           </ul>
-        </div>
+        </div>-->
+
       </div>
     </div>
   </div>
