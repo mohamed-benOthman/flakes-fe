@@ -21,9 +21,9 @@ export interface Profile {
   phone: string;
   zipCode: string;
   departments: string[];
-  business: string;
+  business: any[];
   emailAdress: string;
-  expertise: Array<string>;
+  expertise: Array<any>;
   slogan: string;
   photosUrl: string[];
 }

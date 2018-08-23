@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {Profile} from '../models/profile.model';
 import {NgxGalleryAnimation, NgxGalleryImage, NgxGalleryOptions} from 'ngx-gallery';
 import {SelectItem} from 'primeng/api';
@@ -10,6 +10,8 @@ import {SelectItem} from 'primeng/api';
 })
 export class ArtistProfileComponent implements OnInit {
 
+  @ViewChild('postalCodeInput') zipCodeInput;
+
   currentProfile: Profile = {
     username: 'perfectJohn',
     firstName: 'John',
@@ -17,9 +19,18 @@ export class ArtistProfileComponent implements OnInit {
     phone: '062232323',
     zipCode: '75002',
     departments: ['Paris', 'Hauts de seine'],
-    business: 'Beauté',
+    business: [
+      {id: 'businessId1', label: 'Maquillage', checked: false},
+      {id: 'businessId2', label: 'Microblading', checked: true},
+      {id: 'businessId3', label: 'Manucure', checked: false},
+      {id: 'businessId4', label: 'Extension de cils', checked: false}
+    ],
     emailAdress: 'test@gmail.com',
-    expertise: ['id1', 'id2'],
+    expertise: [
+      {id: 'expertiseId1', label: 'Peau claire', checked: false},
+      {id: 'expertiseId2', label: 'Peau foncée', checked: true},
+      {id: 'expertiseId3', label: 'Peau mate', checked: false}
+    ],
     slogan: 'Integer posuere erat a ante venenatis dapibus posuere velit aliquet. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Etiam porta sem malesuada magna mollis euismod.',
     photosUrl: ['https://cdn.pixabay.com/photo/2017/06/02/14/11/girl-2366438_1280.jpg',
       'https://cdn.pixabay.com/photo/2015/05/31/13/29/lipstick-791761_1280.jpg',
@@ -33,9 +44,6 @@ export class ArtistProfileComponent implements OnInit {
   galleryOptions: NgxGalleryOptions[];
   galleryImages: NgxGalleryImage[];
   displayEditDialog: boolean;
-
-  expertiseAvailable: any[];
-  expertiseCheck: boolean[];
 
   constructor() {
   }
@@ -54,17 +62,23 @@ export class ArtistProfileComponent implements OnInit {
       this.galleryImages.push({small: img, medium: img, big: img});
     }
 
-    this.expertiseAvailable = [
-      {id: 'id1', label: 'Peau claire', checked: false},
-      {id: 'id2', label: 'Peau foncée', checked: true},
-      {id: 'id3', label: 'Peau mate', checked: false},
-    ];
-
   }
 
   editProfileClicked(event) {
     console.log('edit the profile please!');
     this.displayEditDialog = true;
+  }
+
+  zipCodeChecker(event: KeyboardEvent) {
+    if (this.zipCodeInput.nativeElement.value.length >= 5) {
+      event.preventDefault();
+    } else {
+      const pattern = /[0-9\+\-\ ]/;
+      const inputChar = String.fromCharCode(event.charCode);
+      if (event.keyCode !== 8 && !pattern.test(inputChar)) {
+        event.preventDefault();
+      }
+    }
   }
 
 }

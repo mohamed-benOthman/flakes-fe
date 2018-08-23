@@ -52,21 +52,33 @@
                 <td><span style="display:inline-block; width: 25px;"></span></td>
                 <td class="detail">{{ currentProfile.zipCode }}</td>
               </tr>
-              <tr>
+              <!--<tr>
                 <td>Département</td>
                 <td><span style="display:inline-block; width: 25px;"></span></td>
                 <td class="detail">{{ currentProfile.departments }}</td>
-              </tr>
+              </tr>-->
               <tr>
                 <td>Compétences</td>
                 <td><span style="display:inline-block; width: 25px;"></span></td>
-                <td class="detail">{{ currentProfile.business }}</td>
+                <td class="detail">
+                  <ng-container *ngFor="let business of currentProfile.business">
+                    <ng-container *ngIf="business.checked">
+                      {{business.label}}
+                    </ng-container>
+                  </ng-container>
+                </td>
               </tr>
 
               <tr>
                 <td>Expertise</td>
                 <td><span style="display:inline-block; width: 25px;"></span></td>
-                <td class="detail">{{ currentProfile.expertise }}</td>
+                <td class="detail">
+                  <ng-container *ngFor="let expertise of currentProfile.expertise">
+                    <ng-container *ngIf="expertise.checked">
+                      {{expertise.label}}
+                    </ng-container>
+                  </ng-container>
+                </td>
               </tr>
               <tr>
                 <td>Présentation</td>
@@ -96,28 +108,6 @@
   <p-dialog header="Editer le profile" [(visible)]="displayEditDialog" [modal]="true"
             [width]="500" [minWidth]="200" [minY]="70" [dismissableMask]="true"
             [maximizable]="false" [baseZIndex]="500000">
-
-    <!--<form class="example-form">
-      <mat-form-field class="example-full-width">
-        <input matInput placeholder="Nom" [value]="currentProfile.lastName">
-      </mat-form-field>
-
-      <mat-form-field class="example-full-width">
-        <input matInput placeholder="Prénom" [value]="currentProfile.firstName">
-      </mat-form-field>
-
-      <mat-form-field class="example-full-width">
-        <input matInput placeholder="Téléphone" [value]="currentProfile.phone">
-      </mat-form-field>
-
-      <mat-form-field class="example-full-width">
-        <input matInput placeholder="Code Postal" [value]="currentProfile.zipCode">
-      </mat-form-field>
-
-      <mat-form-field class="example-full-width">
-        <input matInput placeholder="Code" [value]="currentProfile.firstName">
-      </mat-form-field>
-    </form>-->
 
     <form class="edit-profile-form">
       <table class="edit-profile-full-width">
@@ -156,29 +146,70 @@
         <tr>
           <td>
             <mat-form-field class="edit-profile-full-width">
-              <input matInput placeholder="Téléphone" [value]="currentProfile.phone">
+              <input matInput #phoneInput placeholder="Téléphone" [value]="currentProfile.phone"
+                     (keypress)="zipCodeChecker($event)">
             </mat-form-field>
           </td>
           <td><span style="display:inline-block; width: 25px;"></span></td>
           <td>
             <mat-form-field class="edit-profile-full-width">
-              <input matInput #postalCode maxlength="5" placeholder="Code Postal" [value]="currentProfile.zipCode">
-              <mat-hint align="end">{{postalCode.value.length}} / 5</mat-hint>
+              <input matInput #postalCodeInput maxlength="5" placeholder="Code Postal"
+                     [value]="currentProfile.zipCode" type="number"
+                     (keypress)="zipCodeChecker($event)">
+              <mat-hint align="end">{{postalCodeInput.value.length}} / 5</mat-hint>
             </mat-form-field>
           </td>
         </tr>
       </table>
 
       <div>
-        <span style="font-size: 75%; opacity: 0.5; font-weight: bold">Expertise </span>
+        <span style="font-size: 75%; opacity: 0.5; font-weight: bold">Expertise</span>
         <section class="edit-profile-expertise-checkbox-section">
-          <div *ngFor="let expertise of expertiseAvailable">
+          <div *ngFor="let expertise of currentProfile.expertise">
             <mat-checkbox class="edit-profile-expertise-checkbox-margin"
                           [(ngModel)]="expertise.checked" [ngModelOptions]="{standalone: true}">{{expertise.label}}
             </mat-checkbox>
           </div>
         </section>
       </div>
+
+      <br>
+
+      <table>
+        <span style="font-size: 75%; opacity: 0.5; font-weight: bold">Compétences</span>
+        <tr>
+          <td>
+            <mat-checkbox class="edit-profile-expertise-checkbox-margin"
+                          [(ngModel)]="currentProfile.business[0].checked"
+                          [ngModelOptions]="{standalone: true}">{{currentProfile.business[0].label}}
+            </mat-checkbox>
+          </td>
+          <td><span style="display:inline-block; width: 70px;"></span></td>
+          <td>
+            <mat-checkbox class="edit-profile-expertise-checkbox-margin"
+                          [(ngModel)]="currentProfile.business[1].checked"
+                          [ngModelOptions]="{standalone: true}">{{currentProfile.business[1].label}}
+            </mat-checkbox>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <mat-checkbox class="edit-profile-expertise-checkbox-margin"
+                          [(ngModel)]="currentProfile.business[2].checked"
+                          [ngModelOptions]="{standalone: true}">{{currentProfile.business[2].label}}
+            </mat-checkbox>
+          </td>
+          <td><span style="display:inline-block; width: 25px;"></span></td>
+          <td>
+            <mat-checkbox class="edit-profile-expertise-checkbox-margin"
+                          [(ngModel)]="currentProfile.business[3].checked"
+                          [ngModelOptions]="{standalone: true}">{{currentProfile.business[3].label}}
+            </mat-checkbox>
+          </td>
+        </tr>
+      </table>
+
+      <br>
 
       <!--<div>
         <span style="font-size: 75%; opacity: 0.5; font-weight: bold">Expertise </span>
@@ -202,7 +233,7 @@
 
       <p>
         <mat-form-field class="edit-profile-full-width">
-          <textarea style="display:inline-block; width: 100%; min-height: 50px;"
+          <textarea style="display:inline-block; width: 100%; min-height: 80px;"
                     matInput placeholder="Présentation" [value]="currentProfile.slogan"></textarea>
         </mat-form-field>
       </p>
