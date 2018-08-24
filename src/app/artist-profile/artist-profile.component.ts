@@ -43,11 +43,15 @@ export class ArtistProfileComponent implements OnInit {
       ]
   };
 
+  currentProfileCopy: Profile;
+
   galleryOptions: NgxGalleryOptions[];
   galleryImages: NgxGalleryImage[];
   displayEditProfileDialog: boolean;
   displayEditPhotosDialog: boolean;
   growlMessage: Message[] = [];
+  uploadedFiles: any[] = [];
+
 
   constructor() {
   }
@@ -55,6 +59,8 @@ export class ArtistProfileComponent implements OnInit {
   ngOnInit() {
     this.displayEditProfileDialog = false;
     this.displayEditPhotosDialog = false;
+
+    this.currentProfileCopy = Object.assign({}, this.currentProfile);
 
     this.galleryOptions = [
       {width: '100%', height: '480px', thumbnailsColumns: 4, imageAnimation: NgxGalleryAnimation.Slide,
@@ -84,11 +90,12 @@ export class ArtistProfileComponent implements OnInit {
     console.log('photosLength= ' + this.currentProfile.photosUrl.length);
   }
 
-  editProfileClicked(event) {
+  editProfileClicked() {
+    this.currentProfileCopy = Object.assign({}, this.currentProfile);
     this.displayEditProfileDialog = true;
   }
 
-  editPhotosClicked(event) {
+  editPhotosClicked() {
     this.displayEditPhotosDialog = true;
   }
 
@@ -104,12 +111,39 @@ export class ArtistProfileComponent implements OnInit {
     }
   }
 
+  saveEditProfile() {
+    this.displayEditProfileDialog = false;
+    this.currentProfile = Object.assign({}, this.currentProfileCopy);
+  }
+
   showPhotoDeletedSuccess() {
     this.growlMessage = [];
     this.growlMessage.push({
       severity: 'success',
       summary: 'Photo supprimée',
       detail: 'La photo a été correctement supprimée sur le serveur'});
+  }
+
+  showPhotoUploadedSuccess() {
+    this.growlMessage = [];
+    this.growlMessage.push({
+      severity: 'success',
+      summary: 'Photo(s) envoyée(s)',
+      detail: ''});
+  }
+
+  onUploadPhotos(event) {
+    this.showPhotoUploadedSuccess();
+  }
+
+  onSelectPhotos(event) {
+    for (const file of event.files) {
+      this.uploadedFiles.push(file);
+    }
+  }
+
+  onRemoveSelectedPhoto(file) {
+    this.uploadedFiles = this.uploadedFiles.filter(item => item !== file);
   }
 
 }

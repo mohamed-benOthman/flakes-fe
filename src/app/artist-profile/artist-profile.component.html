@@ -3,7 +3,7 @@
     <div class="row">
       <div class="col-md-12">
         <div class="profile-heading">
-          <h1>PROFIL</h1>
+          <h1>Profil de <b>{{currentProfile.lastName | uppercase}} {{currentProfile.firstName | uppercase}}</b></h1>
         </div>
       </div>
     </div>
@@ -19,7 +19,7 @@
       <div class="col-xs-12 col-sm-5 col-md-5">
         <div class="content-title">
           <h1>
-            Informations de votre profile
+            Informations de votre profil
           </h1>
           <div class="table-responsive">
             <table class="table table-condensed">
@@ -113,10 +113,10 @@
   ----- BOTTOM BUTTONS (EDIT / ADD PHOTOS)
   ------------------------------>
   <button pButton type="button" label="Editer le profil" class="ui-button-raised"
-          (click)="editProfileClicked($event)"></button>
+          (click)="editProfileClicked()"></button>
   <span style="display:inline-block; width: 25px;"></span>
   <button pButton type="button" label="Editer les photos" class="ui-button-raised"
-          (click)="editPhotosClicked($event)"></button>
+          (click)="editPhotosClicked()"></button>
 
 
   <!------------------------------
@@ -131,13 +131,17 @@
         <tr>
           <td>
             <mat-form-field class="edit-profile-full-width">
-              <input matInput placeholder="identifiant" disabled [value]="currentProfile.username">
+              <input matInput placeholder="identifiant" disabled
+                     [(ngModel)]="currentProfileCopy.username"
+                     [ngModelOptions]="{standalone: true}">
             </mat-form-field>
           </td>
           <td><span style="display:inline-block; width: 25px;"></span></td>
           <td>
             <mat-form-field class="edit-profile-full-width">
-              <input matInput placeholder="E-mail" disabled [value]="currentProfile.emailAdress">
+              <input matInput placeholder="E-mail" disabled
+                     [(ngModel)]="currentProfileCopy.emailAdress"
+                     [ngModelOptions]="{standalone: true}">
             </mat-form-field>
           </td>
         </tr>
@@ -147,13 +151,15 @@
         <tr>
           <td>
             <mat-form-field class="edit-profile-full-width">
-              <input matInput placeholder="Nom" [value]="currentProfile.lastName">
+              <input matInput placeholder="Nom" [(ngModel)]="currentProfileCopy.lastName"
+                     [ngModelOptions]="{standalone: true}">
             </mat-form-field>
           </td>
           <td><span style="display:inline-block; width: 25px;"></span></td>
           <td>
             <mat-form-field class="edit-profile-full-width">
-              <input matInput placeholder="Prénom" [value]="currentProfile.firstName">
+              <input matInput placeholder="Prénom" [(ngModel)]="currentProfileCopy.firstName"
+                     [ngModelOptions]="{standalone: true}">
             </mat-form-field>
           </td>
         </tr>
@@ -163,7 +169,8 @@
         <tr>
           <td>
             <mat-form-field class="edit-profile-full-width">
-              <input matInput #phoneInput placeholder="Téléphone" [value]="currentProfile.phone"
+              <input matInput #phoneInput placeholder="Téléphone"
+                     [(ngModel)]="currentProfileCopy.phone" [ngModelOptions]="{standalone: true}"
                      (keypress)="zipCodeChecker($event)">
             </mat-form-field>
           </td>
@@ -171,7 +178,9 @@
           <td>
             <mat-form-field class="edit-profile-full-width">
               <input matInput #postalCodeInput maxlength="5" placeholder="Code Postal"
-                     [value]="currentProfile.zipCode" type="number"
+                     [ngModel]="currentProfileCopy.zipCode"
+                     [ngModelOptions]="{standalone: true}"
+                     type="number"
                      (keypress)="zipCodeChecker($event)">
               <mat-hint align="end">{{postalCodeInput.value.length}} / 5</mat-hint>
             </mat-form-field>
@@ -182,9 +191,10 @@
       <div>
         <span style="font-size: 75%; opacity: 0.5; font-weight: bold">Expertise</span>
         <section class="edit-profile-expertise-checkbox-section">
-          <div *ngFor="let expertise of currentProfile.expertise">
+          <div *ngFor="let expertise of currentProfileCopy.expertise">
             <mat-checkbox class="edit-profile-expertise-checkbox-margin"
-                          [(ngModel)]="expertise.checked" [ngModelOptions]="{standalone: true}">{{expertise.label}}
+                          [(ngModel)]="expertise.checked"
+                          [ngModelOptions]="{standalone: true}">{{expertise.label}}
             </mat-checkbox>
           </div>
         </section>
@@ -197,48 +207,47 @@
         <tr>
           <td>
             <mat-checkbox class="edit-profile-expertise-checkbox-margin"
-                          [(ngModel)]="currentProfile.business[0].checked"
-                          [ngModelOptions]="{standalone: true}">{{currentProfile.business[0].label}}
+                          [(ngModel)]="currentProfileCopy.business[0].checked"
+                          [ngModelOptions]="{standalone: true}">{{currentProfileCopy.business[0].label}}
             </mat-checkbox>
           </td>
           <td><span style="display:inline-block; width: 70px;"></span></td>
           <td>
             <mat-checkbox class="edit-profile-expertise-checkbox-margin"
-                          [(ngModel)]="currentProfile.business[1].checked"
-                          [ngModelOptions]="{standalone: true}">{{currentProfile.business[1].label}}
+                          [(ngModel)]="currentProfileCopy.business[1].checked"
+                          [ngModelOptions]="{standalone: true}">{{currentProfileCopy.business[1].label}}
             </mat-checkbox>
           </td>
         </tr>
         <tr>
           <td>
             <mat-checkbox class="edit-profile-expertise-checkbox-margin"
-                          [(ngModel)]="currentProfile.business[2].checked"
-                          [ngModelOptions]="{standalone: true}">{{currentProfile.business[2].label}}
+                          [(ngModel)]="currentProfileCopy.business[2].checked"
+                          [ngModelOptions]="{standalone: true}">{{currentProfileCopy.business[2].label}}
             </mat-checkbox>
           </td>
           <td><span style="display:inline-block; width: 25px;"></span></td>
           <td>
             <mat-checkbox class="edit-profile-expertise-checkbox-margin"
-                          [(ngModel)]="currentProfile.business[3].checked"
-                          [ngModelOptions]="{standalone: true}">{{currentProfile.business[3].label}}
+                          [(ngModel)]="currentProfileCopy.business[3].checked"
+                          [ngModelOptions]="{standalone: true}">{{currentProfileCopy.business[3].label}}
             </mat-checkbox>
           </td>
         </tr>
       </table>
-
       <br>
-
       <p>
         <mat-form-field class="edit-profile-full-width">
-          <textarea style="display:inline-block; width: 100%; min-height: 80px;"
-                    matInput placeholder="Présentation" [value]="currentProfile.slogan"></textarea>
+          <textarea #slogan style="display:inline-block; width: 100%; min-height: 80px;"
+                    matInput placeholder="Présentation"
+                    [(ngModel)]="currentProfileCopy.slogan" [ngModelOptions]="{standalone: true}"></textarea>
         </mat-form-field>
       </p>
 
     </form>
 
     <p-footer>
-      <button type="button" pButton icon="pi pi-check" (click)="displayEditProfileDialog=false"
+      <button type="button" pButton icon="pi pi-check" (click)="saveEditProfile()"
               label="Valider"></button>
       <button type="button" pButton icon="pi pi-close" (click)="displayEditProfileDialog=false" label="Annuler"
               class="ui-button-secondary"></button>
@@ -250,23 +259,60 @@
   ----- EDIT PHOTOS DIALOG
   ------------------------------>
   <p-dialog header="Editer les photos" [(visible)]="displayEditPhotosDialog" [modal]="true"
-            [width]="500" [minWidth]="200" [minY]="70" [dismissableMask]="true"
+            [width]="640" [minWidth]="200" [minHeight]="300" [minY]="70" [dismissableMask]="true"
             [maximizable]="false" [baseZIndex]="500000">
 
-    <mat-grid-list cols="3" rowHeight="2:2">
-      <ng-container *ngFor="let photoUrl of currentProfile.photosUrl; let i = index;">
-        <mat-grid-tile>
-          <div style="text-align: center;">
-            <img [src]="photoUrl" style='height: 80px; width: 120px; object-fit: fill'/>
-            <span style="display:inline-block; height: 25px;"></span>
-            <button pButton type="button" icon="pi pi-trash" label="Supprimer"
-                    style="border:0px solid black; background-color: transparent;"
-                    class="ui-button-raised ui-button-secondary"
-                    (click)="onDeletePhoto(i)"></button>
-          </div>
-        </mat-grid-tile>
-      </ng-container>
-    </mat-grid-list>
+    <p-tabView>
+      <p-tabPanel header="Portfolio">
+        <mat-grid-list cols="3">
+          <ng-container *ngFor="let photoUrl of currentProfile.photosUrl; let i = index;">
+            <mat-grid-tile>
+              <div style="border:0px solid black; background-color: transparent; text-align: center;">
+                <img [src]="photoUrl" style='height: 100px; width: 150px; object-fit: fill'/>
+                <span style="display:inline-block; height: 25px;"></span>
+                <button pButton type="button" icon="pi pi-trash" label="Supprimer"
+                        class="ui-button-raised ui-button-secondary"
+                        (click)="onDeletePhoto(i)"></button>
+              </div>
+            </mat-grid-tile>
+          </ng-container>
+        </mat-grid-list>
+      </p-tabPanel>
+
+      <p-tabPanel header="Ajouter">
+        <p-fileUpload mode="advanced" name="demo[]" url="./upload.php" (onUpload)="onUploadPhotos($event)"
+                      (onSelect)="onSelectPhotos($event)"
+                      multiple="false" accept="image/*" maxFileSize="1000000"
+                      invalidFileSizeMessageSummary="{0}: Taille de fichier non valide, "
+                      invalidFileSizeMessageDetail="La taille maximale d'envoi est {0}."
+                      invalidFileTypeMessageSummary="{0}: Type de fichier non valide, "
+                      invalidFileTypeMessageDetail="Types de fichiers autorisés: {0}."
+                      previewWidth="40" chooseLabel="Selectionner" uploadLabel="Envoyer" cancelLabel="Annuler">
+          <!--<ng-template pTemplate="file">
+            <div>
+            <ul *ngIf="uploadedFiles.length">
+              <li *ngFor="let file of uploadedFiles">{{file.name | truncate}} - {{file.size}} octets</li>
+            </ul>
+            </div>
+          </ng-template>-->
+          <!--<ng-template pTemplate="toolbar">
+            <div>{{uploadedFiles.length}} Fichiers sélectionnés</div>
+          </ng-template>-->
+          <!--<ng-template let-file pTemplate="file">
+            <div>
+              <ul *ngIf="uploadedFiles.length">
+                <li>
+                  <img [src]="file.name" style='height: 50px; width: 50px; object-fit: fill'/>
+                  {{file.name | truncate}} - {{file.size/1024/1024 | number : '1.1-1'}} Mo
+                  <button type="button" pButton icon="pi pi-times" (click)="onRemoveSelectedPhoto(file)"></button>
+                </li>
+              </ul>
+            </div>
+          </ng-template>-->
+        </p-fileUpload>
+      </p-tabPanel>
+
+    </p-tabView>
 
     <p-footer>
       <button type="button" pButton icon="pi pi-check" (click)="displayEditPhotosDialog=false" label="Valider"></button>

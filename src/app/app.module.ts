@@ -12,8 +12,9 @@ import {ArtistProfileComponent} from './artist-profile/artist-profile.component'
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {NgxGalleryModule} from 'ngx-gallery';
 import {ButtonModule} from 'primeng/button';
-import {DialogModule, GrowlModule, MultiSelectModule} from 'primeng/primeng';
+import {DialogModule, FileUploadModule, GrowlModule, MultiSelectModule, TabViewModule} from 'primeng/primeng';
 import {MatCheckboxModule, MatGridListModule, MatInputModule} from '@angular/material';
+import {TruncatePipe} from './pipes/truncate.pipe';
 
 const appRoutes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -30,6 +31,7 @@ const appRoutes: Routes = [
     HomeComponent,
     SigninComponent,
     ArtistProfileComponent,
+    TruncatePipe
   ],
   imports: [
     BrowserModule,
@@ -37,7 +39,7 @@ const appRoutes: Routes = [
     ReactiveFormsModule, NgxGalleryModule,
     ButtonModule, DialogModule,
     MatInputModule, MultiSelectModule, MatCheckboxModule, GrowlModule,
-    MatGridListModule,
+    MatGridListModule, TabViewModule, FileUploadModule,
     BrowserAnimationsModule,
     RouterModule.forRoot(appRoutes),
   ],
