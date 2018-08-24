@@ -1,7 +1,8 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {Profile} from '../models/profile.model';
 import {NgxGalleryAnimation, NgxGalleryImage, NgxGalleryOptions} from 'ngx-gallery';
-import {Message, SelectItem} from 'primeng/api';
+import {Message} from 'primeng/api';
+import * as cloneDeep from 'lodash/cloneDeep';
 
 @Component({
   selector: 'app-artist-profile',
@@ -11,6 +12,9 @@ import {Message, SelectItem} from 'primeng/api';
 export class ArtistProfileComponent implements OnInit {
 
   @ViewChild('postalCodeInput') zipCodeInput;
+  @ViewChild('sloganArea') sloganArea;
+
+  sloganMaxLen = 500;
 
   currentProfile: Profile = {
     username: 'perfectJohn',
@@ -20,9 +24,9 @@ export class ArtistProfileComponent implements OnInit {
     zipCode: '75002',
     departments: ['Paris', 'Hauts de seine'],
     business: [
-      {id: 'businessId1', label: 'Maquillage', checked: false},
+      {id: 'businessId1', label: 'Maquillage', checked: true},
       {id: 'businessId2', label: 'Microblading', checked: true},
-      {id: 'businessId3', label: 'Manucure', checked: false},
+      {id: 'businessId3', label: 'Manucure', checked: true},
       {id: 'businessId4', label: 'Extension de cils', checked: false}
     ],
     emailAdress: 'test@gmail.com',
@@ -31,7 +35,7 @@ export class ArtistProfileComponent implements OnInit {
       {id: 'expertiseId2', label: 'Peau foncée', checked: true},
       {id: 'expertiseId3', label: 'Peau mate', checked: false}
     ],
-    slogan: 'Integer posuere erat a ante venenatis dapibus posuere velit aliquet. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Etiam porta sem malesuada magna mollis euismod.',
+    slogan: 'Integer posuere erat a ante venenatis dapibus posuere velit aliquet. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit.',
     photosUrl: [
       'https://cdn.pixabay.com/photo/2017/06/02/14/11/girl-2366438_1280.jpg',
       'https://cdn.pixabay.com/photo/2015/05/31/13/29/lipstick-791761_1280.jpg',
@@ -60,7 +64,7 @@ export class ArtistProfileComponent implements OnInit {
     this.displayEditProfileDialog = false;
     this.displayEditPhotosDialog = false;
 
-    this.currentProfileCopy = Object.assign({}, this.currentProfile);
+    this.currentProfileCopy = cloneDeep(this.currentProfile);
 
     this.galleryOptions = [
       {width: '100%', height: '480px', thumbnailsColumns: 4, imageAnimation: NgxGalleryAnimation.Slide,
@@ -91,7 +95,7 @@ export class ArtistProfileComponent implements OnInit {
   }
 
   editProfileClicked() {
-    this.currentProfileCopy = Object.assign({}, this.currentProfile);
+    this.currentProfileCopy = cloneDeep(this.currentProfile);
     this.displayEditProfileDialog = true;
   }
 
@@ -111,9 +115,17 @@ export class ArtistProfileComponent implements OnInit {
     }
   }
 
+  phoneChecker(event: KeyboardEvent) {
+    const pattern = /[0-9\+\-\ ]/;
+    const inputChar = String.fromCharCode(event.charCode);
+    if (event.keyCode !== 8 && !pattern.test(inputChar)) {
+      event.preventDefault();
+    }
+  }
+
   saveEditProfile() {
     this.displayEditProfileDialog = false;
-    this.currentProfile = Object.assign({}, this.currentProfileCopy);
+    this.currentProfile = cloneDeep(this.currentProfileCopy);
   }
 
   showPhotoDeletedSuccess() {

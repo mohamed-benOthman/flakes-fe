@@ -65,9 +65,9 @@
                 <td><span style="display:inline-block; width: 25px;"></span></td>
                 <td class="detail">
                   <ng-container *ngFor="let business of currentProfile.business">
-                    <ng-container *ngIf="business.checked">
+                    <div *ngIf="business.checked">
                       {{business.label}}
-                    </ng-container>
+                    </div>
                   </ng-container>
                 </td>
               </tr>
@@ -77,9 +77,9 @@
                 <td><span style="display:inline-block; width: 25px;"></span></td>
                 <td class="detail">
                   <ng-container *ngFor="let expertise of currentProfile.expertise">
-                    <ng-container *ngIf="expertise.checked">
+                    <div *ngIf="expertise.checked">
                       {{expertise.label}}
-                    </ng-container>
+                    </div>
                   </ng-container>
                 </td>
               </tr>
@@ -169,9 +169,9 @@
         <tr>
           <td>
             <mat-form-field class="edit-profile-full-width">
-              <input matInput #phoneInput placeholder="Téléphone"
+              <input matInput placeholder="Téléphone"
                      [(ngModel)]="currentProfileCopy.phone" [ngModelOptions]="{standalone: true}"
-                     (keypress)="zipCodeChecker($event)">
+                     (keypress)="phoneChecker($event)">
             </mat-form-field>
           </td>
           <td><span style="display:inline-block; width: 25px;"></span></td>
@@ -238,9 +238,11 @@
       <br>
       <p>
         <mat-form-field class="edit-profile-full-width">
-          <textarea #slogan style="display:inline-block; width: 100%; min-height: 80px;"
+          <textarea #sloganArea style="display:inline-block; width: 100%; min-height: 80px;"
                     matInput placeholder="Présentation"
+                    [maxlength]="sloganMaxLen"
                     [(ngModel)]="currentProfileCopy.slogan" [ngModelOptions]="{standalone: true}"></textarea>
+          <mat-hint align="end">{{sloganArea.value.length}} / {{sloganMaxLen}}</mat-hint>
         </mat-form-field>
       </p>
 
