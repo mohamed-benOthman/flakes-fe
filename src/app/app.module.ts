@@ -12,8 +12,8 @@ import {ArtistProfileComponent} from './artist-profile/artist-profile.component'
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {NgxGalleryModule} from 'ngx-gallery';
 import {ButtonModule} from 'primeng/button';
-import {DialogModule, MultiSelectModule} from 'primeng/primeng';
-import {MatCheckboxModule, MatInputModule} from '@angular/material';
+import {DialogModule, GrowlModule, MultiSelectModule} from 'primeng/primeng';
+import {MatCheckboxModule, MatGridListModule, MatInputModule} from '@angular/material';
 
 const appRoutes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -36,7 +36,8 @@ const appRoutes: Routes = [
     FormsModule,
     ReactiveFormsModule, NgxGalleryModule,
     ButtonModule, DialogModule,
-    MatInputModule, MultiSelectModule, MatCheckboxModule,
+    MatInputModule, MultiSelectModule, MatCheckboxModule, GrowlModule,
+    MatGridListModule,
     BrowserAnimationsModule,
     RouterModule.forRoot(appRoutes),
   ],

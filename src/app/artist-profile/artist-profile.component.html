@@ -3,7 +3,7 @@
     <div class="row">
       <div class="col-md-12">
         <div class="profile-heading">
-          <h1> PROFILE</h1>
+          <h1>PROFIL</h1>
         </div>
       </div>
     </div>
@@ -12,6 +12,9 @@
 
 <section class="content-profile">
   <div class="container-fluid">
+    <!------------------------------
+    ----- PROFIL INFORMATION
+    ------------------------------>
     <div class="row">
       <div class="col-xs-12 col-sm-5 col-md-5">
         <div class="content-title">
@@ -87,25 +90,39 @@
               </tr>
               </tbody>
             </table>
-            <button pButton type="button" label="Editer" class="ui-button-raised"
-                    (click)="editProfileClicked($event)"></button>
           </div>
         </div>
       </div>
+      <!------------------------------
+      ----- PHOTOS GALLERY
+      ------------------------------>
       <div class="col-xs-12 col-sm-7 col-md-7">
         <div class="content-title">
           <h1>Mes Photos</h1>
         </div>
         <br>
         <br>
-        <ngx-gallery [options]="galleryOptions" [images]="galleryImages"></ngx-gallery>
-
+        <div>
+          <ngx-gallery [options]="galleryOptions" [images]="galleryImages" #photosGallery></ngx-gallery>
+        </div>
       </div>
     </div>
   </div>
 
+  <!------------------------------
+  ----- BOTTOM BUTTONS (EDIT / ADD PHOTOS)
+  ------------------------------>
+  <button pButton type="button" label="Editer le profil" class="ui-button-raised"
+          (click)="editProfileClicked($event)"></button>
+  <span style="display:inline-block; width: 25px;"></span>
+  <button pButton type="button" label="Editer les photos" class="ui-button-raised"
+          (click)="editPhotosClicked($event)"></button>
 
-  <p-dialog header="Editer le profile" [(visible)]="displayEditDialog" [modal]="true"
+
+  <!------------------------------
+  ----- EDIT PROFILE DIALOG
+  ------------------------------>
+  <p-dialog header="Editer le profil" [(visible)]="displayEditProfileDialog" [modal]="true"
             [width]="500" [minWidth]="200" [minY]="70" [dismissableMask]="true"
             [maximizable]="false" [baseZIndex]="500000">
 
@@ -211,26 +228,6 @@
 
       <br>
 
-      <!--<div>
-        <span style="font-size: 75%; opacity: 0.5; font-weight: bold">Expertise </span>
-        <section class="edit-profile-expertise-checkbox-section">
-          <mat-checkbox class="edit-profile-expertise-checkbox-margin"
-                        [(ngModel)]="checked" [ngModelOptions]="{standalone: true}">Peau claire</mat-checkbox>
-          <mat-checkbox class="edit-profile-expertise-checkbox-margin"
-                        [(ngModel)]="checked" [ngModelOptions]="{standalone: true}">Peau foncée</mat-checkbox>
-          <mat-checkbox class="edit-profile-expertise-checkbox-margin"
-                        [(ngModel)]="checked" [ngModelOptions]="{standalone: true}">Peau mate</mat-checkbox>
-        </section>
-      </div>-->
-
-      <!--<p>
-        <p-multiSelect [options]="availableExpertises"
-                       [(ngModel)]="selectedExpertises"
-                       [filter]="false"
-                       defaultLabel="Type de peau"
-                       [ngModelOptions]="{standalone: true}"></p-multiSelect>
-      </p>-->
-
       <p>
         <mat-form-field class="edit-profile-full-width">
           <textarea style="display:inline-block; width: 100%; min-height: 80px;"
@@ -241,11 +238,46 @@
     </form>
 
     <p-footer>
-      <button type="button" pButton icon="pi pi-check" (click)="displayEditDialog=false" label="Valider"></button>
-      <button type="button" pButton icon="pi pi-close" (click)="displayEditDialog=false" label="Annuler"
+      <button type="button" pButton icon="pi pi-check" (click)="displayEditProfileDialog=false"
+              label="Valider"></button>
+      <button type="button" pButton icon="pi pi-close" (click)="displayEditProfileDialog=false" label="Annuler"
               class="ui-button-secondary"></button>
     </p-footer>
   </p-dialog>
+
+
+  <!------------------------------
+  ----- EDIT PHOTOS DIALOG
+  ------------------------------>
+  <p-dialog header="Editer les photos" [(visible)]="displayEditPhotosDialog" [modal]="true"
+            [width]="500" [minWidth]="200" [minY]="70" [dismissableMask]="true"
+            [maximizable]="false" [baseZIndex]="500000">
+
+    <mat-grid-list cols="3" rowHeight="2:2">
+      <ng-container *ngFor="let photoUrl of currentProfile.photosUrl; let i = index;">
+        <mat-grid-tile>
+          <div style="text-align: center;">
+            <img [src]="photoUrl" style='height: 80px; width: 120px; object-fit: fill'/>
+            <span style="display:inline-block; height: 25px;"></span>
+            <button pButton type="button" icon="pi pi-trash" label="Supprimer"
+                    style="border:0px solid black; background-color: transparent;"
+                    class="ui-button-raised ui-button-secondary"
+                    (click)="onDeletePhoto(i)"></button>
+          </div>
+        </mat-grid-tile>
+      </ng-container>
+    </mat-grid-list>
+
+    <p-footer>
+      <button type="button" pButton icon="pi pi-check" (click)="displayEditPhotosDialog=false" label="Valider"></button>
+    </p-footer>
+  </p-dialog>
+
+
+  <!----------------------------
+  ----- POPUP DIALOG WITH AUTO-DISMISS
+  ------------------------------>
+  <p-growl [(value)]="growlMessage"></p-growl>
 </section>
 
 
