@@ -5,6 +5,7 @@ import {Message} from 'primeng/api';
 import * as cloneDeep from 'lodash/cloneDeep';
 import {ProfileService} from '../services/profile.service';
 import {ProfileEditComponent} from './profile-edit/profile-edit.component';
+import {ProfilePhotosGalleryComponent} from './profile-photos-gallery/profile-photos-gallery.component';
 
 @Component({
   selector: 'app-artist-profile',
@@ -14,11 +15,9 @@ import {ProfileEditComponent} from './profile-edit/profile-edit.component';
 export class ArtistProfileComponent implements OnInit {
 
   @ViewChild(ProfileEditComponent) profileEditComponent: ProfileEditComponent;
+  @ViewChild(ProfilePhotosGalleryComponent) profilePhotosGalleryComponent: ProfilePhotosGalleryComponent;
 
   currentProfile: Profile;
-
-  galleryOptions: NgxGalleryOptions[];
-  galleryImages: NgxGalleryImage[];
   displayEditProfileDialog: boolean;
   displayEditPhotosDialog: boolean;
   growlMessage: Message[] = [];
@@ -32,26 +31,10 @@ export class ArtistProfileComponent implements OnInit {
     this.displayEditPhotosDialog = false;
 
     this.profileService.currentProfile.subscribe(res => this.currentProfile = res);
-
-    this.galleryOptions = [
-      {width: '100%', height: '480px', thumbnailsColumns: 4, imageAnimation: NgxGalleryAnimation.Slide,
-        previewCloseOnClick: true, previewCloseOnEsc: true
-      },
-      {breakpoint: 800, width: '100%', height: '600px', imagePercent: 80, thumbnailsPercent: 10,
-        thumbnailsMargin: 20, thumbnailMargin: 20
-      },
-      {breakpoint: 400, preview: false}
-    ];
-
-    this.galleryImages = [];
-    for (const img of this.currentProfile.photosUrl) {
-      this.galleryImages.push({small: img, medium: img, big: img});
-    }
-
   }
 
   deleteFromGallery(index) {
-    this.galleryImages.splice(index, 1);
+    this.profilePhotosGalleryComponent.deleteFromGallery(index);
     this.showPhotoDeletedSuccess();
   }
 

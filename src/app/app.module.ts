@@ -18,6 +18,7 @@ import {TruncatePipe} from './pipes/truncate.pipe';
 import { ProfileInfoComponent } from './artist-profile/profile-info/profile-info.component';
 import { ProfileEditComponent } from './artist-profile/profile-edit/profile-edit.component';
 import { ProfileEditPhotosComponent } from './artist-profile/profile-edit-photos/profile-edit-photos.component';
+import { ProfilePhotosGalleryComponent } from './artist-profile/profile-photos-gallery/profile-photos-gallery.component';
 
 const appRoutes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -37,7 +38,8 @@ const appRoutes: Routes = [
     TruncatePipe,
     ProfileInfoComponent,
     ProfileEditComponent,
-    ProfileEditPhotosComponent
+    ProfileEditPhotosComponent,
+    ProfilePhotosGalleryComponent
   ],
   imports: [
     BrowserModule,
