@@ -1,0 +1,30 @@
+<p-tabView>
+  <p-tabPanel header="Portfolio">
+    <mat-grid-list cols="3">
+      <ng-container *ngFor="let photoUrl of currentProfile.photosUrl; let i = index;">
+        <mat-grid-tile>
+          <div style="border:0px solid black; background-color: transparent; text-align: center;">
+            <img [src]="photoUrl" style='height: 100px; width: 150px; object-fit: fill'/>
+            <span style="display:inline-block; height: 25px;"></span>
+            <button pButton type="button" icon="pi pi-trash" label="Supprimer"
+                    class="ui-button-raised ui-button-secondary"
+                    (click)="onDeletePhoto(i)"></button>
+          </div>
+        </mat-grid-tile>
+      </ng-container>
+    </mat-grid-list>
+  </p-tabPanel>
+
+  <p-tabPanel header="Ajouter">
+    <p-fileUpload mode="advanced" name="demo[]" url="./upload.php" (onUpload)="onUploadPhotos($event)"
+                  (onSelect)="onSelectPhotos($event)"
+                  multiple="false" accept="image/*" maxFileSize="1000000"
+                  invalidFileSizeMessageSummary="{0}: Taille de fichier non valide, "
+                  invalidFileSizeMessageDetail="La taille maximale d'envoi est {0}."
+                  invalidFileTypeMessageSummary="{0}: Type de fichier non valide, "
+                  invalidFileTypeMessageDetail="Types de fichiers autorisés: {0}."
+                  previewWidth="40" chooseLabel="Selectionner" uploadLabel="Envoyer" cancelLabel="Annuler">
+    </p-fileUpload>
+  </p-tabPanel>
+
+</p-tabView>

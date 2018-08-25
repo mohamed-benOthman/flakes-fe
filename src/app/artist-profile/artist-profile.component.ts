@@ -14,21 +14,15 @@ import {ProfileEditComponent} from './profile-edit/profile-edit.component';
 export class ArtistProfileComponent implements OnInit {
 
   @ViewChild(ProfileEditComponent) profileEditComponent: ProfileEditComponent;
-  /*@ViewChild('postalCodeInput') zipCodeInput;
-  @ViewChild('sloganArea') sloganArea;*/
-
-  // sloganMaxLen = 500;
 
   currentProfile: Profile;
-
-  currentProfileCopy: Profile;
 
   galleryOptions: NgxGalleryOptions[];
   galleryImages: NgxGalleryImage[];
   displayEditProfileDialog: boolean;
   displayEditPhotosDialog: boolean;
   growlMessage: Message[] = [];
-  uploadedFiles: any[] = [];
+
 
 
   constructor(private profileService: ProfileService) { }
@@ -38,7 +32,6 @@ export class ArtistProfileComponent implements OnInit {
     this.displayEditPhotosDialog = false;
 
     this.profileService.currentProfile.subscribe(res => this.currentProfile = res);
-    this.currentProfileCopy = cloneDeep(this.currentProfile);
 
     this.galleryOptions = [
       {width: '100%', height: '480px', thumbnailsColumns: 4, imageAnimation: NgxGalleryAnimation.Slide,
@@ -57,16 +50,12 @@ export class ArtistProfileComponent implements OnInit {
 
   }
 
-  onDeletePhoto(index) {
-    this.currentProfile.photosUrl.splice(index, 1);
-    this.profileService.updateProfile(this.currentProfile);
+  deleteFromGallery(index) {
     this.galleryImages.splice(index, 1);
     this.showPhotoDeletedSuccess();
-    console.log('photosLength= ' + this.currentProfile.photosUrl.length);
   }
 
   editProfileClicked() {
-    this.currentProfileCopy = cloneDeep(this.currentProfile);
     this.displayEditProfileDialog = true;
   }
 
@@ -95,18 +84,5 @@ export class ArtistProfileComponent implements OnInit {
       detail: ''});
   }
 
-  onUploadPhotos(event) {
-    this.showPhotoUploadedSuccess();
-  }
-
-  onSelectPhotos(event) {
-    for (const file of event.files) {
-      this.uploadedFiles.push(file);
-    }
-  }
-
-  onRemoveSelectedPhoto(file) {
-    this.uploadedFiles = this.uploadedFiles.filter(item => item !== file);
-  }
 
 }

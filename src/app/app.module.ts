@@ -17,6 +17,7 @@ import {MatCheckboxModule, MatGridListModule, MatInputModule} from '@angular/mat
 import {TruncatePipe} from './pipes/truncate.pipe';
 import { ProfileInfoComponent } from './artist-profile/profile-info/profile-info.component';
 import { ProfileEditComponent } from './artist-profile/profile-edit/profile-edit.component';
+import { ProfileEditPhotosComponent } from './artist-profile/profile-edit-photos/profile-edit-photos.component';
 
 const appRoutes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -35,7 +36,8 @@ const appRoutes: Routes = [
     ArtistProfileComponent,
     TruncatePipe,
     ProfileInfoComponent,
-    ProfileEditComponent
+    ProfileEditComponent,
+    ProfileEditPhotosComponent
   ],
   imports: [
     BrowserModule,
