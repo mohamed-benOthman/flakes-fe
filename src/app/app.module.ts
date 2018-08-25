@@ -15,6 +15,8 @@ import {ButtonModule} from 'primeng/button';
 import {DialogModule, FileUploadModule, GrowlModule, MultiSelectModule, TabViewModule} from 'primeng/primeng';
 import {MatCheckboxModule, MatGridListModule, MatInputModule} from '@angular/material';
 import {TruncatePipe} from './pipes/truncate.pipe';
+import { ProfileInfoComponent } from './artist-profile/profile-info/profile-info.component';
+import { ProfileEditComponent } from './artist-profile/profile-edit/profile-edit.component';
 
 const appRoutes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -31,7 +33,9 @@ const appRoutes: Routes = [
     HomeComponent,
     SigninComponent,
     ArtistProfileComponent,
-    TruncatePipe
+    TruncatePipe,
+    ProfileInfoComponent,
+    ProfileEditComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,20 @@
+import { Component, OnInit } from '@angular/core';
+import {Profile} from '../../models/profile.model';
+import {ProfileService} from '../../services/profile.service';
+
+@Component({
+  selector: 'app-profile-info',
+  templateUrl: './profile-info.component.html',
+  styleUrls: ['./profile-info.component.css']
+})
+export class ProfileInfoComponent implements OnInit {
+
+  currentProfile: Profile;
+
+  constructor(private profileService: ProfileService) { }
+
+  ngOnInit() {
+    this.profileService.currentProfile.subscribe(res => this.currentProfile = res);
+  }
+
+}
