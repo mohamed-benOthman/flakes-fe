@@ -12,17 +12,25 @@ import {ArtistProfileComponent} from './artist-profile/artist-profile.component'
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {NgxGalleryModule} from 'ngx-gallery';
 import {ButtonModule} from 'primeng/button';
-import {DialogModule, FileUploadModule, GrowlModule, MultiSelectModule, TabViewModule} from 'primeng/primeng';
+import {DialogModule, DropdownModule, FileUploadModule, GrowlModule, MultiSelectModule, TabViewModule} from 'primeng/primeng';
 import {MatCheckboxModule, MatGridListModule, MatInputModule} from '@angular/material';
 import {TruncatePipe} from './pipes/truncate.pipe';
 import { ProfileInfoComponent } from './artist-profile/profile-info/profile-info.component';
 import { ProfileEditComponent } from './artist-profile/profile-edit/profile-edit.component';
 import { ProfileEditPhotosComponent } from './artist-profile/profile-edit-photos/profile-edit-photos.component';
 import { ProfilePhotosGalleryComponent } from './artist-profile/profile-photos-gallery/profile-photos-gallery.component';
+import { SearchComponent } from './search/search.component';
+import {HttpClientModule} from '@angular/common/http';
+import { NgSelectModule } from '@ng-select/ng-select';
+import { SelectCitiesComponent } from './utils/select-cities/select-cities.component';
 
 const appRoutes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'profile', component: ArtistProfileComponent },
+  { path: 'search-makeup', component: SearchComponent },
+  { path: 'search-microblading', component: SearchComponent },
+  { path: 'search-manicure', component: SearchComponent },
+  { path: 'search-eyelashes', component: SearchComponent },
   { path: '', redirectTo: 'home', pathMatch: 'full'},
   { path: '**', redirectTo: 'home'}
 ];
@@ -39,15 +47,19 @@ const appRoutes: Routes = [
     ProfileInfoComponent,
     ProfileEditComponent,
     ProfileEditPhotosComponent,
-    ProfilePhotosGalleryComponent
+    ProfilePhotosGalleryComponent,
+    SearchComponent,
+    SelectCitiesComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
+    HttpClientModule,
     ReactiveFormsModule, NgxGalleryModule,
     ButtonModule, DialogModule,
     MatInputModule, MultiSelectModule, MatCheckboxModule, GrowlModule,
-    MatGridListModule, TabViewModule, FileUploadModule,
+    MatGridListModule, TabViewModule, FileUploadModule, DropdownModule,
+    NgSelectModule,
     BrowserAnimationsModule,
     RouterModule.forRoot(appRoutes),
   ],

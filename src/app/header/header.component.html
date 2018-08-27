@@ -3,7 +3,7 @@
     <div class="row">
       <div class="col-xs-3 col-sm-2 col-md-5 col-lg-4">
         <div class="logo">
-          <a href="#" target="_blank"><img src="assets/images/logo.png"></a>
+          <a routerLink="/home"><img src="assets/images/logo.png"></a>
         </div> <!--end of logo-->
       </div> <!--end of col-->
       <div class="col-sm-9 col-md-7 col-lg-8">
@@ -22,10 +22,10 @@
             <div class="navbar-collapse collapse">
               <ul class="nav navbar-nav pull-right">
                 <!--<li class="active"><a href="#"><span class="img-icon main maquillages-icon"></span> MAQUILLAGES</a></li>-->
-                <li><a href="#"><span class="img-icon main maquillages-icon"></span> MAQUILLAGES</a></li>
-                <li><a href="#"><span class="img-icon main maquillages-icon_ft"></span> MICROBLADING </a></li>
-                <li><a href="#"><span class="img-icon main maquillages-icon_scn"></span> MANUCURE</a></li>
-                <li><a href="#"><span class="img-icon main maquillages-icon_thr"></span> EXTENSION DE CIL</a></li>
+                <li><a routerLink="/search-makeup" routerLinkActive="active" ><span class="img-icon main maquillages-icon"></span> MAQUILLAGES</a></li>
+                <li><a routerLink="/search-microblading" routerLinkActive="active" ><span class="img-icon main maquillages-icon_ft"></span> MICROBLADING </a></li>
+                <li><a routerLink="/search-manicure" routerLinkActive="active" ><span class="img-icon main maquillages-icon_scn"></span> MANUCURE</a></li>
+                <li><a routerLink="/search-eyelashes" routerLinkActive="active" ><span class="img-icon main maquillages-icon_thr"></span> EXTENSION DE CIL</a></li>
               </ul>
             </div>
           </div> <!--end of navbar-->

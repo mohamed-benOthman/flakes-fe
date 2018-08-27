@@ -1,0 +1,76 @@
+.search-heading {
+  background-repeat: no-repeat;
+  background: url(../../assets/images/serach-banner.jpg);
+  background-size: cover;
+}
+
+.search-heading h1 {
+  padding: 4% 3%;
+  margin: 0;
+  margin: 1% 2%;
+  font-size: 27px;
+  font-weight: 400;
+}
+.search-banner {
+  padding: 0 5%;
+
+}
+
+select {
+  width: 100%;
+  padding-right: 25px;
+  z-index: 1;
+  background-color: #eeba07;
+  border: 0;
+  border-radius: 0px;
+  padding: 10px 12px;
+  font-size: 16px;
+  outline: 1px solid #ccc;
+}
+
+select > option {
+  width: 100%;
+  padding-right: 25px;
+  z-index: 1;
+  background-color: #eeba07;
+  border: 0;
+  border-radius: 0px;
+  padding: 10px 12px;
+  font-size: 16px;
+}
+
+select::-ms-expand {
+  display: none; /* remove default arrow in IE 10 and 11 */
+}
+
+/* target Internet Explorer 9 to undo the custom arrow */
+@media screen and (min-width:0\0) {
+  select {
+    background:none\9;
+    padding: 5px\9;
+  }
+}
+
+
+@media screen and (-webkit-min-device-pixel-ratio:0) {  /*safari and chrome*/
+  select {
+    height:30px;
+    line-height:30px;
+    background:#f4f4f4;
+  }
+}
+select::-moz-focus-inner { /*Remove button padding in FF*/
+  border: 0;
+  padding: 0;
+}
+@-moz-document url-prefix() { /* targets Firefox only */
+  select {
+    padding: 15px 0!important;
+  }
+}
+@media screen\0 { /* IE Hacks: targets IE 8, 9 and 10 */
+  select {
+    height:30px;
+    line-height:30px;
+  }
+}

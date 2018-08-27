@@ -4,6 +4,7 @@
 @import '../node_modules/primeng/resources/themes/omega/theme.css';
 @import '../node_modules/primeng/resources/primeng.min.css';
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
+@import "~@ng-select/ng-select/themes/default.theme.css";
 
 @font-face {
   font-family: 'Gotham';
@@ -507,23 +508,7 @@ td a:hover {
 
 /*profile page*/
 
-.search-heading {
-  background-repeat: no-repeat;
-  background: url(assets/images/serach-banner.jpg);
-  background-size: cover;
-}
 
-.search-heading h1 {
-  padding: 4% 3%;
-  margin: 0;
-  margin: 1% 2%;
-  font-size: 27px;
-  font-weight: 400;
-}
-.search-banner {
-  padding: 0 5%;
-
-}
 
 .gallery .thumbnail {
   margin-bottom: 6px;
@@ -715,7 +700,7 @@ span.new-text {
   font-size: 18px;
   padding-right: 0.5em;
   position: absolute;
-  top: 10px;
+  top: 5px;
   left: 0;
 }
 .selector-search .caret {
