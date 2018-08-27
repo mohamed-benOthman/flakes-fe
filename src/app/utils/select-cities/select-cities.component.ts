@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, OnInit, ViewEncapsulation} from '@angular/core';
+import {ChangeDetectionStrategy, Component, Input, OnInit, ViewEncapsulation} from '@angular/core';
 import {concat, Observable, of, Subject} from 'rxjs';
 import {catchError, debounceTime, distinctUntilChanged, switchMap, tap} from 'rxjs/operators';
 import {CitiesService} from '../../services/cities.service';
@@ -11,7 +11,7 @@ import {CitiesService} from '../../services/cities.service';
                [items]="citiesResult | async"
                bindLabel="city"
                [addTag]="false"
-               [multiple]="false"
+               [multiple]="multipleValues"
                [hideSelected]="true"
                [loading]="citiesLoading"
                [typeahead]="citiesSubject"
@@ -38,6 +38,8 @@ import {CitiesService} from '../../services/cities.service';
 })
 export class SelectCitiesComponent implements OnInit {
 
+  @Input() multipleValues = false;
+
   citiesResult: Observable<any[]>;
   citiesLoading = false;
   citiesSubject = new Subject<string>();
@@ -54,7 +56,7 @@ export class SelectCitiesComponent implements OnInit {
     this.citiesResult = concat(
       of([]), // default items
       this.citiesSubject.pipe(
-        debounceTime(200),
+        debounceTime(500),
         distinctUntilChanged(),
         tap(() => this.citiesLoading = true),
         switchMap(term => this.citiesService.getCitiesList(term).pipe(

@@ -14,46 +14,50 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col-sm-1"></div>
-      <div class="col-sm-5"><app-select-cities></app-select-cities></div>
-      <div class="col-sm-5"><ng-select class="custom"
-                                       [items]="skinTypes"
-                                       placeholder="Type de peau"
-                                       [(ngModel)]="selectedSkin">
-      </ng-select></div>
+      <div class="col-sm-5">
+        <app-select-cities [multipleValues]="false"></app-select-cities>
+      </div>
+      <div class="col-sm-5">
+        <ng-select class="custom"
+                   [items]="skinTypes"
+                   placeholder="Type de peau"
+                   [(ngModel)]="selectedSkin">
+        </ng-select>
+      </div>
       <div class="col-sm-1"></div>
 
 
-        <!--<div class="selector-search" style="display: table; margin: 0 auto;">
-          &lt;!&ndash;<select style="width: 300px;">
-            <option disabled hidden="true">Département</option>
-            <ng-container *ngFor="let department of departments">
-              <option>{{department.code}} - {{department.name}}</option>
-            </ng-container>
-          </select>&ndash;&gt;
-          <table>
-            <tr>
-              <td style="width:680px">
-                <app-select-cities></app-select-cities>
-              </td>
-              <td><span style="display:inline-block; width: 25px;"></span></td>
-              <td style="width:200px">&lt;!&ndash;<select>
-                <option disabled hidden>Type de peau</option>
-                <option>Peau claire</option>
-                <option>Peau foncée</option>
-                <option>Peau mate</option>
-              </select>&ndash;&gt;
-                <ng-select class="custom"
-                           [items]="skinTypes"
-                           placeholder="Type de peau"
-                           [(ngModel)]="selectedSkin">
-                </ng-select>
-              </td>
-            </tr>
-          </table>
+      <!--<div class="selector-search" style="display: table; margin: 0 auto;">
+        &lt;!&ndash;<select style="width: 300px;">
+          <option disabled hidden="true">Département</option>
+          <ng-container *ngFor="let department of departments">
+            <option>{{department.code}} - {{department.name}}</option>
+          </ng-container>
+        </select>&ndash;&gt;
+        <table>
+          <tr>
+            <td style="width:680px">
+              <app-select-cities></app-select-cities>
+            </td>
+            <td><span style="display:inline-block; width: 25px;"></span></td>
+            <td style="width:200px">&lt;!&ndash;<select>
+              <option disabled hidden>Type de peau</option>
+              <option>Peau claire</option>
+              <option>Peau foncée</option>
+              <option>Peau mate</option>
+            </select>&ndash;&gt;
+              <ng-select class="custom"
+                         [items]="skinTypes"
+                         placeholder="Type de peau"
+                         [(ngModel)]="selectedSkin">
+              </ng-select>
+            </td>
+          </tr>
+        </table>
 
 
-        </div>
-      </div>-->
+      </div>
+    </div>-->
     </div>
     <div class="row search-content">
       <div class="col-xs-6 col-sm-6 col-md-6 padding-right-none" *ngFor="let pos of [1,2,3,4,5,6,7]">

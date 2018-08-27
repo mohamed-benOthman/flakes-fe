@@ -16,6 +16,7 @@
 
 }
 
+/*
 select {
   width: 100%;
   padding-right: 25px;
@@ -40,10 +41,10 @@ select > option {
 }
 
 select::-ms-expand {
-  display: none; /* remove default arrow in IE 10 and 11 */
+  display: none; !* remove default arrow in IE 10 and 11 *!
 }
 
-/* target Internet Explorer 9 to undo the custom arrow */
+!* target Internet Explorer 9 to undo the custom arrow *!
 @media screen and (min-width:0\0) {
   select {
     background:none\9;
@@ -52,25 +53,26 @@ select::-ms-expand {
 }
 
 
-@media screen and (-webkit-min-device-pixel-ratio:0) {  /*safari and chrome*/
+@media screen and (-webkit-min-device-pixel-ratio:0) {  !*safari and chrome*!
   select {
     height:30px;
     line-height:30px;
     background:#f4f4f4;
   }
 }
-select::-moz-focus-inner { /*Remove button padding in FF*/
+select::-moz-focus-inner { !*Remove button padding in FF*!
   border: 0;
   padding: 0;
 }
-@-moz-document url-prefix() { /* targets Firefox only */
+@-moz-document url-prefix() { !* targets Firefox only *!
   select {
     padding: 15px 0!important;
   }
 }
-@media screen\0 { /* IE Hacks: targets IE 8, 9 and 10 */
+@media screen\0 { !* IE Hacks: targets IE 8, 9 and 10 *!
   select {
     height:30px;
     line-height:30px;
   }
 }
+*/
