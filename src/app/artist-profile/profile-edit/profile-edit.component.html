@@ -1,65 +1,107 @@
 <form class="edit-profile-form">
-  <table class="edit-profile-full-width">
-    <tr>
-      <td>
-        <mat-form-field class="edit-profile-full-width">
-          <input matInput placeholder="identifiant" disabled
-                 [(ngModel)]="currentProfileCopy.username"
-                 [ngModelOptions]="{standalone: true}">
-        </mat-form-field>
-      </td>
-      <td><span style="display:inline-block; width: 25px;"></span></td>
-      <td>
-        <mat-form-field class="edit-profile-full-width">
-          <input matInput placeholder="E-mail" disabled
-                 [(ngModel)]="currentProfileCopy.emailAdress"
-                 [ngModelOptions]="{standalone: true}">
-        </mat-form-field>
-      </td>
-    </tr>
-  </table>
+  <!------------------------------
+  ----- Username / Email
+  ------------------------------>
+  <div class="container-fluid">
+    <div class="row">
+      <div>
+        <div class="col-sm-6">
+          <mat-form-field class="edit-profile-full-width">
+            <input matInput placeholder="identifiant" disabled
+                   [(ngModel)]="currentProfileCopy.username"
+                   [ngModelOptions]="{standalone: true}">
+          </mat-form-field>
+        </div>
+        <div class="col-sm-6">
+          <mat-form-field class="edit-profile-full-width">
+            <input matInput placeholder="E-mail" disabled
+                   [(ngModel)]="currentProfileCopy.emailAdress"
+                   [ngModelOptions]="{standalone: true}">
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+  </div>
 
-  <table class="edit-profile-full-width" cellspacing="100">
-    <tr>
-      <td>
-        <mat-form-field class="edit-profile-full-width">
-          <input matInput placeholder="Nom" [(ngModel)]="currentProfileCopy.lastName"
-                 [ngModelOptions]="{standalone: true}">
-        </mat-form-field>
-      </td>
-      <td><span style="display:inline-block; width: 25px;"></span></td>
-      <td>
-        <mat-form-field class="edit-profile-full-width">
-          <input matInput placeholder="Prénom" [(ngModel)]="currentProfileCopy.firstName"
-                 [ngModelOptions]="{standalone: true}">
-        </mat-form-field>
-      </td>
-    </tr>
-  </table>
+  <!------------------------------
+  ----- Nom / Prénom
+  ------------------------------>
+  <div class="container-fluid">
+    <div class="row">
+      <div>
+        <div class="col-sm-6">
+          <mat-form-field class="edit-profile-full-width">
+            <input matInput placeholder="Nom" [(ngModel)]="currentProfileCopy.lastName"
+                   [ngModelOptions]="{standalone: true}">
+          </mat-form-field>
+        </div>
+        <div class="col-sm-6">
+          <mat-form-field class="edit-profile-full-width">
+            <input matInput placeholder="Prénom" [(ngModel)]="currentProfileCopy.firstName"
+                   [ngModelOptions]="{standalone: true}">
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+  </div>
 
-  <table class="edit-profile-full-width" cellspacing="0">
-    <tr>
-      <td>
+  <!------------------------------
+  ----- Adresse
+  ------------------------------>
+  <div class="container-fluid">
+    <mat-form-field class="edit-profile-full-width">
+      <input matInput placeholder="N° et Rue"
+             [(ngModel)]="currentProfileCopy.street" [ngModelOptions]="{standalone: true}">
+    </mat-form-field>
+  </div>
+
+  <!--<div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-6">
         <mat-form-field class="edit-profile-full-width">
-          <input matInput placeholder="Téléphone"
+          &lt;!&ndash;<input matInput placeholder="Téléphone"
                  [(ngModel)]="currentProfileCopy.phone" [ngModelOptions]="{standalone: true}"
-                 (keypress)="phoneChecker($event)">
+                 (keypress)="phoneChecker($event)">&ndash;&gt;
+          <input matInput placeholder="N° et Rue"
+                 [(ngModel)]="currentProfileCopy.street" [ngModelOptions]="{standalone: true}">
         </mat-form-field>
-      </td>
-      <td><span style="display:inline-block; width: 25px;"></span></td>
-      <td>
-        <mat-form-field class="edit-profile-full-width">
+      </div>
+      <div class="col-sm-6">
+
+        &lt;!&ndash;<mat-form-field class="edit-profile-full-width">
           <input matInput #postalCodeInput maxlength="5" placeholder="Code Postal"
                  [ngModel]="currentProfileCopy.zipCode"
                  [ngModelOptions]="{standalone: true}"
                  type="number"
                  (keypress)="zipCodeChecker($event)">
           <mat-hint align="end">{{postalCodeInput.value.length}} / 5</mat-hint>
-        </mat-form-field>
-      </td>
-    </tr>
-  </table>
+        </mat-form-field>&ndash;&gt;
+      </div>
+    </div>
+  </div>-->
 
+
+  <!------------------------------
+  ----- Code Postal / Telephone
+  ------------------------------>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-8">
+        <app-select-cities [multipleValues]="false"></app-select-cities>
+      </div>
+      <div class="col-sm-4">
+        <mat-form-field class="edit-profile-full-width">
+          <input matInput placeholder="Téléphone"
+                 [(ngModel)]="currentProfileCopy.phone" [ngModelOptions]="{standalone: true}"
+                 (keypress)="phoneChecker($event)">
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+
+  <!------------------------------
+  ----- Expertise (type de peau)
+  ------------------------------>
   <div>
     <span style="font-size: 75%; opacity: 0.5; font-weight: bold">Expertise</span>
     <section class="edit-profile-expertise-checkbox-section">
@@ -74,40 +116,48 @@
 
   <br>
 
-  <table>
-    <span style="font-size: 75%; opacity: 0.5; font-weight: bold">Compétences</span>
-    <tr>
-      <td>
-        <mat-checkbox class="edit-profile-expertise-checkbox-margin"
-                      [(ngModel)]="currentProfileCopy.business[0].checked"
-                      [ngModelOptions]="{standalone: true}">{{currentProfileCopy.business[0].label}}
-        </mat-checkbox>
-      </td>
-      <td><span style="display:inline-block; width: 70px;"></span></td>
-      <td>
-        <mat-checkbox class="edit-profile-expertise-checkbox-margin"
-                      [(ngModel)]="currentProfileCopy.business[1].checked"
-                      [ngModelOptions]="{standalone: true}">{{currentProfileCopy.business[1].label}}
-        </mat-checkbox>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <mat-checkbox class="edit-profile-expertise-checkbox-margin"
-                      [(ngModel)]="currentProfileCopy.business[2].checked"
-                      [ngModelOptions]="{standalone: true}">{{currentProfileCopy.business[2].label}}
-        </mat-checkbox>
-      </td>
-      <td><span style="display:inline-block; width: 25px;"></span></td>
-      <td>
-        <mat-checkbox class="edit-profile-expertise-checkbox-margin"
-                      [(ngModel)]="currentProfileCopy.business[3].checked"
-                      [ngModelOptions]="{standalone: true}">{{currentProfileCopy.business[3].label}}
-        </mat-checkbox>
-      </td>
-    </tr>
-  </table>
+  <!------------------------------
+  ----- Compétences (Maquillage, Microblading, Manucure, Extension)
+  ------------------------------>
+  <div class="container-fluid">
+    <div class="row full-width-row">
+      <span style="font-size: 75%; opacity: 0.5; font-weight: bold">Compétences</span>
+      <div>
+        <div class="col-sm-6">
+          <mat-checkbox class="edit-profile-expertise-checkbox-margin"
+                        [(ngModel)]="currentProfileCopy.business[0].checked"
+                        [ngModelOptions]="{standalone: true}">{{currentProfileCopy.business[0].label}}
+          </mat-checkbox>
+        </div>
+        <div class="col-sm-6">
+          <mat-checkbox class="edit-profile-expertise-checkbox-margin"
+                        [(ngModel)]="currentProfileCopy.business[1].checked"
+                        [ngModelOptions]="{standalone: true}">{{currentProfileCopy.business[1].label}}
+          </mat-checkbox>
+        </div>
+      </div>
+      <div>
+        <div class="col-sm-6">
+          <mat-checkbox class="edit-profile-expertise-checkbox-margin"
+                        [(ngModel)]="currentProfileCopy.business[2].checked"
+                        [ngModelOptions]="{standalone: true}">{{currentProfileCopy.business[2].label}}
+          </mat-checkbox>
+        </div>
+        <div class="col-sm-6">
+          <mat-checkbox class="edit-profile-expertise-checkbox-margin"
+                        [(ngModel)]="currentProfileCopy.business[3].checked"
+                        [ngModelOptions]="{standalone: true}">{{currentProfileCopy.business[3].label}}
+          </mat-checkbox>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <br>
+
+  <!------------------------------
+  ----- Présentation
+  ------------------------------>
   <p>
     <mat-form-field class="edit-profile-full-width">
           <textarea #sloganArea style="display:inline-block; width: 100%; min-height: 80px;"

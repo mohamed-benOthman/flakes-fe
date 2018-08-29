@@ -19,6 +19,7 @@ export interface Profile {
   firstName: string;
   lastName: string;
   phone: string;
+  street: string;
   zipCode: string;
   departments: string[];
   business: any[];

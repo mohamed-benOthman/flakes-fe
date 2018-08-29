@@ -11,6 +11,7 @@ export class ProfileService {
     username: 'perfectJohn',
     firstName: 'John',
     lastName: 'Doe',
+    street: '30 Rue Robert Dugrand - Rond point de la lyre',
     phone: '062232323',
     zipCode: '75002',
     departments: ['Paris', 'Hauts de seine'],

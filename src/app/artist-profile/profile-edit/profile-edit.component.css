@@ -17,3 +17,14 @@
 .edit-profile-expertise-checkbox-margin {
   margin: 0 10px;
 }
+
+.full-width-row {
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
+
+.full-width-row > div {
+  margin-left: -15px;
+  margin-right: -15px;
+}
+

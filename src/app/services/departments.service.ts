@@ -7,9 +7,14 @@ import {HttpClient} from '@angular/common/http';
 })
 export class DepartmentsService {
 
+  departments;
+
   constructor(private http: HttpClient) { }
 
   public getJSON(): Observable<any> {
-    return this.http.get('../../assets/json/departments.json');
+    const dpt = this.http.get('../../assets/json/departments.json');
+    dpt.subscribe(data => { this.departments = data; });
+
+    return dpt;
   }
 }

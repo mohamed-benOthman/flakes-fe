@@ -23,7 +23,7 @@ import {CitiesService} from '../../services/cities.service';
                typeToSearchText="Saisir pour lancer la recherche">
 
       <ng-template ng-label-tmp let-item="item" let-clear="clear">
-        <span class="ng-value-label">{{item.city}} ({{item.code}})</span>
+        <span class="ng-value-label" style="font-size: small">{{item.city}} ({{item.code}})</span>
         <span class="ng-value-icon right" (click)="clear(item)" aria-hidden="true">×</span>
       </ng-template>
 
