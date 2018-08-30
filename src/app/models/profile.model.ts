@@ -20,8 +20,8 @@ export interface Profile {
   lastName: string;
   phone: string;
   street: string;
-  zipCode: string;
-  departments: string[];
+  zipCode: any;
+  department: string;
   business: any[];
   emailAdress: string;
   expertise: Array<any>;

@@ -12,9 +12,9 @@ export class ProfileService {
     firstName: 'John',
     lastName: 'Doe',
     street: '30 Rue Robert Dugrand - Rond point de la lyre',
-    phone: '062232323',
-    zipCode: '75002',
-    departments: ['Paris', 'Hauts de seine'],
+    phone: '0622323230',
+    zipCode: {code: 34000, city: 'MONTPELLIER'},
+    department: 'Paris',
     business: [
       {id: 'businessId1', label: 'Maquillage', checked: true},
       {id: 'businessId2', label: 'Microblading', checked: true},
@@ -27,7 +27,7 @@ export class ProfileService {
       {id: 'expertiseId2', label: 'Peau foncée', checked: true},
       {id: 'expertiseId3', label: 'Peau mate', checked: false}
     ],
-    slogan: 'Integer posuere erat a ante venenatis dapibus posuere velit aliquet. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit.',
+    slogan: 'Sed posuere consectetur est at lobortis. Maecenas sed diam eget risus varius blandit sit amet non magna. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam porta sem malesuada magna mollis euismod.',
     photosUrl: [
       'https://cdn.pixabay.com/photo/2017/06/02/14/11/girl-2366438_1280.jpg',
       'https://cdn.pixabay.com/photo/2015/05/31/13/29/lipstick-791761_1280.jpg',

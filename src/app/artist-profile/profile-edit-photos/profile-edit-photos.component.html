@@ -1,9 +1,9 @@
 <p-tabView>
   <p-tabPanel header="Portfolio">
-    <mat-grid-list cols="3">
+    <!--<mat-grid-list cols="3">
       <ng-container *ngFor="let photoUrl of currentProfile.photosUrl; let i = index;">
         <mat-grid-tile>
-          <div style="border:0px solid black; background-color: transparent; text-align: center;">
+          <div style="border:0px solid black; background-color: transparent; text-align: center; ">
             <img [src]="photoUrl" style='height: 100px; width: 150px; object-fit: fill'/>
             <span style="display:inline-block; height: 25px;"></span>
             <button pButton type="button" icon="pi pi-trash" label="Supprimer"
@@ -12,7 +12,23 @@
           </div>
         </mat-grid-tile>
       </ng-container>
-    </mat-grid-list>
+    </mat-grid-list>-->
+
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-4" *ngFor="let photoUrl of currentProfile.photosUrl; let i = index;">
+          <div style="border:0px solid black; background-color: transparent;">
+            <img [src]="photoUrl" style='height: 100px; width: 150px; object-fit: fill'/>
+            <span style="display:inline-block; height: 25px;"></span>
+            <button pButton type="button" icon="pi pi-trash" label="Supprimer"
+                    class="ui-button-raised ui-button-secondary"
+                    (click)="onDeletePhoto(i)"></button>
+          </div>
+          <br>
+        </div>
+      </div>
+    </div>
+
   </p-tabPanel>
 
   <p-tabPanel header="Ajouter">

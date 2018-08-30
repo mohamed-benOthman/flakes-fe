@@ -39,11 +39,11 @@ import {CitiesService} from '../../services/cities.service';
 export class SelectCitiesComponent implements OnInit {
 
   @Input() multipleValues = false;
+  @Input() citiesSelected = [];
 
   citiesResult: Observable<any[]>;
   citiesLoading = false;
   citiesSubject = new Subject<string>();
-  citiesSelected = [];
 
   constructor(private citiesService: CitiesService) {
   }
