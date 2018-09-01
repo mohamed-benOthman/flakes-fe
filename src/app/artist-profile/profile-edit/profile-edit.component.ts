@@ -16,16 +16,21 @@ export class ProfileEditComponent implements OnInit {
   @ViewChild('sloganArea') sloganArea;
 
 
+  demo: any[];
   sloganMaxLen = 500;
-
   currentProfile: Profile;
   currentProfileCopy: Profile;
 
-  constructor(private profileService: ProfileService) { }
+  constructor(private profileService: ProfileService) {
+  }
 
   ngOnInit() {
     this.profileService.currentProfile.subscribe(res => this.currentProfile = res);
     this.currentProfileCopy = cloneDeep(this.currentProfile);
+
+    if (!this.currentProfileCopy.profilePhotoUrl) {
+      this.currentProfileCopy.profilePhotoUrl = '../../../assets/images/user_icon_placeholder.svg';
+    }
   }
 
   zipCodeChecker(event: KeyboardEvent) {
@@ -51,6 +56,17 @@ export class ProfileEditComponent implements OnInit {
   saveEditProfile() {
     this.currentProfile = cloneDeep(this.currentProfileCopy);
     this.profileService.updateProfile(this.currentProfile);
+  }
+
+  profilePhotoChanged(event) {
+    if (event.target.files && event.target.files[0]) {
+      const reader = new FileReader();
+      reader.readAsDataURL(event.target.files[0]); // read file as data url
+      reader.onload = (evn: Event) => { // called once readAsDataURL is completed
+        // this.currentProfileCopy.profilePhotoUrl = evn.target.result;
+        this.currentProfileCopy.profilePhotoUrl = reader.result;
+      };
+    }
   }
 
 }

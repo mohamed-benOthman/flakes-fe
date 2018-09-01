@@ -27,4 +27,5 @@ export interface Profile {
   expertise: Array<any>;
   slogan: string;
   photosUrl: string[];
+  profilePhotoUrl: string;
 }

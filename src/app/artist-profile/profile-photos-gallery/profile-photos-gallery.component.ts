@@ -21,8 +21,9 @@ export class ProfilePhotosGalleryComponent implements OnInit {
     this.profileService.currentProfile.subscribe(res => this.currentProfile = res);
 
     this.galleryOptions = [
-      {width: '100%', height: '480px', thumbnailsColumns: 4, imageAnimation: NgxGalleryAnimation.Slide,
-        previewCloseOnClick: true, previewCloseOnEsc: true
+      {width: '100%', height: '480px', thumbnailsColumns: 4, imageAnimation: NgxGalleryAnimation.Zoom,
+        previewCloseOnClick: true, previewCloseOnEsc: true,
+        imageAutoPlay: true, imageAutoPlayInterval: 4000, imageAutoPlayPauseOnHover: true
       },
       {breakpoint: 800, width: '100%', height: '600px', imagePercent: 80, thumbnailsPercent: 10,
         thumbnailsMargin: 20, thumbnailMargin: 20

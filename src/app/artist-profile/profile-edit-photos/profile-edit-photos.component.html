@@ -17,7 +17,7 @@
     <div class="container-fluid">
       <div class="row">
         <div class="col-sm-4" *ngFor="let photoUrl of currentProfile.photosUrl; let i = index;">
-          <div style="border:0px solid black; background-color: transparent;">
+          <div style="border:0px solid black; background-color: transparent; text-align: center; ">
             <img [src]="photoUrl" style='height: 100px; width: 150px; object-fit: fill'/>
             <span style="display:inline-block; height: 25px;"></span>
             <button pButton type="button" icon="pi pi-trash" label="Supprimer"

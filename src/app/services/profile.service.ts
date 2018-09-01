@@ -36,7 +36,8 @@ export class ProfileService {
       'https://cdn.pixabay.com/photo/2016/03/26/23/17/woman-1281830_1280.jpg',
       'assets/images/face-1.png', 'assets/images/face2.png', 'assets/images/face-3.png',
       'assets/images/face-4.png', 'assets/images/face-5.png', 'assets/images/face-6.png'
-    ]
+    ],
+    profilePhotoUrl: ''
   };
   private userProfile = new BehaviorSubject<Profile>(this.testProfile);
   currentProfile = this.userProfile.asObservable();
