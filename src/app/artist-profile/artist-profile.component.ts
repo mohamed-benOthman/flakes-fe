@@ -6,6 +6,7 @@ import * as cloneDeep from 'lodash/cloneDeep';
 import {ProfileService} from '../services/profile.service';
 import {ProfileEditComponent} from './profile-edit/profile-edit.component';
 import {ProfilePhotosGalleryComponent} from './profile-photos-gallery/profile-photos-gallery.component';
+import {BusinessExpertService} from '../services/business-expert.service';
 
 @Component({
   selector: 'app-artist-profile',
@@ -30,7 +31,10 @@ export class ArtistProfileComponent implements OnInit {
     this.displayEditProfileDialog = false;
     this.displayEditPhotosDialog = false;
 
-    this.profileService.currentProfile.subscribe(res => this.currentProfile = res);
+    this.profileService.currentProfile.subscribe(res => {
+      console.log('profile = ' + JSON.stringify(res));
+      this.currentProfile = res;
+    });
   }
 
   deleteFromGallery(index) {

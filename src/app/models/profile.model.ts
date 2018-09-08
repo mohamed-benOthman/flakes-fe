@@ -15,17 +15,18 @@ export class Profile {
 */
 
 export interface Profile {
+  idMaquilleuse: number;
   username: string;
-  firstName: string;
-  lastName: string;
+  firstname: string;
+  lastname: string;
   phone: string;
   street: string;
-  zipCode: any;
-  department: string;
+  cities: any;
   business: any[];
   emailAdress: string;
-  expertise: Array<any>;
+  expertises: any[];
   slogan: string;
-  photosUrl: string[];
-  profilePhotoUrl: string;
+  photosUrl: any[];
+  photo_profile: string;
 }
+

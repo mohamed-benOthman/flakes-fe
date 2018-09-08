@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {Profile} from '../../models/profile.model';
 import {ProfileService} from '../../services/profile.service';
+import {BusinessExpertService} from '../../services/business-expert.service';
+import {Business} from '../../models/business.model';
 
 @Component({
   selector: 'app-profile-info',

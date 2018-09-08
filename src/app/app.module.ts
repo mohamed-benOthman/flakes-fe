@@ -15,6 +15,7 @@ import {ButtonModule} from 'primeng/button';
 import {DialogModule, DropdownModule, FileUploadModule, GrowlModule, MultiSelectModule, TabViewModule} from 'primeng/primeng';
 import {MatCheckboxModule, MatGridListModule, MatInputModule, MatPaginatorModule} from '@angular/material';
 import {TruncatePipe} from './pipes/truncate.pipe';
+import {StringToNumberPipe} from './pipes/stringToNumber.pipe';
 import { ProfileInfoComponent } from './artist-profile/profile-info/profile-info.component';
 import { ProfileEditComponent } from './artist-profile/profile-edit/profile-edit.component';
 import { ProfileEditPhotosComponent } from './artist-profile/profile-edit-photos/profile-edit-photos.component';
@@ -43,7 +44,7 @@ const appRoutes: Routes = [
     HomeComponent,
     SigninComponent,
     ArtistProfileComponent,
-    TruncatePipe,
+    TruncatePipe, StringToNumberPipe,
     ProfileInfoComponent,
     ProfileEditComponent,
     ProfileEditPhotosComponent,

@@ -16,7 +16,8 @@ export class ProfileEditComponent implements OnInit {
   @ViewChild('sloganArea') sloganArea;
 
 
-  demo: any[];
+  defaultProfilePhoto = '../../../assets/images/user_icon_placeholder.svg';
+  isProfilePhotoValid: boolean; // pour afficher le message d'erreur si la photo de profile exède 1Mo
   sloganMaxLen = 500;
   currentProfile: Profile;
   currentProfileCopy: Profile;
@@ -25,12 +26,15 @@ export class ProfileEditComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.profileService.currentProfile.subscribe(res => this.currentProfile = res);
-    this.currentProfileCopy = cloneDeep(this.currentProfile);
+    this.profileService.currentProfile.subscribe(res => {
+      this.currentProfile = res;
+      this.currentProfileCopy = cloneDeep(this.currentProfile);
+      if (!this.currentProfileCopy.photo_profile) {
+        this.currentProfileCopy.photo_profile = this.defaultProfilePhoto;
+      }
+    });
 
-    if (!this.currentProfileCopy.profilePhotoUrl) {
-      this.currentProfileCopy.profilePhotoUrl = '../../../assets/images/user_icon_placeholder.svg';
-    }
+    this.isProfilePhotoValid = true; // par défaut on affiche pas le message car la photo est censée etre valide
   }
 
   zipCodeChecker(event: KeyboardEvent) {
@@ -60,12 +64,22 @@ export class ProfileEditComponent implements OnInit {
 
   profilePhotoChanged(event) {
     if (event.target.files && event.target.files[0]) {
-      const reader = new FileReader();
-      reader.readAsDataURL(event.target.files[0]); // read file as data url
-      reader.onload = (evn: Event) => { // called once readAsDataURL is completed
-        // this.currentProfileCopy.profilePhotoUrl = evn.target.result;
-        this.currentProfileCopy.profilePhotoUrl = reader.result;
-      };
+      console.log('photo size == ' + event.target.files[0].size);
+
+      if (event.target.files[0].size > 1_000_000) {
+        console.log('photo is too heavy!');
+        this.isProfilePhotoValid = false;
+      }
+      else {
+        this.isProfilePhotoValid = true;
+        const reader = new FileReader();
+        reader.readAsDataURL(event.target.files[0]); // read file as data url
+        reader.onload = (evn: Event) => { // called once readAsDataURL is completed
+          // this.currentProfileCopy.profilePhotoUrl = evn.target.result;
+          this.currentProfileCopy.photo_profile = reader.result;
+        };
+      }
+
     }
   }
 
