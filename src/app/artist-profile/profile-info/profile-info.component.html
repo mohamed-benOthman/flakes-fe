@@ -3,66 +3,71 @@
   <tbody>
   <tr>
     <td><b>Identifiant</b></td>
-    <td><span style="display:inline-block; width: 25px;"></span></td>
+    <!--<td><span style="display:inline-block; width: 5px;"></span></td>-->
     <td class="detail">{{ currentProfile?.username }}</td>
   </tr>
   <tr>
     <td><b>Nom</b></td>
-    <td><span style="display:inline-block; width: 25px;"></span></td>
+    <!--<td><span style="display:inline-block; width: 5px;"></span></td>-->
     <td class="detail">{{ currentProfile?.lastname }}</td>
   </tr>
   <tr>
     <td><b>Prénom</b></td>
-    <td><span style="display:inline-block; width: 25px;"></span></td>
+    <!--<td><span style="display:inline-block; width: 5px;"></span></td>-->
     <td class="detail">{{ currentProfile?.firstname }}</td>
   </tr>
   <tr>
     <td><b>E-mail</b></td>
-    <td><span style="display:inline-block; width: 25px;"></span></td>
+    <!--<td><span style="display:inline-block; width: 5px;"></span></td>-->
     <td class="detail">{{ currentProfile?.emailAdress }}</td>
   </tr>
   <tr>
     <td><b>Téléphone</b></td>
-    <td><span style="display:inline-block; width: 25px;"></span></td>
+    <!--<td><span style="display:inline-block; width: 5px;"></span></td>-->
     <td class="detail">{{ currentProfile?.phone }}</td>
   </tr>
   <tr>
     <td><b>N° et Rue</b></td>
-    <td><span style="display:inline-block; width: 25px;"></span></td>
+    <!--<td><span style="display:inline-block; width: 5px;"></span></td>-->
     <td class="detail">{{currentProfile?.street}}</td>
   </tr>
   <tr>
     <td><b>Code postal</b></td>
-    <td><span style="display:inline-block; width: 25px;"></span></td>
+    <!--<td><span style="display:inline-block; width: 5px;"></span></td>-->
     <td class="detail">{{currentProfile?.cities.zip_code}} ({{currentProfile?.cities.name}})</td>
   </tr>
   <!--<tr>
     <td>Département</td>
-    <td><span style="display:inline-block; width: 25px;"></span></td>
+    <td><span style="display:inline-block; width: 5px;"></span></td>
     <td class="detail">{{ currentProfile?.departments }}</td>
   </tr>-->
   <tr>
     <td><b>Compétences</b></td>
-    <td><span style="display:inline-block; width: 25px;"></span></td>
+    <!--<td><span style="display:inline-block; width: 5px;"></span></td>-->
     <td class="detail">
-      <tr *ngFor="let business of currentProfile?.business">
-        {{business.libelle}}
-      </tr>
+      <div *ngFor="let business of currentProfile?.business">
+        <ng-container *ngIf="business.checked">
+          {{business.libelle}}
+        </ng-container>
+      </div>
     </td>
   </tr>
 
   <tr>
     <td><b>Expertises</b></td>
-    <td><span style="display:inline-block; width: 25px;"></span></td>
+    <!--<td><span style="display:inline-block; width: 5px;"></span></td>-->
     <td class="detail">
-      <ng-container *ngFor="let expertise of currentProfile?.expertises">
-        {{expertise.libelle}}
-      </ng-container>
+        <div *ngFor="let expertise of currentProfile?.expertises">
+          <ng-container *ngIf="expertise.checked">
+            {{expertise.libelle}}
+          </ng-container>
+        </div>
     </td>
   </tr>
+
   <tr>
     <td><b>Présentation</b></td>
-    <td><span style="display:inline-block; width: 25px;"></span></td>
+    <!--<td><span style="display:inline-block; width: 5px;"></span></td>-->
     <td>
       {{ currentProfile?.slogan }}
     </td>
