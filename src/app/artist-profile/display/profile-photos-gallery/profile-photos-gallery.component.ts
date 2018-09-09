@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {NgxGalleryAnimation, NgxGalleryImage, NgxGalleryOptions} from 'ngx-gallery';
-import {Profile} from '../../models/profile.model';
-import {ProfileService} from '../../services/profile.service';
+import {Profile} from '../../../models/profile.model';
+import {ProfileService} from '../../../services/profile.service';
 
 @Component({
   selector: 'app-profile-photos-gallery',

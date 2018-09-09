@@ -1,16 +1,16 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {Profile} from '../../models/profile.model';
-import {ProfileService} from '../../services/profile.service';
+import {Profile} from '../../../models/profile.model';
+import {ProfileService} from '../../../services/profile.service';
 
 import * as cloneDeep from 'lodash/cloneDeep';
 
 
 @Component({
-  selector: 'app-profile-edit',
-  templateUrl: './profile-edit.component.html',
-  styleUrls: ['./profile-edit.component.css']
+  selector: 'app-profile-edit-info',
+  templateUrl: './profile-edit-info.component.html',
+  styleUrls: ['./profile-edit-info.component.css']
 })
-export class ProfileEditComponent implements OnInit {
+export class ProfileEditInfoComponent implements OnInit {
 
   @ViewChild('postalCodeInput') zipCodeInput;
   @ViewChild('sloganArea') sloganArea;
@@ -69,8 +69,7 @@ export class ProfileEditComponent implements OnInit {
       if (event.target.files[0].size > 1_000_000) {
         console.log('photo is too heavy!');
         this.isProfilePhotoValid = false;
-      }
-      else {
+      } else {
         this.isProfilePhotoValid = true;
         const reader = new FileReader();
         reader.readAsDataURL(event.target.files[0]); // read file as data url

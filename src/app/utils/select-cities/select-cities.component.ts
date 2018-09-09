@@ -23,12 +23,12 @@ import {CitiesService} from '../../services/cities.service';
                typeToSearchText="Saisir pour lancer la recherche">
 
       <ng-template ng-label-tmp let-item="item" let-clear="clear">
-        <span class="ng-value-label" style="font-size: small">{{item.zip_code}} ({{item.name}})</span>
+        <span class="ng-value-label" style="font-size: small">{{item.code}} ({{item.city}})</span>
         <span class="ng-value-icon right" (click)="clear(item)" aria-hidden="true">×</span>
       </ng-template>
 
       <ng-template ng-option-tmp let-item="item">
-        {{item.name}} - {{item.zip_code}}
+        {{item.city}} - {{item.code}}
       </ng-template>
     </ng-select>
   `,

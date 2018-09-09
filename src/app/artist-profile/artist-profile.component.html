@@ -65,12 +65,12 @@
             [minY]="20" [dismissableMask]="true" [responsive]="true" [showHeader]="true"
             [maximizable]="false" [baseZIndex]="500000">
 
-    <app-profile-edit></app-profile-edit>
+    <app-profile-edit-info></app-profile-edit-info>
 
     <p-footer>
       <button type="button" pButton icon="pi pi-check" (click)="saveEditProfile()"
-              label="Valider"></button>
-      <button type="button" pButton icon="pi pi-close" (click)="displayEditProfileDialog=false" label="Annuler"
+              label="Sauvegarder"></button>
+      <button type="button" pButton icon="pi pi-times" (click)="displayEditProfileDialog=false" label="Annuler"
               class="ui-button-secondary"></button>
     </p-footer>
   </p-dialog>

@@ -12,56 +12,6 @@ import {map, tap} from 'rxjs/operators';
 })
 export class ProfileService {
 
-  private testProfile: Profile = {
-    idMaquilleuse: 5,
-    lastname: 'John',
-    firstname: 'Doe',
-    username: 'perfectJohn',
-    emailAdress: 'test@gmail.com',
-    phone: '0622323230',
-    street: '30 Rue Robert Dugrand - Rond point de la lyre',
-    slogan: 'Sed posuere consectetur est at lobortis. Maecenas sed diam eget risus varius blandit sit amet non magna. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam porta sem malesuada magna mollis euismod.',
-    photo_profile: '',
-    photosUrl: [
-      {
-        id: 1,
-        url: 'http://mag.monchval.com/wp-content/uploads/2016/06/article-maquillage-nulles-6-590x550.jpg'
-      },
-      {
-        id: 2,
-        url: 'https://img-3.journaldesfemmes.com/Oj4Rk7M5xAMAutdhRJhhoYCgSwQ=/910x607/smart/4257bafa1938402c9ca80a087798efab/ccmcms-jdf/10349409.png'
-      },
-      {
-        id: 3,
-        url: 'http://www.ambassaderm-formation-esthetique.com/images/m/mic/microblading-square.jpg'
-      },
-      {
-        id: 4,
-        url: 'http://www.atlanthal.com/73-large_default/manucure-pose-vernis.jpg'
-      }
-    ],
-    cities: {
-      id: 13288,
-      insee_code: '34172',
-      zip_code: '34000',
-      name: 'Montpellier',
-      slug: 'montpellier',
-      gps_lat: 43.6047275,
-      gps_lng: 3.9011747
-    },
-    business: [
-      {
-        idBusiness: 1,
-        libelle: 'Maquillage'
-      },
-      {
-        idBusiness: 2,
-        libelle: 'Manucure'
-      }
-    ],
-    expertises: []
-
-  };
   private emptyProfile: Profile = {
     idMaquilleuse: 0,
     lastname: '',
@@ -79,8 +29,8 @@ export class ProfileService {
 
   };
 
-  // private url = 'http://82.165.253.223:3000/maquilleuse/perfectJohn/1';
-  private url = 'http://82.165.253.223:3000/maquilleuse/frosa/1';
+  private url = 'http://82.165.253.223:3000/maquilleuse/perfectJohn/1';
+  // private url = 'http://82.165.253.223:3000/maquilleuse/frosa/1';
 
   private userProfile: BehaviorSubject<Profile>;
   currentProfile: Observable<Profile>;
@@ -109,31 +59,27 @@ export class ProfileService {
       profile.business = businesses;
 
       for (const expertise of expertises) {
-        expertise.checked = profile.business.some(x => x.idExpertise === expertise.idExpertise);
+        expertise.checked = profile.expertises.some(x => x.idExpertise === expertise.idExpertise);
       }
       profile.business = businesses;
       profile.expertises = expertises;
 
+      this.formatCities(profile);
       this.updateProfile(profile);
     });
-
-    /*this.http.get<Profile>(this.url).subscribe(profile => {
-      this.updateProfile(profile);
-      this.formatBusinessInProfile(profile);
-    });*/
   }
 
-  /*
-  Méthode qui va ajouter tous les business au profile avec les libellés
-  et indiquer si le profile à telle ou telle compétence grâce à la variable 'checked'.
-   */
-  private formatBusinessInProfile(profile: Profile) {
-    this.businessExpertiseService.getBusiness().subscribe(businesses => {
-
-    });
+  formatCities(profile: Profile) {
+    if (profile.cities) {
+      const cities = {code: profile.cities.zip_code, city: profile.cities.name};
+      profile.cities = cities;
+      console.log('cities formatted: ' + JSON.stringify(profile.cities));
+    }
   }
+
 
   updateProfile(profile) {
+    console.log('profile service: updateProfile()');
     this.userProfile.next(profile);
   }
 }

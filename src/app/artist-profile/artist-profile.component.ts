@@ -4,8 +4,8 @@ import {NgxGalleryAnimation, NgxGalleryImage, NgxGalleryOptions} from 'ngx-galle
 import {Message} from 'primeng/api';
 import * as cloneDeep from 'lodash/cloneDeep';
 import {ProfileService} from '../services/profile.service';
-import {ProfileEditComponent} from './profile-edit/profile-edit.component';
-import {ProfilePhotosGalleryComponent} from './profile-photos-gallery/profile-photos-gallery.component';
+import {ProfileEditInfoComponent} from './edit/profile-edit-info/profile-edit-info.component';
+import {ProfilePhotosGalleryComponent} from './display/profile-photos-gallery/profile-photos-gallery.component';
 import {BusinessExpertService} from '../services/business-expert.service';
 
 @Component({
@@ -15,7 +15,7 @@ import {BusinessExpertService} from '../services/business-expert.service';
 })
 export class ArtistProfileComponent implements OnInit {
 
-  @ViewChild(ProfileEditComponent) profileEditComponent: ProfileEditComponent;
+  @ViewChild(ProfileEditInfoComponent) profileEditComponent: ProfileEditInfoComponent;
   @ViewChild(ProfilePhotosGalleryComponent) profilePhotosGalleryComponent: ProfilePhotosGalleryComponent;
 
   currentProfile: Profile;
@@ -32,7 +32,7 @@ export class ArtistProfileComponent implements OnInit {
     this.displayEditPhotosDialog = false;
 
     this.profileService.currentProfile.subscribe(res => {
-      console.log('profile = ' + JSON.stringify(res));
+      console.log('in app-artist-profile with profile = ' + JSON.stringify(res));
       this.currentProfile = res;
     });
   }

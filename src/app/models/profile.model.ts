@@ -14,6 +14,9 @@ export class Profile {
 }
 */
 
+import {Business} from './business.model';
+import {Expertise} from './expertise.model';
+
 export interface Profile {
   idMaquilleuse: number;
   username: string;
@@ -22,9 +25,9 @@ export interface Profile {
   phone: string;
   street: string;
   cities: any;
-  business: any[];
+  business: Business[];
   emailAdress: string;
-  expertises: any[];
+  expertises: Expertise[];
   slogan: string;
   photosUrl: any[];
   photo_profile: string;

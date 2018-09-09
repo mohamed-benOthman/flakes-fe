@@ -16,18 +16,20 @@ import {DialogModule, DropdownModule, FileUploadModule, GrowlModule, MultiSelect
 import {MatCheckboxModule, MatGridListModule, MatInputModule, MatPaginatorModule} from '@angular/material';
 import {TruncatePipe} from './pipes/truncate.pipe';
 import {StringToNumberPipe} from './pipes/stringToNumber.pipe';
-import { ProfileInfoComponent } from './artist-profile/profile-info/profile-info.component';
-import { ProfileEditComponent } from './artist-profile/profile-edit/profile-edit.component';
-import { ProfileEditPhotosComponent } from './artist-profile/profile-edit-photos/profile-edit-photos.component';
-import { ProfilePhotosGalleryComponent } from './artist-profile/profile-photos-gallery/profile-photos-gallery.component';
+import { ProfileInfoComponent } from './artist-profile/display/profile-info/profile-info.component';
+import { ProfileEditInfoComponent } from './artist-profile/edit/profile-edit-info/profile-edit-info.component';
+import { ProfileEditPhotosComponent } from './artist-profile/edit/profile-edit-photos/profile-edit-photos.component';
+import { ProfilePhotosGalleryComponent } from './artist-profile/display/profile-photos-gallery/profile-photos-gallery.component';
 import { SearchComponent } from './search/search.component';
 import {HttpClientModule} from '@angular/common/http';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { SelectCitiesComponent } from './utils/select-cities/select-cities.component';
+import { ArtistProfileEditComponent } from './artist-profile/edit/artist-profile-edit.component';
 
 const appRoutes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'profile', component: ArtistProfileComponent },
+  { path: 'profile/edit', component: ArtistProfileEditComponent },
   { path: 'search-makeup', component: SearchComponent },
   { path: 'search-microblading', component: SearchComponent },
   { path: 'search-manicure', component: SearchComponent },
@@ -46,11 +48,12 @@ const appRoutes: Routes = [
     ArtistProfileComponent,
     TruncatePipe, StringToNumberPipe,
     ProfileInfoComponent,
-    ProfileEditComponent,
+    ProfileEditInfoComponent,
     ProfileEditPhotosComponent,
     ProfilePhotosGalleryComponent,
     SearchComponent,
-    SelectCitiesComponent
+    SelectCitiesComponent,
+    ArtistProfileEditComponent
   ],
   imports: [
     BrowserModule,

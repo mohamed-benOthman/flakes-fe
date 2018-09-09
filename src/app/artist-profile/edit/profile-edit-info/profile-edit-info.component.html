@@ -137,6 +137,9 @@
       <span style="font-size: 75%; opacity: 0.5; font-weight: bold">Compétences</span>
       <div *ngFor="let business of currentProfileCopy.business">
         <div class="col-sm-6">
+          <!--<input type="checkbox" id="biz" name="bizCheckboxes"
+                 value="business.checked" />
+          <label for="biz">{{business.libelle}}</label>-->
           <mat-checkbox class="edit-profile-expertise-checkbox-margin"
                         [(ngModel)]="business.checked"
                         [ngModelOptions]="{standalone: true}">{{business.libelle}}

@@ -1,5 +1,5 @@
 <p-tabView>
-  <p-tabPanel header="Portfolio" *ngIf="currentProfile.photosUrl && currentProfile.photosUrl.length > 0">
+  <p-tabPanel header="Portfolio">
     <!--<mat-grid-list cols="3">
       <ng-container *ngFor="let photoUrl of currentProfile.photosUrl; let i = index;">
         <mat-grid-tile>
@@ -13,6 +13,12 @@
         </mat-grid-tile>
       </ng-container>
     </mat-grid-list>-->
+
+    <div *ngIf="!currentProfile.photosUrl || currentProfile.photosUrl.length == 0">
+      <br>
+      <p>Aucune photo n'a été ajoutée pour le moment.</p>
+      <br>
+    </div>
 
     <div class="container-fluid">
       <div class="row">
