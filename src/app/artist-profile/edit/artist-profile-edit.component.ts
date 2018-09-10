@@ -12,7 +12,7 @@ import {Message} from 'primeng/api';
 })
 export class ArtistProfileEditComponent implements OnInit {
 
-  @ViewChild(ProfileEditInfoComponent) profileEditComponent: ProfileEditInfoComponent;
+  @ViewChild(ProfileEditInfoComponent) profileEditInfoComponent: ProfileEditInfoComponent;
 
   currentProfile: Profile;
   growlMessage: Message[] = [];
@@ -46,7 +46,7 @@ export class ArtistProfileEditComponent implements OnInit {
   }
 
   saveEditProfile() {
-    this.profileEditComponent.saveEditProfile();
+    this.profileEditInfoComponent.saveEditProfile();
     this.showSaveSuccess();
   }
 

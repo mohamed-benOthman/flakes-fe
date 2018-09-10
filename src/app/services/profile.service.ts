@@ -79,7 +79,6 @@ export class ProfileService {
 
 
   updateProfile(profile) {
-    console.log('profile service: updateProfile()');
     this.userProfile.next(profile);
   }
 }

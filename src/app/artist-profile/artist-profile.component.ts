@@ -7,6 +7,7 @@ import {ProfileService} from '../services/profile.service';
 import {ProfileEditInfoComponent} from './edit/profile-edit-info/profile-edit-info.component';
 import {ProfilePhotosGalleryComponent} from './display/profile-photos-gallery/profile-photos-gallery.component';
 import {BusinessExpertService} from '../services/business-expert.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-artist-profile',
@@ -25,7 +26,7 @@ export class ArtistProfileComponent implements OnInit {
 
 
 
-  constructor(private profileService: ProfileService) { }
+  constructor(private profileService: ProfileService, private router: Router) { }
 
   ngOnInit() {
     this.displayEditProfileDialog = false;
@@ -44,6 +45,7 @@ export class ArtistProfileComponent implements OnInit {
 
   editProfileClicked() {
     this.displayEditProfileDialog = true;
+    this.router.navigate(['/profile/edit']);
   }
 
   editPhotosClicked() {

@@ -58,6 +58,7 @@ export class ProfileEditInfoComponent implements OnInit {
   }
 
   saveEditProfile() {
+    console.log('cities = ' + JSON.stringify(this.currentProfileCopy.cities));
     this.currentProfile = cloneDeep(this.currentProfileCopy);
     this.profileService.updateProfile(this.currentProfile);
   }
@@ -80,6 +81,11 @@ export class ProfileEditInfoComponent implements OnInit {
       }
 
     }
+  }
+
+  onCitySelected(cities) {
+    console.log('onCitySelected: ' + JSON.stringify(cities));
+    this.currentProfileCopy.cities = event;
   }
 
 }

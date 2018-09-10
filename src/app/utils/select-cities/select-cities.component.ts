@@ -1,5 +1,5 @@
-import {ChangeDetectionStrategy, Component, Input, OnInit, ViewEncapsulation} from '@angular/core';
-import {concat, Observable, of, Subject} from 'rxjs';
+import {ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output, ViewEncapsulation} from '@angular/core';
+import {concat, from, Observable, of, Subject} from 'rxjs';
 import {catchError, debounceTime, distinctUntilChanged, switchMap, tap} from 'rxjs/operators';
 import {CitiesService} from '../../services/cities.service';
 
@@ -41,6 +41,8 @@ export class SelectCitiesComponent implements OnInit {
   @Input() multipleValues = false;
   @Input() citiesSelected = [];
 
+  @Output() citySelected = new EventEmitter<any>();
+
   citiesResult: Observable<any[]>;
   citiesLoading = false;
   citiesSubject = new Subject<string>();
@@ -50,6 +52,7 @@ export class SelectCitiesComponent implements OnInit {
 
   ngOnInit() {
     this.loadCities();
+    from(this.citiesSelected).subscribe(x => console.log('chuck norris: ' + JSON.stringify(this.citiesSelected)));
   }
 
   private loadCities() {
@@ -61,8 +64,7 @@ export class SelectCitiesComponent implements OnInit {
         tap(() => this.citiesLoading = true),
         switchMap(term => this.citiesService.getCitiesList(term).pipe(
           catchError(() => of([])), // empty list on error
-          tap(() => this.citiesLoading = false)
-        ))
+          tap(() => this.citiesLoading = false)))
       )
     );
   }
