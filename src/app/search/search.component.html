@@ -13,18 +13,40 @@
 <section class="content-search">
   <div class="container-fluid">
     <div class="row">
-      <div class="col-sm-1"></div>
-      <div class="col-sm-5">
-        <app-select-cities [multipleValues]="false"></app-select-cities>
+      <div class="col-sm-4">
+        <ng-select class="custom"
+                   [items]="deptList | async"
+                   bindLabel="code"
+                   placeholder="Département"
+                   notFoundText="Aucun élément trouvé"
+                   [(ngModel)]="selectedDept" (change)="onDeptChanged()">
+
+          <ng-template ng-label-tmp let-item="item" let-clear="clear">
+            <span class="ng-value-label" style="font-size: small">{{item.code}} ({{item.name}})</span>
+            <span class="ng-value-icon right" (click)="clear(item)" aria-hidden="true">×</span>
+          </ng-template>
+
+          <ng-template ng-option-tmp let-item="item">
+            {{item.code}} - {{item.name}}
+          </ng-template>
+
+        </ng-select>
       </div>
-      <div class="col-sm-5">
+      <div class="col-sm-4">
+        <app-select-cities #citiesSelect
+                           [multipleValues]="false"
+                           [disableComponent]="false"
+                           [departmentFilter]="selectedDept ? +(selectedDept.code) : 0">
+
+        </app-select-cities>
+      </div>
+      <div class="col-sm-4">
         <ng-select class="custom"
                    [items]="skinTypes"
                    placeholder="Type de peau"
                    [(ngModel)]="selectedSkin">
         </ng-select>
       </div>
-      <div class="col-sm-1"></div>
 
 
       <!--<div class="selector-search" style="display: table; margin: 0 auto;">

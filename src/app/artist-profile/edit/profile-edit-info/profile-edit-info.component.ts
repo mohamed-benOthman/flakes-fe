@@ -85,7 +85,7 @@ export class ProfileEditInfoComponent implements OnInit {
 
   onCitySelected(cities) {
     console.log('onCitySelected: ' + JSON.stringify(cities));
-    this.currentProfileCopy.cities = event;
+    this.currentProfileCopy.cities = cities;
   }
 
 }

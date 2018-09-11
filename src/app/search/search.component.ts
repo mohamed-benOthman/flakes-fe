@@ -2,6 +2,8 @@ import {Component, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
 import {Router} from '@angular/router';
 import {DepartmentsService} from '../services/departments.service';
 import {MatPaginator, PageEvent} from '@angular/material';
+import {Observable} from 'rxjs';
+import {SelectCitiesComponent} from '../utils/select-cities/select-cities.component';
 
 @Component({
   selector: 'app-search',
@@ -12,10 +14,11 @@ import {MatPaginator, PageEvent} from '@angular/material';
 export class SearchComponent implements OnInit {
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild('citiesSelect') citiesSelect: SelectCitiesComponent;
 
   categoryTitle: string;
   departments: Array<any>;
-  selectedDept = {};
+  selectedDept: Observable<any>;
 
   length = 8;
   pageSize = 10;
@@ -29,10 +32,15 @@ export class SearchComponent implements OnInit {
   ];
   selectedSkin = null;
 
+  deptList: Observable<any[]>;
+
   constructor(private router: Router, private deptService: DepartmentsService) {
   }
 
   ngOnInit() {
+
+    this.deptList = this.deptService.getJSON();
+
     this.paginator._intl.itemsPerPageLabel = 'Prestataires par page';
     this.paginator._intl.firstPageLabel = 'Première page';
     this.paginator._intl.previousPageLabel = 'Page précédente';
@@ -67,4 +75,7 @@ export class SearchComponent implements OnInit {
 
   }
 
+  onDeptChanged() {
+    this.citiesSelect.clearFields();
+  }
 }

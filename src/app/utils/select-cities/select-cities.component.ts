@@ -1,6 +1,16 @@
-import {ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output, ViewEncapsulation} from '@angular/core';
-import {concat, from, Observable, of, Subject} from 'rxjs';
-import {catchError, debounceTime, distinctUntilChanged, switchMap, tap} from 'rxjs/operators';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  ViewChild,
+  ViewEncapsulation
+} from '@angular/core';
+import {concat, Observable, of, Subject} from 'rxjs';
+import {catchError, debounceTime, distinctUntilChanged, filter, map, switchMap, tap} from 'rxjs/operators';
 import {CitiesService} from '../../services/cities.service';
 
 @Component({
@@ -8,6 +18,7 @@ import {CitiesService} from '../../services/cities.service';
   changeDetection: ChangeDetectionStrategy.Default,
   template: `
     <ng-select class="custom"
+               [disabled]="disableComponent"
                [items]="citiesResult | async"
                bindLabel="city"
                [addTag]="false"
@@ -20,7 +31,8 @@ import {CitiesService} from '../../services/cities.service';
                maxSelectedItems="3"
                addTagText="Rechercher" clearAllText="Tout effacer" loadingText="Recherche en cours..."
                notFoundText="Aucun élément trouvé" placeholder="Ville ou Code Postal"
-               typeToSearchText="Saisir pour lancer la recherche">
+               typeToSearchText="Saisir pour lancer la recherche"
+               (change)="onChange($event)">
 
       <ng-template ng-label-tmp let-item="item" let-clear="clear">
         <span class="ng-value-label" style="font-size: small">{{item.code}} ({{item.city}})</span>
@@ -40,8 +52,10 @@ export class SelectCitiesComponent implements OnInit {
 
   @Input() multipleValues = false;
   @Input() citiesSelected = [];
+  @Input() disableComponent = false;
+  @Input() departmentFilter = 0; // Si 0 on prend tous les départements
 
-  @Output() citySelected = new EventEmitter<any>();
+  @Output() zipCodeCitySelected = new EventEmitter<any>();
 
   citiesResult: Observable<any[]>;
   citiesLoading = false;
@@ -52,7 +66,12 @@ export class SelectCitiesComponent implements OnInit {
 
   ngOnInit() {
     this.loadCities();
-    from(this.citiesSelected).subscribe(x => console.log('chuck norris: ' + JSON.stringify(this.citiesSelected)));
+  }
+
+  onChange(event) {
+    if (event) {
+      this.zipCodeCitySelected.emit(event);
+    }
   }
 
   private loadCities() {
@@ -63,10 +82,22 @@ export class SelectCitiesComponent implements OnInit {
         distinctUntilChanged(),
         tap(() => this.citiesLoading = true),
         switchMap(term => this.citiesService.getCitiesList(term).pipe(
+          map(results => {
+            if (this.departmentFilter > 0) {
+              return results.filter(result => String(result.code).startsWith(String(this.departmentFilter));
+            }
+            else {
+              return results;
+            }
+          }),
           catchError(() => of([])), // empty list on error
           tap(() => this.citiesLoading = false)))
       )
     );
+  }
+
+  clearFields() {
+    this.citiesSelected = [];
   }
 
 }
