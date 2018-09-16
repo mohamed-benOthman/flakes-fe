@@ -74,6 +74,11 @@ export class SelectCitiesComponent implements OnInit {
     }
   }
 
+  clearFields() {
+    this.citiesSelected = [];
+    this.loadCities();
+  }
+
   private loadCities() {
     this.citiesResult = concat(
       of([]), // default items
@@ -83,10 +88,10 @@ export class SelectCitiesComponent implements OnInit {
         tap(() => this.citiesLoading = true),
         switchMap(term => this.citiesService.getCitiesList(term).pipe(
           map(results => {
+            console.log('departement = ' + this.departmentFilter);
             if (this.departmentFilter > 0) {
-              return results.filter(result => String(result.code).startsWith(String(this.departmentFilter));
-            }
-            else {
+              return results.filter(result => String(result.code).startsWith(String(this.departmentFilter)));
+            } else {
               return results;
             }
           }),
@@ -94,10 +99,6 @@ export class SelectCitiesComponent implements OnInit {
           tap(() => this.citiesLoading = false)))
       )
     );
-  }
-
-  clearFields() {
-    this.citiesSelected = [];
   }
 
 }

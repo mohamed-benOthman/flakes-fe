@@ -16,6 +16,16 @@
 
 }
 
+.search-user-photo {
+  display: inline-block;
+  width: 70px;
+  height: 70px;
+  /*border-radius: 50%;
+  border: solid 1px #5a5353;*/
+  object-fit: cover;
+  z-index: 1;
+}
+
 /*
 select {
   width: 100%;

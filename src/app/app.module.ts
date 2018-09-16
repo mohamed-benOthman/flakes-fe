@@ -12,7 +12,7 @@ import {ArtistProfileComponent} from './artist-profile/artist-profile.component'
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {NgxGalleryModule} from 'ngx-gallery';
 import {ButtonModule} from 'primeng/button';
-import {DialogModule, DropdownModule, FileUploadModule, GrowlModule, MultiSelectModule, TabViewModule} from 'primeng/primeng';
+import {CardModule, DialogModule, DropdownModule, FileUploadModule, GrowlModule, MultiSelectModule, TabViewModule} from 'primeng/primeng';
 import {MatCheckboxModule, MatGridListModule, MatInputModule, MatPaginatorModule} from '@angular/material';
 import {TruncatePipe} from './pipes/truncate.pipe';
 import {StringToNumberPipe} from './pipes/stringToNumber.pipe';
@@ -61,7 +61,7 @@ const appRoutes: Routes = [
     HttpClientModule,
     ReactiveFormsModule, NgxGalleryModule,
     ButtonModule, DialogModule,
-    MatInputModule, MultiSelectModule, MatCheckboxModule, GrowlModule,
+    MatInputModule, MultiSelectModule, MatCheckboxModule, GrowlModule, CardModule,
     MatGridListModule, TabViewModule, FileUploadModule, DropdownModule,
     NgSelectModule, MatPaginatorModule,
     BrowserAnimationsModule,

@@ -47,64 +47,99 @@
                    [(ngModel)]="selectedSkin">
         </ng-select>
       </div>
-
-
-      <!--<div class="selector-search" style="display: table; margin: 0 auto;">
-        &lt;!&ndash;<select style="width: 300px;">
-          <option disabled hidden="true">Département</option>
-          <ng-container *ngFor="let department of departments">
-            <option>{{department.code}} - {{department.name}}</option>
-          </ng-container>
-        </select>&ndash;&gt;
-        <table>
-          <tr>
-            <td style="width:680px">
-              <app-select-cities></app-select-cities>
-            </td>
-            <td><span style="display:inline-block; width: 25px;"></span></td>
-            <td style="width:200px">&lt;!&ndash;<select>
-              <option disabled hidden>Type de peau</option>
-              <option>Peau claire</option>
-              <option>Peau foncée</option>
-              <option>Peau mate</option>
-            </select>&ndash;&gt;
-              <ng-select class="custom"
-                         [items]="skinTypes"
-                         placeholder="Type de peau"
-                         [(ngModel)]="selectedSkin">
-              </ng-select>
-            </td>
-          </tr>
-        </table>
-
-
-      </div>
-    </div>-->
     </div>
 
-    <div class="row search-content">
-      <div class="col-xs-6 col-sm-6 col-md-6 padding-right-none" *ngFor="let pos of [1,2,3,4,5,6,7]">
+    <!--<div class="row search-content">
+      <div class="col-xs-6 col-sm-6 col-md-6 padding-right-none" *ngFor="let profile of artistsProfiles">
         <div class="d-flex flex-row border rounded">
-          <img src="assets/images/search_img.jpg" class="img-thumbnail border-0 align-self"/>
+          <img [src]="profile.photo_profile" class="search-user-photo"/>
           <div class="border-left">
             <table class="table table-user-information">
               <tbody>
               <tr>
-                <td><h4 class="text-primary"> Name:<span>  Johan Deo,</span></h4></td>
-                <td><a href="#"><h4 class="text-primary"> Email:<span class="new-text">ex@example </span></h4></a></td>
-                <td><a href="8045446032"><h4 class="text-primary"> Phone No:<span class="new-text"> 8045446032   </span>
+                <td><h4 class="text-primary"> Nom:<span>  {{profile.lastname}} {{profile.firstname}}</span></h4></td>
+                <td><a href="#"><h4 class="text-primary"> E-mail:<span class="new-text">{{profile.emailAdress}}</span></h4></a></td>
+                <td><a href="8045446032"><h4 class="text-primary"> Tél:<span class="new-text"> {{profile.phone}}   </span>
                 </h4></a></td>
               </tr>
               <tr>
-                <td><h4 class="text-primary"> ZipCode:<span> 18550 </span></h4></td>
-                <td><h4 class="text-primary"> Department:<span class="new-text"> Essonne </span></h4></td>
-                <td><h4 class="text-primary"> Experties:<span class="new-text">  Mate Skin</span></h4></td>
+                <td><h4 class="text-primary"> Code postal:<span> {{profile.cities.code}} </span></h4></td>
+                <td><h4 class="text-primary"> Ville:<span class="new-text"> {{profile.cities.city}} </span></h4></td>
+                <td><h4 class="text-primary"> Expertises:<span class="new-text">  {{profile.expertises | json}}</span></h4></td>
               </tr>
               </tbody>
             </table>
           </div>
         </div>
 
+      </div>
+    </div>-->
+
+    <div class="row search-content">
+      <div class="col-sm-8 col-md-6 col-lg-4 padding-right-none" *ngFor="let profile of artistsProfiles">
+        <p-card>
+          <!--<div class="container-fluid">
+            <div class="row">
+              <div class="col-sm-3"><img [src]="profile.photo_profile" class="search-user-photo"/></div>
+              <div class="col-sm-9">
+                <h3 style="text-align: right; font-weight: bold;">{{profile.lastname | titlecase}} {{profile.firstname | uppercase}}</h3>
+              </div>
+            </div>
+          </div>-->
+          <!--<table>
+            <tr>
+              <td><img [src]="profile.photo_profile" class="search-user-photo"/></td>
+              <td><span style="display:inline-block; width: 15px;"></span></td>
+              <td>
+                <div>
+                  <h4 style="font-weight: bold;">{{profile.lastname | titlecase}} {{profile.firstname | uppercase}}</h4>
+                  <p style="color:#8b1941; font-weight:bold;">Ville
+                    <span style="color: #000; font-weight: lighter">  {{profile.cities.city}} ({{profile.cities.code}})</span>
+                  </p>
+                  <p style="color:#8b1941; font-weight:bold;">E-mail
+                    <span style="color: #000; font-weight: lighter">  {{profile.emailAdress}}</span>
+                  </p>
+                  <p style="color:#8b1941; font-weight:bold;">Tél
+                    <span style="color: #000; font-weight: lighter">  {{profile.phone}}</span>
+                  </p>
+                </div>
+              </td>
+              <td><span style="display:inline-block; width: 15px;"></span></td>
+              <td align="right"><button pButton type="button" label="Détails" class="ui-button-raised"></button></td>
+            </tr>
+          </table>-->
+
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-xs-3"><img [src]="profile.photo_profile" class="search-user-photo"/></div>
+              <div class="col-xs-1"></div>
+              <div class="col-xs-6"><div>
+                <h3 style="font-weight: bold; text-align: center">{{profile.lastname | titlecase}} {{profile.firstname | uppercase}}</h3>
+              </div></div>
+              <div class="col-xs-2"><button pButton type="button" label="Détails" class="ui-button-raised"></button></div>
+            </div>
+            <hr>
+            <table>
+              <tr>
+                <td><p style="color:#8b1941; font-weight:bold;">Ville</p></td>
+                <td><span style="display:inline-block; width: 15px;"></span></td>
+                <td><span style="color: #000; font-weight: lighter">  {{profile.cities.city}} ({{profile.cities.code}})</span></td>
+              </tr>
+              <tr>
+                <td><p style="color:#8b1941; font-weight:bold;">E-mail</p></td>
+                <td><span style="display:inline-block; width: 15px;"></span></td>
+                <td><span style="color: #000; font-weight: lighter">  {{profile.emailAdress}}</span></td>
+              </tr>
+              <tr>
+                <td><p style="color:#8b1941; font-weight:bold;">Tél</p></td>
+                <td><span style="display:inline-block; width: 15px;"></span></td>
+                <td><span style="color: #000; font-weight: lighter">  {{profile.phone}}</span></td>
+              </tr>
+            </table>
+          </div>
+
+        </p-card>
+        <br>
       </div>
     </div>
 

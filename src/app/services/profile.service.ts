@@ -29,8 +29,8 @@ export class ProfileService {
 
   };
 
-  private url = 'http://82.165.253.223:3000/maquilleuse/perfectJohn/1';
-  // private url = 'http://82.165.253.223:3000/maquilleuse/frosa/1';
+  // private url = 'http://82.165.253.223:3000/maquilleuse/perfectJohn/1';
+  private url = 'http://82.165.253.223:3000/maquilleuse/frosa/1';
 
   private userProfile: BehaviorSubject<Profile>;
   currentProfile: Observable<Profile>;
@@ -64,18 +64,18 @@ export class ProfileService {
       profile.business = businesses;
       profile.expertises = expertises;
 
-      this.formatCities(profile);
+      // this.formatCities(profile);
       this.updateProfile(profile);
     });
   }
 
-  formatCities(profile: Profile) {
+  /*formatCities(profile: Profile) {
     if (profile.cities) {
       const cities = {code: profile.cities.zip_code, city: profile.cities.name};
       profile.cities = cities;
       console.log('cities formatted: ' + JSON.stringify(profile.cities));
     }
-  }
+  }*/
 
 
   updateProfile(profile) {

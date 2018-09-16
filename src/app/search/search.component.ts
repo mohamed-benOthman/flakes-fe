@@ -4,6 +4,8 @@ import {DepartmentsService} from '../services/departments.service';
 import {MatPaginator, PageEvent} from '@angular/material';
 import {Observable} from 'rxjs';
 import {SelectCitiesComponent} from '../utils/select-cities/select-cities.component';
+import {SearchService} from '../services/search.service';
+import {Profile} from '../models/profile.model';
 
 @Component({
   selector: 'app-search',
@@ -20,6 +22,8 @@ export class SearchComponent implements OnInit {
   departments: Array<any>;
   selectedDept: Observable<any>;
 
+  artistsProfiles: Profile[];
+
   length = 8;
   pageSize = 10;
   pageSizeOptions: number[] = [5, 10, 25, 100];
@@ -34,10 +38,13 @@ export class SearchComponent implements OnInit {
 
   deptList: Observable<any[]>;
 
-  constructor(private router: Router, private deptService: DepartmentsService) {
+  constructor(private router: Router, private deptService: DepartmentsService, private searchService: SearchService) {
   }
 
   ngOnInit() {
+
+    this.searchService.requestSearch(10, 0, null, '34000;montpellier', '1', null)
+      .subscribe(res => this.artistsProfiles = res);
 
     this.deptList = this.deptService.getJSON();
 
