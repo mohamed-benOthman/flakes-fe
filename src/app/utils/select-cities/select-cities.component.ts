@@ -69,9 +69,7 @@ export class SelectCitiesComponent implements OnInit {
   }
 
   onChange(event) {
-    if (event) {
-      this.zipCodeCitySelected.emit(event);
-    }
+    this.zipCodeCitySelected.emit(event);
   }
 
   clearFields() {

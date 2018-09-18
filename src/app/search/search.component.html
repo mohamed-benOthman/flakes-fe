@@ -36,97 +36,50 @@
         <app-select-cities #citiesSelect
                            [multipleValues]="false"
                            [disableComponent]="false"
-                           [departmentFilter]="selectedDept ? +(selectedDept.code) : 0">
+                           [departmentFilter]="selectedDept ? +(selectedDept.code) : 0"
+                           (zipCodeCitySelected)="onCitySelected($event)">
 
         </app-select-cities>
       </div>
       <div class="col-sm-4">
-        <ng-select class="custom"
+        <ng-select #skinSelect
+                   class="custom"
                    [items]="skinTypes"
                    placeholder="Type de peau"
+                   (change)="updateSearch()"
                    [(ngModel)]="selectedSkin">
         </ng-select>
       </div>
     </div>
 
-    <!--<div class="row search-content">
-      <div class="col-xs-6 col-sm-6 col-md-6 padding-right-none" *ngFor="let profile of artistsProfiles">
-        <div class="d-flex flex-row border rounded">
-          <img [src]="profile.photo_profile" class="search-user-photo"/>
-          <div class="border-left">
-            <table class="table table-user-information">
-              <tbody>
-              <tr>
-                <td><h4 class="text-primary"> Nom:<span>  {{profile.lastname}} {{profile.firstname}}</span></h4></td>
-                <td><a href="#"><h4 class="text-primary"> E-mail:<span class="new-text">{{profile.emailAdress}}</span></h4></a></td>
-                <td><a href="8045446032"><h4 class="text-primary"> Tél:<span class="new-text"> {{profile.phone}}   </span>
-                </h4></a></td>
-              </tr>
-              <tr>
-                <td><h4 class="text-primary"> Code postal:<span> {{profile.cities.code}} </span></h4></td>
-                <td><h4 class="text-primary"> Ville:<span class="new-text"> {{profile.cities.city}} </span></h4></td>
-                <td><h4 class="text-primary"> Expertises:<span class="new-text">  {{profile.expertises | json}}</span></h4></td>
-              </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-
-      </div>
-    </div>-->
-
     <div class="row search-content">
       <div class="col-sm-8 col-md-6 col-lg-4 padding-right-none" *ngFor="let profile of artistsProfiles">
         <p-card>
-          <!--<div class="container-fluid">
-            <div class="row">
-              <div class="col-sm-3"><img [src]="profile.photo_profile" class="search-user-photo"/></div>
-              <div class="col-sm-9">
-                <h3 style="text-align: right; font-weight: bold;">{{profile.lastname | titlecase}} {{profile.firstname | uppercase}}</h3>
-              </div>
-            </div>
-          </div>-->
-          <!--<table>
-            <tr>
-              <td><img [src]="profile.photo_profile" class="search-user-photo"/></td>
-              <td><span style="display:inline-block; width: 15px;"></span></td>
-              <td>
-                <div>
-                  <h4 style="font-weight: bold;">{{profile.lastname | titlecase}} {{profile.firstname | uppercase}}</h4>
-                  <p style="color:#8b1941; font-weight:bold;">Ville
-                    <span style="color: #000; font-weight: lighter">  {{profile.cities.city}} ({{profile.cities.code}})</span>
-                  </p>
-                  <p style="color:#8b1941; font-weight:bold;">E-mail
-                    <span style="color: #000; font-weight: lighter">  {{profile.emailAdress}}</span>
-                  </p>
-                  <p style="color:#8b1941; font-weight:bold;">Tél
-                    <span style="color: #000; font-weight: lighter">  {{profile.phone}}</span>
-                  </p>
-                </div>
-              </td>
-              <td><span style="display:inline-block; width: 15px;"></span></td>
-              <td align="right"><button pButton type="button" label="Détails" class="ui-button-raised"></button></td>
-            </tr>
-          </table>-->
-
           <div class="container-fluid">
             <div class="row">
               <div class="col-xs-3"><img [src]="profile.photo_profile" class="search-user-photo"/></div>
 
-              <div class="col-xs-6"><div>
-                <h3 style="font-weight: bold; text-align: center">{{profile.lastname | titlecase}} {{profile.firstname | uppercase}}</h3>
-              </div></div>
-              <div class="col-xs-3"><button pButton type="button"
-                                            label="Détails"
-                                            class="ui-button-raised"
-                                            (click)="openProfileDetails(profile.username)"></button></div>
+              <div class="col-xs-6">
+                <div>
+                  <h3 style="font-weight: bold; text-align: center">{{profile.lastname | titlecase}} {{profile.firstname
+                    | uppercase}}</h3>
+                </div>
+              </div>
+              <div class="col-xs-3">
+                <button pButton type="button"
+                        label="Détails"
+                        class="ui-button-raised"
+                        (click)="openProfileDetails(profile.username)"></button>
+              </div>
             </div>
             <hr>
             <table>
               <tr>
                 <td><p style="color:#8b1941; font-weight:bold;">Ville</p></td>
                 <td><span style="display:inline-block; width: 15px;"></span></td>
-                <td><span style="color: #000; font-weight: lighter">  {{profile.cities.city}} ({{profile.cities.code}})</span></td>
+                <td><span
+                  style="color: #000; font-weight: lighter">  {{profile.cities.city}} ({{profile.cities.code}})</span>
+                </td>
               </tr>
               <tr>
                 <td><p style="color:#8b1941; font-weight:bold;">E-mail</p></td>
@@ -147,8 +100,8 @@
     </div>
 
     <mat-paginator #MatPaginator
-                   [length]="length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions"
-                   (page)="pageEvent = $event">
+                   [length]="pageLength" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions"
+                   (page)="onPageChange($event)">
     </mat-paginator>
 
     <!--<div *ngIf="pageEvent">

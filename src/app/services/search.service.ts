@@ -20,20 +20,33 @@ export class SearchService {
   requestSearch(elementsNumber: number = 10, displayedPage: number = 0,
                 dept: string = null, city: string = null,
                 businessType: string = null, expertiseType: string = null) {
+
     const typeURL = this.getTypePart(dept, city, businessType, expertiseType);
     const paramURL = this.getParamPart(dept, city, businessType, expertiseType);
 
+    console.log('requestSearch = ' + `${this.baseURL}/${paramURL}/${typeURL}/${displayedPage}/${elementsNumber}`);
 
     return this.http.get<any>(`${this.baseURL}/${paramURL}/${typeURL}/${displayedPage}/${elementsNumber}`)
       .pipe(
         map(profiles => {
-          for (const profile of profiles) {
-            if (!profile.photo_profile) {
-              profile.photo_profile = this.defaultProfilePhoto;
+          if (profiles) {
+            for (const profile of profiles) {
+              if (!profile.photo_profile) {
+                profile.photo_profile = this.defaultProfilePhoto;
+              }
             }
           }
           return profiles;
         }));
+  }
+
+  requestSearchCount(dept: string = null, city: string = null, businessType: string = null, expertiseType: string = null) {
+    const typeURL = this.getTypePart(dept, city, businessType, expertiseType);
+    const paramURL = this.getParamPart(dept, city, businessType, expertiseType);
+
+    console.log('requestCount = ' + `${this.baseURL}/${paramURL}/${typeURL}`);
+
+    return this.http.get<any>(`${this.baseURL}/${paramURL}/${typeURL}`);
   }
 
 
@@ -58,7 +71,6 @@ export class SearchService {
     if (expertiseType !== null) {
       paramURL += expertiseType.trim();
     }
-    console.log('getParam: ' + paramURL);
 
     return paramURL;
   }
@@ -86,8 +98,6 @@ export class SearchService {
     if (typeURL !== null && typeURL.startsWith('|')) {
       typeURL = typeURL.substring(1);
     }
-
-    console.log('getType: ' + typeURL);
 
     return typeURL;
   }
