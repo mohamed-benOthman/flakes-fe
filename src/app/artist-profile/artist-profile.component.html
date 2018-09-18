@@ -1,9 +1,14 @@
 <section class="profile-banner">
   <div class="container-fluid">
-    <div class="row">
-      <div class="col-md-12">
-        <div class="profile-heading">
+    <div class="row profile-heading">
+      <div class="col-md-10">
+        <div>
           <h1>Profil de <b>{{currentProfile?.lastname | uppercase}} {{currentProfile?.firstname | uppercase}}</b></h1>
+        </div>
+      </div>
+      <div class="col-md-2">
+        <div class="text-center">
+          <img [src]="currentProfile.photo_profile" class="img-responsive center-block user"/>
         </div>
       </div>
     </div>
@@ -40,9 +45,13 @@
         <ng-template #no_photo_content>
           <h3 style="text-align: center">Aucune photo n'a été ajoutée à la galerie pour le moment</h3>
           <br>
-          <p>Les profiles avec photos sont plus consultés que ceux qui n'en ont pas et permettent aux visiteurs d'avoir un aperçu de vos talents.</p>
-          <br>
-          <p>Vous pouvez ajouter des photos en cliquant sur le bouton ci-dessous "Editer le profil"</p>
+          <ng-container *ngIf="isEditEnabled()">
+            <p>Les profiles avec photos sont plus consultés que ceux qui n'en ont pas et permettent aux visiteurs
+              d'avoir
+              un aperçu de vos talents.</p>
+            <br>
+            <p>Vous pouvez ajouter des photos en cliquant sur le bouton ci-dessous "Editer le profil"</p>
+          </ng-container>
         </ng-template>
       </div>
     </div>
@@ -51,12 +60,13 @@
   <!------------------------------
   ----- BOTTOM BUTTONS (EDIT / ADD PHOTOS)
   ------------------------------>
-  <button pButton type="button" label="Editer le profil" class="ui-button-raised"
-          (click)="editProfileClicked()"></button>
-  <span style="display:inline-block; width: 25px;"></span>
-  <!--<button pButton type="button" label="Editer les photos" class="ui-button-raised"
-          (click)="editPhotosClicked()"></button>-->
-
+  <ng-container *ngIf="isEditEnabled()">
+    <button pButton type="button" label="Editer le profil" class="ui-button-raised"
+            (click)="editProfileClicked()"></button>
+    <span style="display:inline-block; width: 25px;"></span>
+    <!--<button pButton type="button" label="Editer les photos" class="ui-button-raised"
+            (click)="editPhotosClicked()"></button>-->
+  </ng-container>
 
   <!------------------------------
   ----- EDIT PROFILE DIALOG
@@ -79,8 +89,9 @@
   <!------------------------------
   ----- EDIT PHOTOS DIALOG
   ------------------------------>
+
   <p-dialog header="Editer les photos" [(visible)]="displayEditPhotosDialog" [modal]="true"
-             [dismissableMask]="true"
+            [dismissableMask]="true"
             [showHeader]="true" [maximizable]="false" [baseZIndex]="500000">
 
     <app-profile-edit-photos
@@ -88,7 +99,8 @@
       (photoSentEvent)="showPhotoUploadedSuccess()"></app-profile-edit-photos>
 
     <p-footer>
-      <button type="button" pButton icon="pi pi-check" (click)="displayEditPhotosDialog=false" label="Valider"></button>
+      <button type="button" pButton icon="pi pi-check" (click)="displayEditPhotosDialog=false"
+              label="Valider"></button>
     </p-footer>
   </p-dialog>
 

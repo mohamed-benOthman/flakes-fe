@@ -29,6 +29,7 @@ import { ArtistProfileEditComponent } from './artist-profile/edit/artist-profile
 const appRoutes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'profile', component: ArtistProfileComponent },
+  { path: 'profile-details/:username', component: ArtistProfileComponent },
   { path: 'profile/edit', component: ArtistProfileEditComponent },
   { path: 'search-makeup', component: SearchComponent },
   { path: 'search-microblading', component: SearchComponent },

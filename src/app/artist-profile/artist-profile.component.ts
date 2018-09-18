@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {Profile} from '../models/profile.model';
 import {NgxGalleryAnimation, NgxGalleryImage, NgxGalleryOptions} from 'ngx-gallery';
 import {Message} from 'primeng/api';
@@ -7,14 +7,14 @@ import {ProfileService} from '../services/profile.service';
 import {ProfileEditInfoComponent} from './edit/profile-edit-info/profile-edit-info.component';
 import {ProfilePhotosGalleryComponent} from './display/profile-photos-gallery/profile-photos-gallery.component';
 import {BusinessExpertService} from '../services/business-expert.service';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-artist-profile',
   templateUrl: './artist-profile.component.html',
   styleUrls: ['./artist-profile.component.css']
 })
-export class ArtistProfileComponent implements OnInit {
+export class ArtistProfileComponent implements OnInit, OnDestroy {
 
   @ViewChild(ProfileEditInfoComponent) profileEditComponent: ProfileEditInfoComponent;
   @ViewChild(ProfilePhotosGalleryComponent) profilePhotosGalleryComponent: ProfilePhotosGalleryComponent;
@@ -26,16 +26,25 @@ export class ArtistProfileComponent implements OnInit {
 
 
 
-  constructor(private profileService: ProfileService, private router: Router) { }
+  constructor(private profileService: ProfileService, private router: Router, private activeRoute: ActivatedRoute) { }
 
   ngOnInit() {
     this.displayEditProfileDialog = false;
     this.displayEditPhotosDialog = false;
 
+    const routeParams = this.activeRoute.snapshot.params;
+    if (routeParams) {
+      this.profileService.searchProfile(String(routeParams.username));
+    }
+
     this.profileService.currentProfile.subscribe(res => {
       console.log('in app-artist-profile with profile = ' + JSON.stringify(res));
       this.currentProfile = res;
     });
+  }
+
+  ngOnDestroy() {
+
   }
 
   deleteFromGallery(index) {
@@ -73,5 +82,8 @@ export class ArtistProfileComponent implements OnInit {
       detail: ''});
   }
 
+  isEditEnabled() {
+    return this.profileService.isAuthenticated;
+  }
 
 }

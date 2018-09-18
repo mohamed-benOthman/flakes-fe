@@ -65,14 +65,11 @@ export class SearchComponent implements OnInit {
 
     if (this.router.url.startsWith('/search-makeup')) {
       this.categoryTitle = 'maquillage';
-    }
-    else if (this.router.url.startsWith('/search-microblading')) {
+    } else if (this.router.url.startsWith('/search-microblading')) {
       this.categoryTitle = 'micro blading';
-    }
-    else if (this.router.url.startsWith('/search-manicure')) {
+    } else if (this.router.url.startsWith('/search-manicure')) {
       this.categoryTitle = 'manucure';
-    }
-    else if (this.router.url.startsWith('/search-eyelashes')) {
+    } else if (this.router.url.startsWith('/search-eyelashes')) {
       this.categoryTitle = 'extension de cils';
     }
 
@@ -84,5 +81,9 @@ export class SearchComponent implements OnInit {
 
   onDeptChanged() {
     this.citiesSelect.clearFields();
+  }
+
+  openProfileDetails(artistID: number) {
+    this.router.navigate(['/profile-details', artistID]);
   }
 }

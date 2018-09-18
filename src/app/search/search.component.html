@@ -112,11 +112,14 @@
           <div class="container-fluid">
             <div class="row">
               <div class="col-xs-3"><img [src]="profile.photo_profile" class="search-user-photo"/></div>
-              <div class="col-xs-1"></div>
+
               <div class="col-xs-6"><div>
                 <h3 style="font-weight: bold; text-align: center">{{profile.lastname | titlecase}} {{profile.firstname | uppercase}}</h3>
               </div></div>
-              <div class="col-xs-2"><button pButton type="button" label="Détails" class="ui-button-raised"></button></div>
+              <div class="col-xs-3"><button pButton type="button"
+                                            label="Détails"
+                                            class="ui-button-raised"
+                                            (click)="openProfileDetails(profile.username)"></button></div>
             </div>
             <hr>
             <table>

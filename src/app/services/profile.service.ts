@@ -29,27 +29,26 @@ export class ProfileService {
 
   };
 
-  // private url = 'http://82.165.253.223:3000/maquilleuse/perfectJohn/1';
-  private url = 'http://82.165.253.223:3000/maquilleuse/frosa/1';
+  private baseURL = 'http://82.165.253.223:3000/maquilleuse';
 
   private userProfile: BehaviorSubject<Profile>;
   currentProfile: Observable<Profile>;
 
+  isAuthenticated = false;
+
   constructor(private http: HttpClient, private businessExpertiseService: BusinessExpertService) {
     this.userProfile = new BehaviorSubject<Profile>(this.emptyProfile);
     this.currentProfile = this.userProfile.asObservable();
-    // this.formatBusinessInProfile();
+  }
 
-    /*this.currentProfile = this.http.get<Profile>(this.url).pipe(
-      tap(data => console.log('on a appelé le profile depuis le server'))
-    );*/
+  searchProfile(username: string) {
 
-    const profileObs = this.http.get<Profile>(this.url);
+    const profileObs = this.http.get<Profile>(`${this.baseURL}/${username}/5/0/1`);
     const businessObs = this.businessExpertiseService.getBusiness();
     const expertiseObs = this.businessExpertiseService.getExpertises();
 
     forkJoin([profileObs, businessObs, expertiseObs]).subscribe(results => {
-      const profile = results[0];
+      const profile = cloneDeep(results[0])[0]; // renvoi un tableau avec un profile
       const businesses = cloneDeep(results[1]);
       const expertises = cloneDeep(results[2]);
 
@@ -68,15 +67,6 @@ export class ProfileService {
       this.updateProfile(profile);
     });
   }
-
-  /*formatCities(profile: Profile) {
-    if (profile.cities) {
-      const cities = {code: profile.cities.zip_code, city: profile.cities.name};
-      profile.cities = cities;
-      console.log('cities formatted: ' + JSON.stringify(profile.cities));
-    }
-  }*/
-
 
   updateProfile(profile) {
     this.userProfile.next(profile);
