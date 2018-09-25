@@ -1,3 +1,10 @@
+<p-blockUI [blocked]="isUploading">
+  <p-progressSpinner [style]="{width: '180px', height: '180px', position: 'absolute', top: '30%', left: '40%'}"
+                     strokeWidth="5"
+                     fill="#FFFFFF"
+                     animationDuration="1s"></p-progressSpinner>
+</p-blockUI>
+
 <section class="content-profile">
   <div class="container-fluid">
     <!------------------------------
@@ -25,7 +32,8 @@
         <div>
           <app-profile-edit-photos
             (photoDeletedEvent)="deleteFromGallery($event)"
-            (photoSentEvent)="showPhotoUploadedSuccess()"></app-profile-edit-photos>
+            (photoSentEvent)="showPhotoUploadedSuccess()"
+            (uploadingEvent)="isUploading = $event"></app-profile-edit-photos>
         </div>
       </div>
     </div>

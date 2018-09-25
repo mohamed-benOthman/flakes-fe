@@ -24,8 +24,6 @@ export class ArtistProfileComponent implements OnInit, OnDestroy {
   displayEditPhotosDialog: boolean;
   growlMessage: Message[] = [];
 
-
-
   constructor(private profileService: ProfileService, private router: Router, private activeRoute: ActivatedRoute) { }
 
   ngOnInit() {
@@ -64,6 +62,8 @@ export class ArtistProfileComponent implements OnInit, OnDestroy {
   saveEditProfile() {
     this.displayEditProfileDialog = false;
     this.profileEditComponent.saveEditProfile();
+
+
   }
 
   showPhotoDeletedSuccess() {

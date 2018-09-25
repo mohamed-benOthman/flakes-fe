@@ -3,6 +3,7 @@ import {Profile} from '../../../models/profile.model';
 import {ProfileService} from '../../../services/profile.service';
 
 import * as cloneDeep from 'lodash/cloneDeep';
+import {HttpClient} from '@angular/common/http';
 
 
 @Component({
@@ -22,7 +23,7 @@ export class ProfileEditInfoComponent implements OnInit {
   currentProfile: Profile;
   currentProfileCopy: Profile;
 
-  constructor(private profileService: ProfileService) {
+  constructor(private http: HttpClient, private profileService: ProfileService) {
   }
 
   ngOnInit() {
@@ -79,7 +80,6 @@ export class ProfileEditInfoComponent implements OnInit {
           this.currentProfileCopy.photo_profile = reader.result;
         };
       }
-
     }
   }
 

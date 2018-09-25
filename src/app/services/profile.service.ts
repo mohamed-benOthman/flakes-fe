@@ -34,7 +34,7 @@ export class ProfileService {
   private userProfile: BehaviorSubject<Profile>;
   currentProfile: Observable<Profile>;
 
-  isAuthenticated = false;
+  isAuthenticated = true;
 
   constructor(private http: HttpClient, private businessExpertiseService: BusinessExpertService) {
     this.userProfile = new BehaviorSubject<Profile>(this.emptyProfile);

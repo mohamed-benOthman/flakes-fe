@@ -52,52 +52,64 @@
       </div>
     </div>
 
-    <div class="row search-content">
-      <div class="col-sm-8 col-md-6 col-lg-4 padding-right-none" *ngFor="let profile of artistsProfiles">
-        <p-card>
-          <div class="container-fluid">
-            <div class="row">
-              <div class="col-xs-3"><img [src]="profile.photo_profile" class="search-user-photo"/></div>
 
-              <div class="col-xs-6">
-                <div>
-                  <h3 style="font-weight: bold; text-align: center">{{profile.lastname | titlecase}} {{profile.firstname
-                    | uppercase}}</h3>
+    <div *ngIf="artistFound;else no_artist_found">
+      <div class="row search-content">
+        <div class="col-sm-8 col-md-6 col-lg-4 padding-right-none" *ngFor="let profile of artistsProfiles">
+          <p-card>
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-xs-3"><img [src]="profile.photo_profile" class="search-user-photo"/></div>
+
+                <div class="col-xs-6">
+                  <div>
+                    <h3 style="font-weight: bold; text-align: center">{{profile.lastname | titlecase}}
+                      {{profile.firstname
+                      | uppercase}}</h3>
+                  </div>
+                </div>
+                <div class="col-xs-3">
+                  <button pButton type="button"
+                          label="Détails"
+                          class="ui-button-raised"
+                          (click)="openProfileDetails(profile.username)"></button>
                 </div>
               </div>
-              <div class="col-xs-3">
-                <button pButton type="button"
-                        label="Détails"
-                        class="ui-button-raised"
-                        (click)="openProfileDetails(profile.username)"></button>
-              </div>
+              <hr>
+              <table>
+                <tr>
+                  <td><p style="color:#8b1941; font-weight:bold;">Ville</p></td>
+                  <td><span style="display:inline-block; width: 15px;"></span></td>
+                  <td><span
+                    style="color: #000; font-weight: lighter">  {{profile.cities.city}} ({{profile.cities.code}})</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td><p style="color:#8b1941; font-weight:bold;">E-mail</p></td>
+                  <td><span style="display:inline-block; width: 15px;"></span></td>
+                  <td><span style="color: #000; font-weight: lighter">  {{profile.emailAdress}}</span></td>
+                </tr>
+                <tr>
+                  <td><p style="color:#8b1941; font-weight:bold;">Tél</p></td>
+                  <td><span style="display:inline-block; width: 15px;"></span></td>
+                  <td><span style="color: #000; font-weight: lighter">  {{profile.phone}}</span></td>
+                </tr>
+              </table>
             </div>
-            <hr>
-            <table>
-              <tr>
-                <td><p style="color:#8b1941; font-weight:bold;">Ville</p></td>
-                <td><span style="display:inline-block; width: 15px;"></span></td>
-                <td><span
-                  style="color: #000; font-weight: lighter">  {{profile.cities.city}} ({{profile.cities.code}})</span>
-                </td>
-              </tr>
-              <tr>
-                <td><p style="color:#8b1941; font-weight:bold;">E-mail</p></td>
-                <td><span style="display:inline-block; width: 15px;"></span></td>
-                <td><span style="color: #000; font-weight: lighter">  {{profile.emailAdress}}</span></td>
-              </tr>
-              <tr>
-                <td><p style="color:#8b1941; font-weight:bold;">Tél</p></td>
-                <td><span style="display:inline-block; width: 15px;"></span></td>
-                <td><span style="color: #000; font-weight: lighter">  {{profile.phone}}</span></td>
-              </tr>
-            </table>
-          </div>
 
-        </p-card>
-        <br>
+          </p-card>
+          <br>
+        </div>
       </div>
     </div>
+
+    <ng-template #no_artist_found>
+      <br><br><br><br><hr>
+      <h3 style="text-align: center">Aucun professionel n'a été trouvé avec les filtres donnés.</h3>
+      <br>
+      <p style="text-align: center">Essayez d'élargir le champ de recherche pour trouver plus de professionnels.</p>
+      <hr><br><br><br><br>
+    </ng-template>
 
     <mat-paginator #MatPaginator
                    [length]="pageLength" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions"

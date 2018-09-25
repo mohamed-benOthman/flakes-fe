@@ -23,7 +23,8 @@ export class SearchComponent implements OnInit {
 
   categoryTitle: string;
   departments: Array<any>;
-  selectedDept: Observable<Department>;
+  // selectedDeptObservable: Observable<Department>;
+  selectedDept: Department;
 
   artistsProfiles: Profile[];
 
@@ -41,6 +42,9 @@ export class SearchComponent implements OnInit {
   selectedCity = null;
   deptList: Observable<any[]>;
   businessType: number; // fonction de la page de recherche affichée
+
+  artistFound = true;
+
 
   constructor(private router: Router, private deptService: DepartmentsService, private searchService: SearchService) {
   }
@@ -87,12 +91,11 @@ export class SearchComponent implements OnInit {
   }
 
   onDeptChanged() {
-    if (this.selectedCity && this.selectedDept) {
-      if (!String(this.selectedCity.code).startsWith(this.selectedDept.code)) {
+    if (this.selectedCity) {
+      if (!String(this.selectedCity.code).startsWith(this.selectedCity.code)) {
         this.citiesSelect.clearFields();
       }
     }
-
     this.updateSearch();
   }
 
@@ -121,10 +124,14 @@ export class SearchComponent implements OnInit {
       this.artistsProfiles = results[0];
       const count = results[1];
 
+      this.artistFound = count > 0;
+
       const remainder = count % this.pageSize === 0 ? 0 : 1;
       this.pageLength = Math.floor(count / this.pageSize + remainder);
+    }, error1 => {
+      console.log('updateSearch erreur:\n ' + JSON.stringify(error1));
+      this.artistFound = false;
     });
-
   }
 
   onPageChange(pageEvent: PageEvent) {

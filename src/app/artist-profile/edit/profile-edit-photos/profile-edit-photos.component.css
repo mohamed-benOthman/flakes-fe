@@ -1,0 +1,7 @@
+.photo {
+  display: inline-block;
+  width: 80px;
+  height: 50px;
+  object-fit: cover;
+  z-index: 1;
+}

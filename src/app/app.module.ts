@@ -12,7 +12,17 @@ import {ArtistProfileComponent} from './artist-profile/artist-profile.component'
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {NgxGalleryModule} from 'ngx-gallery';
 import {ButtonModule} from 'primeng/button';
-import {CardModule, DialogModule, DropdownModule, FileUploadModule, GrowlModule, MultiSelectModule, TabViewModule} from 'primeng/primeng';
+import {
+  BlockUIModule,
+  CardModule,
+  DialogModule,
+  DropdownModule,
+  FileUploadModule,
+  GrowlModule,
+  MultiSelectModule,
+  ProgressSpinnerModule,
+  TabViewModule
+} from 'primeng/primeng';
 import {MatCheckboxModule, MatGridListModule, MatInputModule, MatPaginatorModule} from '@angular/material';
 import {TruncatePipe} from './pipes/truncate.pipe';
 import {StringToNumberPipe} from './pipes/stringToNumber.pipe';
@@ -57,15 +67,14 @@ const appRoutes: Routes = [
     ArtistProfileEditComponent
   ],
   imports: [
-    BrowserModule,
+    BrowserModule, BrowserAnimationsModule,
     FormsModule,
     HttpClientModule,
     ReactiveFormsModule, NgxGalleryModule,
     ButtonModule, DialogModule,
-    MatInputModule, MultiSelectModule, MatCheckboxModule, GrowlModule, CardModule,
-    MatGridListModule, TabViewModule, FileUploadModule, DropdownModule,
+    MatInputModule, MultiSelectModule, MatCheckboxModule, GrowlModule, CardModule, BlockUIModule,
+    MatGridListModule, TabViewModule, FileUploadModule, DropdownModule, ProgressSpinnerModule,
     NgSelectModule, MatPaginatorModule,
-    BrowserAnimationsModule,
     RouterModule.forRoot(appRoutes),
   ],
   providers: [],

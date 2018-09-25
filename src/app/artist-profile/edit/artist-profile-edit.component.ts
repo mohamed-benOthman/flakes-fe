@@ -17,6 +17,8 @@ export class ArtistProfileEditComponent implements OnInit {
   currentProfile: Profile;
   growlMessage: Message[] = [];
 
+  isUploading = false;
+
   constructor(private profileService: ProfileService) { }
 
   ngOnInit() {
@@ -47,8 +49,12 @@ export class ArtistProfileEditComponent implements OnInit {
 
   saveEditProfile() {
     this.profileEditInfoComponent.saveEditProfile();
+    this.profileService.currentProfile.subscribe(profile => {
+
+    });
     this.showSaveSuccess();
   }
+
 
   cancelEditProfile() {
 
