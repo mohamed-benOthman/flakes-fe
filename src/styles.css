@@ -6,6 +6,8 @@
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 @import "~@ng-select/ng-select/themes/material.theme.css";
 
+@import url("https://fonts.googleapis.com/icon?family=Material+Icons");
+
 @font-face {
   font-family: 'Gotham';
   src: url('assets/fonts/Gotham-Thin.eot');

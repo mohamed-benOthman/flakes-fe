@@ -23,7 +23,7 @@ import {
   ProgressSpinnerModule,
   TabViewModule
 } from 'primeng/primeng';
-import {MatCheckboxModule, MatGridListModule, MatInputModule, MatPaginatorModule} from '@angular/material';
+import {MatCheckboxModule, MatGridListModule, MatIconModule, MatInputModule, MatPaginatorModule, MatStepperModule} from '@angular/material';
 import {TruncatePipe} from './pipes/truncate.pipe';
 import {StringToNumberPipe} from './pipes/stringToNumber.pipe';
 import { ProfileInfoComponent } from './artist-profile/display/profile-info/profile-info.component';
@@ -35,6 +35,7 @@ import {HttpClientModule} from '@angular/common/http';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { SelectCitiesComponent } from './utils/select-cities/select-cities.component';
 import { ArtistProfileEditComponent } from './artist-profile/edit/artist-profile-edit.component';
+import { SignupComponent } from './auth/signup/signup.component';
 
 const appRoutes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -45,6 +46,7 @@ const appRoutes: Routes = [
   { path: 'search-microblading', component: SearchComponent },
   { path: 'search-manicure', component: SearchComponent },
   { path: 'search-eyelashes', component: SearchComponent },
+  { path: 'signup', component: SignupComponent },
   { path: '', redirectTo: 'home', pathMatch: 'full'},
   { path: '**', redirectTo: 'home'}
 ];
@@ -64,7 +66,8 @@ const appRoutes: Routes = [
     ProfilePhotosGalleryComponent,
     SearchComponent,
     SelectCitiesComponent,
-    ArtistProfileEditComponent
+    ArtistProfileEditComponent,
+    SignupComponent
   ],
   imports: [
     BrowserModule, BrowserAnimationsModule,
@@ -74,7 +77,7 @@ const appRoutes: Routes = [
     ButtonModule, DialogModule,
     MatInputModule, MultiSelectModule, MatCheckboxModule, GrowlModule, CardModule, BlockUIModule,
     MatGridListModule, TabViewModule, FileUploadModule, DropdownModule, ProgressSpinnerModule,
-    NgSelectModule, MatPaginatorModule,
+    NgSelectModule, MatPaginatorModule, MatStepperModule, MatIconModule,
     RouterModule.forRoot(appRoutes),
   ],
   providers: [],
