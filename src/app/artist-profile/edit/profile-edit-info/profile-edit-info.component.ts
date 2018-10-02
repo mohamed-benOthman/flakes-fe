@@ -59,7 +59,6 @@ export class ProfileEditInfoComponent implements OnInit {
   }
 
   saveEditProfile() {
-    console.log('cities = ' + JSON.stringify(this.currentProfileCopy.cities));
     this.currentProfile = cloneDeep(this.currentProfileCopy);
     this.profileService.updateProfile(this.currentProfile);
   }

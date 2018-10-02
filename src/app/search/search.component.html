@@ -45,9 +45,10 @@
         <ng-select #skinSelect
                    class="custom"
                    [items]="skinTypes"
+                   [multiple]="true"
                    placeholder="Type de peau"
                    (change)="updateSearch()"
-                   [(ngModel)]="selectedSkin">
+                   [(ngModel)]="selectedSkins">
         </ng-select>
       </div>
     </div>
@@ -55,7 +56,7 @@
 
     <div *ngIf="artistFound;else no_artist_found">
       <div class="row search-content">
-        <div class="col-sm-8 col-md-6 col-lg-4 padding-right-none" *ngFor="let profile of artistsProfiles">
+        <div class="col-sm-8 col-md-6 col-lg-4 padding-right-non" *ngFor="let profile of artistsProfiles">
           <p-card>
             <div class="container-fluid">
               <div class="row">
@@ -63,9 +64,8 @@
 
                 <div class="col-xs-6">
                   <div>
-                    <h3 style="font-weight: bold; text-align: center">{{profile.lastname | titlecase}}
-                      {{profile.firstname
-                      | uppercase}}</h3>
+                    <h4 style="font-weight: bold; text-align: center">{{profile.lastname | titlecase}}
+                      {{profile.firstname | uppercase}}</h4>
                   </div>
                 </div>
                 <div class="col-xs-3">

@@ -25,9 +25,9 @@ export interface Profile {
   phone: string;
   street: string;
   cities: any;
-  business: Business[];
+  business: any[]; // Business[];
   emailAdress: string;
-  expertises: Expertise[];
+  expertises: any[]; // Expertise[];
   slogan: string;
   photosUrl: any[];
   photo_profile: string;

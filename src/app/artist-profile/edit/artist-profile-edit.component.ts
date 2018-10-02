@@ -4,6 +4,7 @@ import {ProfileService} from '../../services/profile.service';
 import {ProfileEditInfoComponent} from './profile-edit-info/profile-edit-info.component';
 import {ProfilePhotosGalleryComponent} from '../display/profile-photos-gallery/profile-photos-gallery.component';
 import {Message} from 'primeng/api';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-artist-profile-edit',
@@ -19,11 +20,10 @@ export class ArtistProfileEditComponent implements OnInit {
 
   isUploading = false;
 
-  constructor(private profileService: ProfileService) { }
+  constructor(private profileService: ProfileService, private router: Router) { }
 
   ngOnInit() {
     this.profileService.currentProfile.subscribe(res => {
-      console.log('in app-artist-profile with profile = ' + JSON.stringify(res));
       this.currentProfile = res;
     });
   }
@@ -48,16 +48,29 @@ export class ArtistProfileEditComponent implements OnInit {
   }
 
   saveEditProfile() {
+    console.log('saveEditProfile');
+
     this.profileEditInfoComponent.saveEditProfile();
+
     this.profileService.currentProfile.subscribe(profile => {
+      const formattedProfile = this.profileService.formatProfileForUpload(profile);
+      this.profileService.postProfileObserver(formattedProfile).subscribe(res => {
+          console.log('post profile response: ' + JSON.stringify(formattedProfile));
+          console.log('server response = ' + res);
+          this.showSaveSuccess();
+        },
+        err => {
+          console.log('post profile erreur: ' + JSON.stringify(err));
+        }
+      );
 
     });
-    this.showSaveSuccess();
   }
 
 
   cancelEditProfile() {
-
+    console.log('cancelEditProfile');
+    this.router.navigate(['/profile']);
   }
 
 }

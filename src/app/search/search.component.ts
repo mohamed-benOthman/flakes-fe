@@ -19,7 +19,6 @@ export class SearchComponent implements OnInit {
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild('citiesSelect') citiesSelect: SelectCitiesComponent;
-  @ViewChild('skinSelect') skinSelect: NgSelectComponent;
 
   categoryTitle: string;
   departments: Array<any>;
@@ -38,7 +37,7 @@ export class SearchComponent implements OnInit {
     {value: 2, label: 'Peau foncée'},
     {value: 3, label: 'Peau mate'}
   ];
-  selectedSkin = null;
+  selectedSkins = [];
   selectedCity = null;
   deptList: Observable<any[]>;
   businessType: number; // fonction de la page de recherche affichée
@@ -110,15 +109,15 @@ export class SearchComponent implements OnInit {
   }
 
   updateSearch() {
+    // const skin = (!this.selectedSkins || this.selectedSkins.length === 0) ? null : String(this.selectedSkins[0].value);
     const biz = String(this.businessType);
-    const skin = !this.selectedSkin ? null : String(this.selectedSkin.value);
     const city = !this.selectedCity ? null : String(this.selectedCity.code);
     const dept = !this.selectedDept ? null : this.selectedDept.code;
 
-    console.log(`pageIndex = ${this.pageIndex}`);
+    console.log(`skin = ${JSON.stringify(this.selectedSkins)}`);
 
-    const searchObs = this.searchService.requestSearch(this.pageSize, this.pageIndex, dept, city, biz, skin);
-    const countObs = this.searchService.requestSearchCount(dept, city, biz, skin);
+    const searchObs = this.searchService.requestSearch(this.pageSize, this.pageIndex, dept, city, biz, this.selectedSkins);
+    const countObs = this.searchService.requestSearchCount(dept, city, biz, this.selectedSkins);
 
     forkJoin([searchObs, countObs]).subscribe(results => {
       this.artistsProfiles = results[0];

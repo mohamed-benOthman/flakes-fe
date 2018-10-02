@@ -36,7 +36,6 @@ export class ArtistProfileComponent implements OnInit, OnDestroy {
     }
 
     this.profileService.currentProfile.subscribe(res => {
-      console.log('in app-artist-profile with profile = ' + JSON.stringify(res));
       this.currentProfile = res;
     });
   }
@@ -62,8 +61,6 @@ export class ArtistProfileComponent implements OnInit, OnDestroy {
   saveEditProfile() {
     this.displayEditProfileDialog = false;
     this.profileEditComponent.saveEditProfile();
-
-
   }
 
   showPhotoDeletedSuccess() {

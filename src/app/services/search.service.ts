@@ -19,7 +19,7 @@ export class SearchService {
   // exemple: http://82.165.253.223:3000/maquilleuse/|34000;montpellier|1|1,3/2|3|4/0/10
   requestSearch(elementsNumber: number = 10, displayedPage: number = 0,
                 dept: string = null, city: string = null,
-                businessType: string = null, expertiseType: string = null) {
+                businessType: string = null, expertiseType: any[] = null) {
 
     const typeURL = this.getTypePart(dept, city, businessType, expertiseType);
     const paramURL = this.getParamPart(dept, city, businessType, expertiseType);
@@ -40,7 +40,7 @@ export class SearchService {
         }));
   }
 
-  requestSearchCount(dept: string = null, city: string = null, businessType: string = null, expertiseType: string = null) {
+  requestSearchCount(dept: string = null, city: string = null, businessType: string = null, expertiseType: any[] = null) {
     const typeURL = this.getTypePart(dept, city, businessType, expertiseType);
     const paramURL = this.getParamPart(dept, city, businessType, expertiseType);
 
@@ -50,7 +50,7 @@ export class SearchService {
   }
 
 
-  private getParamPart(dept: string, city: string, businessType: string, expertiseType: string) {
+  private getParamPart(dept: string, city: string, businessType: string, expertiseType: any[]) {
     let paramURL = '';
 
     if (dept !== null) {
@@ -68,15 +68,20 @@ export class SearchService {
     }
     paramURL = `${paramURL}|`;
 
-    if (expertiseType !== null) {
-      paramURL += expertiseType.trim();
+    if (expertiseType !== null && expertiseType.length > 0) {
+      for (const expertise of expertiseType) {
+        paramURL += expertise.value + ',';
+      }
+      if (paramURL !== null && paramURL.endsWith(',')) {
+        paramURL = paramURL.substring(0, paramURL.length - 1);
+      }
     }
 
     return paramURL;
   }
 
 
-  private getTypePart(dept: string, city: string, businessType: string, expertiseType: string) {
+  private getTypePart(dept: string, city: string, businessType: string, expertiseType: any[]) {
     let typeURL = '';
 
     if (dept !== null) {
@@ -91,7 +96,7 @@ export class SearchService {
       typeURL += '|3';
     }
 
-    if (expertiseType !== null) {
+    if (expertiseType !== null && expertiseType.length > 0) {
       typeURL += '|4';
     }
 

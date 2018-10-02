@@ -16,12 +16,16 @@ export class ProfileEditPhotosComponent implements OnInit {
   isPhotoValid = true;
 
   currentProfile: Profile;
-  files: File[] = [];
-  photosUrl = [];
+  files: File[] = []; // photos selectionnées pour l'envoi
+  photosUrl = []; // url des photos selectionnées pour l'envoi
 
+  /********************
+   * PARAMETRES SERVEUR
+   ********************/
   serverURL = 'http://82.165.253.223:3000/files/upload';
   serverParam = 'avatar1';
   isUploading = false;
+
 
   @Output() photoDeletedEvent = new EventEmitter<number>();
   @Output() photoSentEvent = new EventEmitter<any>();
@@ -32,6 +36,13 @@ export class ProfileEditPhotosComponent implements OnInit {
 
   ngOnInit() {
     this.profileService.currentProfile.subscribe(res => this.currentProfile = res);
+  }
+
+  resetAll() {
+    this.files = [];
+    this.photosUrl = [];
+    this.isPhotoValid = true;
+    this.isUploading = false;
   }
 
   onDeletePhoto(index) {
@@ -88,16 +99,6 @@ export class ProfileEditPhotosComponent implements OnInit {
 
   onUploadPhotos() {
     console.log('onUploadPhotos event');
-    // this.photoSentEvent.emit(true);
-
-    /*const uploadData = new FormData();
-    for (const file of this.files) {
-      uploadData.append(this.serverParam, file, file.name);
-    }
-    this.http.post(this.serverURL, uploadData)
-      .subscribe(event => {
-        console.log('response = ' + JSON.stringify(event));
-      });*/
     this.uploadingEvent.emit(true);
 
     const observables = [];
@@ -109,7 +110,14 @@ export class ProfileEditPhotosComponent implements OnInit {
 
     forkJoin(observables).subscribe(results => {
       console.log('response = ' + JSON.stringify(results));
+      if (results && results.length > 0) {
+        for (const photo of results) {
+          this.currentProfile.photosUrl.push(photo);
+        }
+      }
+      this.profileService.updateProfile(this.currentProfile);
       this.uploadingEvent.emit(false);
+      this.resetAll();
     }, error1 => this.uploadingEvent.emit(false));
   }
 

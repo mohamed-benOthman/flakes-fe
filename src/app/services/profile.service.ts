@@ -2,16 +2,19 @@ import {Injectable} from '@angular/core';
 import {BehaviorSubject, forkJoin, Observable, of} from 'rxjs';
 import {Profile} from '../models/profile.model';
 import {BusinessExpertService} from './business-expert.service';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import * as cloneDeep from 'lodash/cloneDeep';
 import {Business} from '../models/business.model';
 import {map, tap} from 'rxjs/operators';
+import {RequestOptions} from '@angular/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProfileService {
 
+  currentProfile: Observable<Profile>;
+  isAuthenticated = true;
   private emptyProfile: Profile = {
     idMaquilleuse: 0,
     lastname: '',
@@ -28,13 +31,8 @@ export class ProfileService {
     expertises: []
 
   };
-
   private baseURL = 'http://82.165.253.223:3000/maquilleuse';
-
   private userProfile: BehaviorSubject<Profile>;
-  currentProfile: Observable<Profile>;
-
-  isAuthenticated = true;
 
   constructor(private http: HttpClient, private businessExpertiseService: BusinessExpertService) {
     this.userProfile = new BehaviorSubject<Profile>(this.emptyProfile);
@@ -70,5 +68,67 @@ export class ProfileService {
 
   updateProfile(profile) {
     this.userProfile.next(profile);
+  }
+
+  postProfileObserver(profile) {
+    const regex = /\"/gi;
+    // console.log('postProfileObserver: ' + JSON.stringify(profile).replace(regex, '\\\"'));
+    console.log('postProfileObserver: ' + JSON.stringify(profile));
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'accept': 'application/json'
+      })
+    };
+
+    return this.http.post(this.baseURL, JSON.stringify(profile));
+  }
+
+  formatProfileForUpload(profile) {
+    const formattedProfile = cloneDeep(profile);
+    let business = '', expertises = '', photosUrl = '', cities = '';
+
+    if (profile.business) {
+      for (const biz of profile.business) {
+        if (biz.checked) {
+          business += biz.idBusiness + '|';
+        }
+      }
+      if (business.endsWith('|')) {
+        business = business.substring(0, business.length - 1);
+      }
+    }
+
+    if (profile.expertises) {
+      for (const expt of profile.expertises) {
+        if (expt.checked) {
+          expertises += expt.idExpertise + '|';
+        }
+      }
+      if (expertises.endsWith('|')) {
+        expertises = expertises.substring(0, expertises.length - 1);
+      }
+    }
+
+    if (profile.photosUrl) {
+      for (const photo of profile.photosUrl) {
+        photosUrl += photo.id + '|';
+      }
+      if (photosUrl.endsWith('|')) {
+        photosUrl = photosUrl.substring(0, photosUrl.length - 1);
+      }
+    }
+
+    if (profile.cities) {
+      cities = profile.cities.code + ';' + profile.cities.city;
+    }
+
+    formattedProfile.business = business;
+    formattedProfile.expertises = expertises;
+    formattedProfile.photosUrl = photosUrl;
+    formattedProfile.cities = cities;
+
+    return formattedProfile;
   }
 }
