@@ -10,164 +10,211 @@
   </div>
 </section>
 
-<div class="container-fluid">
-  <div class="row">
-    <div class="col-sm-8">
-      <mat-vertical-stepper [linear]="false" #stepper (selectionChange)="test($event)">
-        <mat-step [stepControl]="firstFormGroup">
-          <form [formGroup]="firstFormGroup">
-            <ng-template matStepLabel>Identifiant et adresse e-mail</ng-template>
-            <mat-form-field style="width: 40%">
-              <input matInput placeholder="Identifiant" formControlName="firstCtrl" required>
-            </mat-form-field>
-            <span style="display: inline-block; width: 20px"></span>
-            <mat-form-field style="width: 40%">
-              <input matInput placeholder="e-mail" formControlName="firstCtrl" required>
-            </mat-form-field>
-
-            <div>
-              <mat-form-field style="width: 40%; margin-top: 15px">
-                <input matInput placeholder="Mot de passe" [type]="'password'" formControlName="firstCtrl" required>
+<section>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-8">
+        <mat-vertical-stepper [linear]="false" #stepper (selectionChange)="test($event)">
+          <!------------------------->
+          <!--STEP 1-->
+          <!------------------------->
+          <mat-step [stepControl]="stepOneGroup">
+            <form [formGroup]="stepOneGroup">
+              <ng-template matStepLabel>Identifiant et adresse e-mail</ng-template>
+              <mat-form-field style="width: 40%">
+                <input matInput placeholder="Identifiant" formControlName="username" required>
               </mat-form-field>
               <span style="display: inline-block; width: 20px"></span>
               <mat-form-field style="width: 40%">
-                <input matInput placeholder="Re-saisir le mot de passe" [type]="'password'" formControlName="firstCtrl" required>
+                <input matInput placeholder="e-mail" formControlName="email" required>
               </mat-form-field>
-            </div>
+
+
+              <div *ngIf="stepOneGroup.get('username').hasError('minlength')" class="alert alert-warning">
+                <span>L'identifiant doit faire au moins {{usernameMinLen}} caractères</span>
+              </div>
+
+              <div>
+                <mat-form-field style="width: 40%; margin-top: 15px">
+                  <input matInput placeholder="Mot de passe" [type]="'password'" formControlName="password" required>
+                </mat-form-field>
+                <span style="display: inline-block; width: 20px"></span>
+                <mat-form-field style="width: 40%">
+                  <input matInput placeholder="Re-saisir le mot de passe" [type]="'password'" formControlName="confirmPassword" required>
+                </mat-form-field>
+              </div>
+
+              <!--Password qui ne match pas-->
+              <div *ngIf="!stepOneGroup.get('confirmPassword').hasError('ConfirmPasswordUndefined') && stepOneGroup.get('confirmPassword').hasError('MatchPassword')"
+                   class="alert alert-danger">
+                <p>Les 2 mots de passe doivent correspondre.</p>
+              </div>
+
+              <div *ngIf="stepOneGroup.get('password').hasError('minlength')" class="alert alert-warning">
+                <span>Le mot de passe doit faire entre {{passwordMinLen}} et {{passwordMaxLen}} caractères</span>
+              </div>
+              <!--<div style="margin-top: 50px">
+                <button mat-button matStepperNext [disabled]="!stepOneGroup.valid">Suivant</button>
+              </div>-->
+            </form>
+          </mat-step>
+
+          <!------------------------->
+          <!--STEP 2-->
+          <!------------------------->
+          <mat-step [stepControl]="stepTwoGroup">
+            <form [formGroup]="stepTwoGroup">
+              <ng-template matStepLabel>Identité et Coordonnées</ng-template>
+              <mat-form-field style="width: 48%">
+                <input matInput placeholder="Nom" formControlName="lastName" required>
+              </mat-form-field>
+              <span style="display: inline-block; width: 4%"></span>
+              <mat-form-field style="width: 48%">
+                <input matInput placeholder="Prénom" formControlName="firstName" required>
+              </mat-form-field>
+
+              <mat-form-field style="width: 100%; margin-top: 25px">
+                <input matInput placeholder="N° et Rue" formControlName="street" required>
+              </mat-form-field>
+
+              <app-select-cities [isValid]="selectedCity" [isRequired]="true"
+                                 (zipCodeCitySelected)="onCitySelected($event)"></app-select-cities>
+
+              <mat-form-field style="margin-top: 25px; width: 45%">
+                <input matInput placeholder="Téléphone" (keypress)="phoneChecker($event)">
+              </mat-form-field>
+
+              <!--<div style="margin-top: 50px; margin-bottom: 30px">
+                <button mat-button matStepperNext>Valider</button>
+              </div>-->
+            </form>
+          </mat-step>
+
+          <!------------------------->
+          <!--STEP 3-->
+          <!------------------------->
+          <mat-step [stepControl]="thirdFormGroup">
+            <form [formGroup]="thirdFormGroup">
+              <ng-template matStepLabel>Compétences et Expertises</ng-template>
+              <p style="margin-bottom: 20px; margin-top: 20px; font-weight: bold">Compétences</p>
+              <div class="container">
+                <div class="row">
+                  <div class="col-sm-4">
+                    <mat-checkbox>Maquillages</mat-checkbox>
+                  </div>
+                  <div class="col-sm-4">
+                    <mat-checkbox>Microblading</mat-checkbox>
+                  </div>
+                  <div class="col-sm-4"></div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-4">
+                    <mat-checkbox>Manucure</mat-checkbox>
+                  </div>
+                  <div class="col-sm-4">
+                    <mat-checkbox>Extension de cil</mat-checkbox>
+                  </div>
+                  <div class="col-sm-4"></div>
+                </div>
+              </div>
+
+              <hr>
+
+              <p style="margin-bottom: 20px; font-weight: bold">Expertises</p>
+              <div class="container">
+                <div class="row">
+                  <div class="col-lg-12">
+                    <mat-checkbox>Expertise 1</mat-checkbox>
+                  </div>
+                  <div class="col-lg-12">
+                    <mat-checkbox>Expertise 2</mat-checkbox>
+                  </div>
+                  <div class="col-lg-12">
+                    <mat-checkbox>Expertise 3</mat-checkbox>
+                  </div>
+                </div>
+              </div>
+
+              <!--<div style="margin-top: 50px">
+                <button mat-button matStepperNext>Valider</button>
+              </div>-->
+            </form>
+          </mat-step>
+
+          <!------------------------->
+          <!--STEP 4-->
+          <!------------------------->
+          <mat-step [stepControl]="stepTwoGroup">
+            <form [formGroup]="stepTwoGroup">
+              <ng-template matStepLabel>Présentation</ng-template>
+
+              <mat-form-field style="width: 100%">
+                <textarea #sloganArea style="display:inline-block; width: 100%; min-height: 80px;" matInput></textarea>
+                <mat-hint align="end">{{sloganArea.value.length}} / {{sloganMaxLength}}</mat-hint>
+              </mat-form-field>
+
+              <!--<div style="margin-top: 50px">
+                <button mat-button matStepperNext>Valider</button>
+              </div>-->
+            </form>
+          </mat-step>
+
+          <mat-step>
+            <ng-template matStepLabel>Terminer</ng-template>
             <div style="margin-top: 50px">
-              <button mat-button matStepperNext>Valider</button>
+              <!--<button mat-button (click)="stepper.reset()">Remettre à zéro</button>-->
+              <button mat-button>Créer le compte!</button>
             </div>
-          </form>
-        </mat-step>
+          </mat-step>
+        </mat-vertical-stepper>
+      </div>
 
-        <mat-step [stepControl]="secondFormGroup">
-          <form [formGroup]="secondFormGroup">
-            <ng-template matStepLabel>Identité et Coordonnées</ng-template>
-            <mat-form-field style="width: 48%">
-              <input matInput placeholder="Nom" formControlName="secondCtrl" required>
-            </mat-form-field>
-            <span style="display: inline-block; width: 4%"></span>
-            <mat-form-field style="width: 48%">
-              <input matInput placeholder="Prénom" formControlName="secondCtrl" required>
-            </mat-form-field>
-
-            <mat-form-field style="width: 100%; margin-top: 25px">
-              <input matInput placeholder="N° et Rue" formControlName="secondCtrl" required>
-            </mat-form-field>
-            <app-select-cities [disableComponent]="false" [multipleValues]="false"></app-select-cities>
-
-            <mat-form-field style="margin-top: 25px; width: 45%">
-              <input matInput placeholder="Téléphone" (keypress)="phoneChecker($event)">
-            </mat-form-field>
-
-            <div style="margin-top: 50px; margin-bottom: 30px">
-              <button mat-button matStepperNext>Valider</button>
-            </div>
-          </form>
-        </mat-step>
-
-        <mat-step [stepControl]="thirdFormGroup">
-          <form [formGroup]="thirdFormGroup">
-            <ng-template matStepLabel>Compétences et Expertises</ng-template>
-            <p style="margin-bottom: 20px; margin-top: 20px; font-weight: bold">Compétences</p>
-            <div class="container">
-              <div class="row">
-                <div class="col-sm-4"><mat-checkbox>Maquillages</mat-checkbox></div>
-                <div class="col-sm-4"><mat-checkbox>Microblading</mat-checkbox></div>
-                <div class="col-sm-4"></div>
-              </div>
-              <div class="row">
-                <div class="col-sm-4"><mat-checkbox>Manucure</mat-checkbox></div>
-                <div class="col-sm-4"><mat-checkbox>Extension de cil</mat-checkbox></div>
-                <div class="col-sm-4"></div>
-              </div>
-            </div>
-
+      <!------------------------->
+      <!--CARD-->
+      <!------------------------->
+      <div class="col-sm-4">
+        <p-card [style]="{marginTop: '30px'}" title="Etape {{selectedStep + 1}}">
+          <hr>
+          <ng-container *ngIf="selectedStep === 0">
+            <p>• Saisissez un identifiant (qui doit être unique sur notre site) et une adresse email.</p>
+            <br>
+            <p>• Le mot de passe vous permettra de vous connecter à votre espace</p>
             <hr>
-
-            <p style="margin-bottom: 20px; font-weight: bold">Expertises</p>
-            <div class="container">
-              <div class="row">
-                <div class="col-lg-12">
-                  <mat-checkbox>Expertise 1</mat-checkbox>
-                </div>
-                <div class="col-lg-12">
-                  <mat-checkbox>Expertise 2</mat-checkbox>
-                </div>
-                <div class="col-lg-12">
-                  <mat-checkbox>Expertise 3</mat-checkbox>
-                </div>
-              </div>
+            <div class="alert alert-secondary">
+              <p style="color: #8b1941">➦ L'identifiant doit faire au minimum {{usernameMinLen}} caractères</p>
+              <p style="color: #8b1941">➦ Le mot de passe doit faire entre {{passwordMinLen}} et {{passwordMaxLen}} caractères</p>
             </div>
-
-            <div style="margin-top: 50px">
-              <button mat-button matStepperNext>Valider</button>
-            </div>
-          </form>
-        </mat-step>
-
-        <mat-step [stepControl]="firstFormGroup">
-          <form [formGroup]="firstFormGroup">
-            <ng-template matStepLabel>Présentation</ng-template>
-
-            <mat-form-field style="width: 100%">
-              <textarea #sloganArea style="display:inline-block; width: 100%; min-height: 80px;" matInput></textarea>
-              <mat-hint align="end">{{sloganArea.value.length}} / {{sloganMaxLength}}</mat-hint>
-            </mat-form-field>
-
-            <div style="margin-top: 50px">
-              <button mat-button matStepperNext>Valider</button>
-            </div>
-          </form>
-        </mat-step>
-
-        <mat-step>
-          <ng-template matStepLabel>Terminer</ng-template>
-          <div style="margin-top: 50px">
-            <!--<button mat-button (click)="stepper.reset()">Remettre à zéro</button>-->
-            <button mat-button>Créer le compte!</button>
-          </div>
-        </mat-step>
-      </mat-vertical-stepper>
-
-    </div>
-    <div class="col-sm-4">
-      <p-card [style]="{marginTop: '30px'}" title="Etape {{selectedStep + 1}}">
-        <hr>
-        <ng-container *ngIf="selectedStep === 0">
-          <p>• Saisissez un identifiant (qui doit être unique sur notre site) et une adresse email.</p>
-          <br>
-          <p>• Le mot de passe vous permettra de vous connecter à votre espace</p>
-        </ng-container>
-        <ng-container *ngIf="selectedStep === 1">
-          <p>Ces informations permettront</p>
-          <br>
-          <ul>
-            <li>de pouvoir vous connaître</li>
-            <li>de pouvoir vous retrouver en fonction de la ville ou du département</li>
-            <li>de pouvoir vous contacter sur votre téléphone</li>
-          </ul>
-        </ng-container>
-        <ng-container *ngIf="selectedStep === 2">
-          <p>Définissez ici vos compétences et vos expertises.</p>
-          <br>
-          <p><strong>Cela permettra à vos futurs clients de plus facilement vous retrouver.</strong></p>
-        </ng-container>
-        <ng-container *ngIf="selectedStep === 3">
-          <p>Présentez-vous en quelques mots!</p>
-          <br>
-          <p>Une jolie phrase d'accroche donnera envie aux prospects d'entrer en contact avec vous.</p>
-        </ng-container>
-        <ng-container *ngIf="selectedStep === 4">
-          <p>Il ne vous reste plus qu'à créer votre compte!</p>
-          <br>
-          <p>Une fois la création terminée, vous pourrez ajouter une photo de profil mais également des photos à ajouter à votre galerie.</p>
-          <br>
-          <p><i>Vous pourrez toujours modifier les informations saisies dans cette page (en dehors de votre idenfiant et de votre adresse email)</i></p>
-        </ng-container>
-      </p-card>
+          </ng-container>
+          <ng-container *ngIf="selectedStep === 1">
+            <p>Ces informations permettront</p>
+            <br>
+            <ul>
+              <li>de pouvoir vous connaître</li>
+              <li>de pouvoir vous retrouver en fonction de la ville ou du département</li>
+              <li>de pouvoir vous contacter sur votre téléphone</li>
+            </ul>
+          </ng-container>
+          <ng-container *ngIf="selectedStep === 2">
+            <p>Définissez ici vos compétences et vos expertises.</p>
+            <br>
+            <p><strong>Cela permettra à vos futurs clients de plus facilement vous retrouver.</strong></p>
+          </ng-container>
+          <ng-container *ngIf="selectedStep === 3">
+            <p>Présentez-vous en quelques mots!</p>
+            <br>
+            <p>Une jolie phrase d'accroche donnera envie aux prospects d'entrer en contact avec vous.</p>
+          </ng-container>
+          <ng-container *ngIf="selectedStep === 4">
+            <p>Il ne vous reste plus qu'à créer votre compte!</p>
+            <br>
+            <p>Une fois la création terminée, vous pourrez ajouter une photo de profil mais également des photos à
+              ajouter à votre galerie.</p>
+            <br>
+            <p><i>Vous pourrez toujours modifier les informations saisies dans cette page (en dehors de votre idenfiant
+              et de votre adresse email)</i></p>
+          </ng-container>
+        </p-card>
+      </div>
     </div>
   </div>
-</div>
-
-<ng-template></ng-template>
+</section>

@@ -17,22 +17,25 @@ import {CitiesService} from '../../services/cities.service';
   selector: 'app-select-cities',
   changeDetection: ChangeDetectionStrategy.Default,
   template: `
-    <ng-select class="custom"
-               [disabled]="disableComponent"
-               [items]="citiesResult | async"
-               bindLabel="city"
-               [addTag]="false"
-               [multiple]="multipleValues"
-               [hideSelected]="true"
-               [loading]="citiesLoading"
-               [typeahead]="citiesSubject"
-               [virtualScroll]="true"
-               [(ngModel)]="citiesSelected"
-               maxSelectedItems="3"
-               addTagText="Rechercher" clearAllText="Tout effacer" loadingText="Recherche en cours..."
-               notFoundText="Aucun élément trouvé" placeholder="Ville ou Code Postal"
-               typeToSearchText="Saisir pour lancer la recherche"
-               (change)="onChange($event)">
+    <ng-select
+      [ngClass]="{'custom': isValid, 'customError': !isValid}"
+      [disabled]="disableComponent"
+      [items]="citiesResult | async"
+      bindLabel="city"
+      [addTag]="false"
+      [multiple]="multipleValues"
+      [hideSelected]="true"
+      [loading]="citiesLoading"
+      [typeahead]="citiesSubject"
+      [virtualScroll]="true"
+      [(ngModel)]="citiesSelected"
+      [appendTo]="'body'"
+      maxSelectedItems="3"
+      addTagText="Rechercher" clearAllText="Tout effacer" loadingText="Recherche en cours..."
+      notFoundText="Aucun élément trouvé" placeholder="Ville ou Code Postal {{isRequired ? '*' : ''}}"
+      typeToSearchText="Saisir pour lancer la recherche"
+      (change)="onChange($event)"
+      (focus)="onFocus()">
 
       <ng-template ng-label-tmp let-item="item" let-clear="clear">
         <span class="ng-value-label" style="font-size: small">{{item.code}} ({{item.city}})</span>
@@ -54,6 +57,8 @@ export class SelectCitiesComponent implements OnInit {
   @Input() citiesSelected = [];
   @Input() disableComponent = false;
   @Input() departmentFilter = 0; // Si 0 on prend tous les départements
+  @Input() isValid = true;
+  @Input() isRequired = false;
 
   @Output() zipCodeCitySelected = new EventEmitter<any>();
 
@@ -97,6 +102,10 @@ export class SelectCitiesComponent implements OnInit {
           tap(() => this.citiesLoading = false)))
       )
     );
+  }
+
+  onFocus() {
+    console.log('onFocus');
   }
 
 }
