@@ -94,43 +94,51 @@
           <!--STEP 3-->
           <!------------------------->
           <mat-step [stepControl]="thirdFormGroup">
-            <form [formGroup]="thirdFormGroup">
+
               <ng-template matStepLabel>Compétences et Expertises</ng-template>
-              <p style="margin-bottom: 20px; margin-top: 20px; font-weight: bold">Compétences</p>
+              <!--<p style="margin-bottom: 20px; margin-top: 20px; font-weight: bold">Compétences</p>-->
+              <div class="alert alert-warning">
+                <p>Compétences</p>
+              </div>
               <div class="container">
                 <div class="row">
                   <div class="col-sm-4">
-                    <mat-checkbox>Maquillages</mat-checkbox>
+                    <mat-checkbox [(ngModel)]="makeupChecked">Maquillages</mat-checkbox>
                   </div>
                   <div class="col-sm-4">
-                    <mat-checkbox>Microblading</mat-checkbox>
+                    <mat-checkbox [(ngModel)]="microbladingChecked">Microblading</mat-checkbox>
                   </div>
                   <div class="col-sm-4"></div>
                 </div>
                 <div class="row">
                   <div class="col-sm-4">
-                    <mat-checkbox>Manucure</mat-checkbox>
+                    <mat-checkbox [(ngModel)]="manicureChecked">Manucure</mat-checkbox>
                   </div>
                   <div class="col-sm-4">
-                    <mat-checkbox>Extension de cil</mat-checkbox>
+                    <mat-checkbox [(ngModel)]="eyesExtenChecked">Extension de cil</mat-checkbox>
                   </div>
                   <div class="col-sm-4"></div>
                 </div>
               </div>
+              <!--<div *ngIf="!makeupChecked && !microbladingChecked && !manicureChecked && !eyesExtenChecked" style="margin-top: 10px">-->
+              <div *ngIf="!isBusinnessValid()" style="margin-top: 10px">
+                <p style="color: red; font-size: small;">Veuillez sélectionner une compétence au minimum</p>
+              </div>
 
-              <hr>
-
-              <p style="margin-bottom: 20px; font-weight: bold">Expertises</p>
+              <!--<p style="margin-bottom: 20px; font-weight: bold">Expertises</p>-->
+              <div class="alert alert-warning" style="margin-top: 50px">
+                <p>Expertises</p>
+              </div>
               <div class="container">
                 <div class="row">
                   <div class="col-lg-12">
-                    <mat-checkbox>Expertise 1</mat-checkbox>
+                    <mat-checkbox>Peau claire</mat-checkbox>
                   </div>
                   <div class="col-lg-12">
-                    <mat-checkbox>Expertise 2</mat-checkbox>
+                    <mat-checkbox>Peau foncée</mat-checkbox>
                   </div>
                   <div class="col-lg-12">
-                    <mat-checkbox>Expertise 3</mat-checkbox>
+                    <mat-checkbox>Peau mate</mat-checkbox>
                   </div>
                 </div>
               </div>
@@ -138,32 +146,33 @@
               <!--<div style="margin-top: 50px">
                 <button mat-button matStepperNext>Valider</button>
               </div>-->
-            </form>
           </mat-step>
 
           <!------------------------->
           <!--STEP 4-->
           <!------------------------->
           <mat-step [stepControl]="stepTwoGroup">
-            <form [formGroup]="stepTwoGroup">
               <ng-template matStepLabel>Présentation</ng-template>
 
               <mat-form-field style="width: 100%">
-                <textarea #sloganArea style="display:inline-block; width: 100%; min-height: 80px;" matInput></textarea>
+                <textarea #sloganArea maxlength="500" style="display:inline-block; width: 100%; min-height: 80px;" placeholder="Présentez-vous en quelques mots" matInput></textarea>
                 <mat-hint align="end">{{sloganArea.value.length}} / {{sloganMaxLength}}</mat-hint>
               </mat-form-field>
 
               <!--<div style="margin-top: 50px">
                 <button mat-button matStepperNext>Valider</button>
               </div>-->
-            </form>
           </mat-step>
 
           <mat-step>
             <ng-template matStepLabel>Terminer</ng-template>
+            <div *ngIf="!isReadyToPost()" class="alert alert-danger">
+              <p *ngIf="!stepOneGroup.valid">• Des informations sont manquantes dans l'étape 1</p>
+              <p *ngIf="!stepTwoGroup.valid">• Des informations sont manquantes dans l'étape 2</p>
+              <p *ngIf="!isBusinnessValid()">• Des informations sont manquantes dans l'étape 3</p>
+            </div>
             <div style="margin-top: 50px">
-              <!--<button mat-button (click)="stepper.reset()">Remettre à zéro</button>-->
-              <button mat-button>Créer le compte!</button>
+              <button class="btn btn-primary-submit hvr-shadow" [disabled]="!isReadyToPost()">Créer le compte!</button>
             </div>
           </mat-step>
         </mat-vertical-stepper>
@@ -173,7 +182,7 @@
       <!--CARD-->
       <!------------------------->
       <div class="col-sm-4">
-        <p-card [style]="{marginTop: '30px'}" title="Etape {{selectedStep + 1}}">
+        <p-card [style]="{marginTop: '30px', color: '#ff7043'}" title="Etape {{selectedStep + 1}}">
           <hr>
           <ng-container *ngIf="selectedStep === 0">
             <p>• Saisissez un identifiant (qui doit être unique sur notre site) et une adresse email.</p>

@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {MatStepper} from '@angular/material';
+import {MatCheckboxChange, MatStepper} from '@angular/material';
 import {PasswordValidation} from '../../utils/password.validation';
 
 @Component({
@@ -16,6 +16,7 @@ export class SignupComponent implements OnInit {
   stepOneGroup: FormGroup;
   stepTwoGroup: FormGroup;
   thirdFormGroup: FormGroup;
+
   sloganMaxLength = 500;
   selectedStep = 0;
   passwordMaxLen = 15;
@@ -23,6 +24,10 @@ export class SignupComponent implements OnInit {
   usernameMinLen = 4;
 
   selectedCity = null;
+  makeupChecked = false;
+  microbladingChecked = false;
+  manicureChecked = false;
+  eyesExtenChecked = false;
 
   constructor(private _formBuilder: FormBuilder) {
   }
@@ -62,5 +67,13 @@ export class SignupComponent implements OnInit {
   onCitySelected(city) {
     this.selectedCity = city;
     console.log('selected city = ' + JSON.stringify(this.selectedCity));
+  }
+
+  isBusinnessValid() {
+    return this.makeupChecked || this.microbladingChecked || this.manicureChecked || this.eyesExtenChecked;
+  }
+
+  isReadyToPost() {
+    return this.stepOneGroup.valid && this.stepTwoGroup.valid && this.isBusinnessValid();
   }
 }
