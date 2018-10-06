@@ -58,4 +58,13 @@
   ----- POPUP DIALOG WITH AUTO-DISMISS
   ------------------------------>
   <p-growl [(value)]="growlMessage"></p-growl>
+
+  <p-dialog header="Eléments manquants" [(visible)]="displayInvalidProfile" [modal]="true" [responsive]="true">
+    Veuillez vérifier les informations du profile.
+    <br>
+    Certains éléments requis sont manquants.
+    <p-footer>
+      <button type="button" pButton icon="pi pi-check" (click)="displayInvalidProfile=false" label="Ok"></button>
+    </p-footer>
+  </p-dialog>
 </section>

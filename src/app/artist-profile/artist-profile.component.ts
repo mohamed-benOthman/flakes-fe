@@ -24,7 +24,8 @@ export class ArtistProfileComponent implements OnInit, OnDestroy {
   displayEditPhotosDialog: boolean;
   growlMessage: Message[] = [];
 
-  constructor(private profileService: ProfileService, private router: Router, private activeRoute: ActivatedRoute) { }
+  constructor(private profileService: ProfileService, private router: Router, private activeRoute: ActivatedRoute) {
+  }
 
   ngOnInit() {
     this.displayEditProfileDialog = false;
@@ -68,7 +69,8 @@ export class ArtistProfileComponent implements OnInit, OnDestroy {
     this.growlMessage.push({
       severity: 'success',
       summary: 'Photo supprimée',
-      detail: 'La photo a été correctement supprimée sur le serveur'});
+      detail: 'La photo a été correctement supprimée sur le serveur'
+    });
   }
 
   showPhotoUploadedSuccess() {
@@ -76,7 +78,8 @@ export class ArtistProfileComponent implements OnInit, OnDestroy {
     this.growlMessage.push({
       severity: 'success',
       summary: 'Photo(s) envoyée(s)',
-      detail: ''});
+      detail: ''
+    });
   }
 
   isEditEnabled() {

@@ -76,4 +76,8 @@ export class SignupComponent implements OnInit {
   isReadyToPost() {
     return this.stepOneGroup.valid && this.stepTwoGroup.valid && this.isBusinnessValid();
   }
+
+  submitPost() {
+    console.log('will submit: ' + JSON.stringify(this.stepOneGroup.value));
+  }
 }

@@ -3,7 +3,9 @@
     <div class="row">
       <div class="col-md-12">
         <div class="search-heading">
-          <h1>Création de compte</h1>
+          <h1 style="font-family: 'Tangerine', serif;
+                    text-shadow: 6px 6px 6px #aaa;
+                    font-size: 60px;">Création de compte</h1>
         </div>
       </div>
     </div>
@@ -172,7 +174,9 @@
               <p *ngIf="!isBusinnessValid()">• Des informations sont manquantes dans l'étape 3</p>
             </div>
             <div style="margin-top: 50px">
-              <button class="btn btn-primary-submit hvr-shadow" [disabled]="!isReadyToPost()">Créer le compte!</button>
+              <button class="btn btn-primary-submit hvr-shadow"
+                      [disabled]="!isReadyToPost()"
+                      (click)="submitPost()">Créer le compte!</button>
             </div>
           </mat-step>
         </mat-vertical-stepper>
@@ -182,7 +186,7 @@
       <!--CARD-->
       <!------------------------->
       <div class="col-sm-4">
-        <p-card [style]="{marginTop: '30px', color: '#ff7043'}" title="Etape {{selectedStep + 1}}">
+        <p-card [style]="{marginTop: '30px', color: '#ff5123'}" title="Etape {{selectedStep + 1}}">
           <hr>
           <ng-container *ngIf="selectedStep === 0">
             <p>• Saisissez un identifiant (qui doit être unique sur notre site) et une adresse email.</p>

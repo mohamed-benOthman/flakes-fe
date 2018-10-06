@@ -63,6 +63,16 @@ export class ProfileEditInfoComponent implements OnInit {
     this.profileService.updateProfile(this.currentProfile);
   }
 
+  isValidProfile() {
+    const isFirstNameValid = this.currentProfileCopy.firstname && this.currentProfileCopy.firstname.length > 0;
+    const isLastNameValid = this.currentProfileCopy.lastname && this.currentProfileCopy.lastname.length > 0;
+    const isStreetValid = this.currentProfileCopy.street && this.currentProfileCopy.street.length > 0;
+    const isCityValid = this.currentProfileCopy.cities;
+    const isExpertiseValid = this.currentProfileCopy.expertises;
+
+    return isFirstNameValid && isLastNameValid && isStreetValid && isCityValid && isExpertiseValid;
+  }
+
   profilePhotoChanged(event) {
     if (event.target.files && event.target.files[0]) {
       console.log('photo size == ' + event.target.files[0].size);

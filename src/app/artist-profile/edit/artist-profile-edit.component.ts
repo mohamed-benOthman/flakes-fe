@@ -19,8 +19,10 @@ export class ArtistProfileEditComponent implements OnInit {
   growlMessage: Message[] = [];
 
   isUploading = false;
+  displayInvalidProfile = false;
 
-  constructor(private profileService: ProfileService, private router: Router) { }
+  constructor(private profileService: ProfileService, private router: Router) {
+  }
 
   ngOnInit() {
     this.profileService.currentProfile.subscribe(res => {
@@ -36,7 +38,8 @@ export class ArtistProfileEditComponent implements OnInit {
     this.growlMessage.push({
       severity: 'success',
       summary: 'Photo(s) envoyée(s)',
-      detail: ''});
+      detail: ''
+    });
   }
 
   showSaveSuccess() {
@@ -44,27 +47,32 @@ export class ArtistProfileEditComponent implements OnInit {
     this.growlMessage.push({
       severity: 'success',
       summary: 'Modifications sauvegardées',
-      detail: ''});
+      detail: ''
+    });
   }
 
   saveEditProfile() {
     console.log('saveEditProfile');
 
-    this.profileEditInfoComponent.saveEditProfile();
+    if (this.profileEditInfoComponent.isValidProfile()) {
+      this.profileEditInfoComponent.saveEditProfile();
 
-    this.profileService.currentProfile.subscribe(profile => {
-      const formattedProfile = this.profileService.formatProfileForUpload(profile);
-      this.profileService.postProfileObserver(formattedProfile).subscribe(res => {
-          console.log('post profile response: ' + JSON.stringify(formattedProfile));
-          console.log('server response = ' + res);
-          this.showSaveSuccess();
-        },
-        err => {
-          console.log('post profile erreur: ' + JSON.stringify(err));
-        }
-      );
-
-    });
+      this.profileService.currentProfile.subscribe(profile => {
+        const formattedProfile = this.profileService.formatProfileForUpload(profile);
+        this.profileService.postProfileObserver(formattedProfile).subscribe(res => {
+            console.log('post profile response: ' + JSON.stringify(formattedProfile));
+            console.log('server response = ' + res);
+            this.showSaveSuccess();
+          },
+          err => {
+            console.log('post profile erreur: ' + JSON.stringify(err));
+          }
+        );
+      });
+    }
+    else {
+      this.displayInvalidProfile = true;
+    }
   }
 
 

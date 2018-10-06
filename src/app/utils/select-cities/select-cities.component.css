@@ -10,6 +10,7 @@
   z-index: 1;
   max-height: 50%;
   font-size: small;
+  font-weight: bold;
   /*background-color: #eeba07;
   border: 0;
   border-radius: 0px;
@@ -32,23 +33,23 @@
 }
 
 ng-select.ng-select-focused.customError .ng-select-container:after {
-  border-color: red;
+  border-color: #F44336;
   border-width: 2px
 }
 
 .ng-select.ng-select-focused.customError .ng-select-container .ng-value-container .ng-placeholder {
   transform: translateY(-1.28125em) scale(0.75) perspective(100px) translateZ(0.001px);
-  color: red
+  color: #F44336
 }
 
 .ng-select.ng-select-focused.customError .ng-select-container .ng-arrow-wrapper .ng-arrow {
-  color: red
+  color: #F44336
 }
 
 .ng-select.ng-select-multiple.customError .ng-select-container .ng-value-container .ng-value {
   margin-right: 0.4375em;
   margin-bottom: 0.4375em;
-  background-color: red;
+  background-color: #F44336;
   border-radius: 2px;
   color: #fff;
   padding: 2px 5px
@@ -68,7 +69,7 @@ ng-select.ng-select-focused.customError .ng-select-container:after {
 
 .ng-select.customError .ng-select-container .ng-value-container .ng-placeholder {
   position: absolute;
-  color: red;
+  color: #F44336;
   transform-origin: 0 0;
   transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), color 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), width 0.4s cubic-bezier(0.25, 0.8, 0.25, 1)
 }
@@ -78,11 +79,11 @@ ng-select.ng-select-focused.customError .ng-select-container:after {
   border-right: 5px solid transparent;
   border-top: 5px solid;
   margin: 0 4px;
-  color: red;
+  color: #F44336;
 }
 
 .ng-select.customError .ng-select-container:after {
-  border-bottom: 1px solid red;
+  border-bottom: 1px solid #F44336;
   content: '';
   width: 100%;
   bottom: 0;
