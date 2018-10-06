@@ -158,15 +158,31 @@ td a:hover {
   margin: 0px 0px 38px 0px;
 }
 .btn.btn-primary-submit.hvr-shadow {
+   background-color: #d11574;
+   padding: 8px 40px;
+   color: #fff;
+   font-size: 23px;
+
+   text-decoration: none;
+   padding: 9px 64px;
+   border: 2px solid #fff;
+   width: 100%;
+   border-radius: 0;
+   margin: 0px auto;
+   display: block;
+ }
+
+.btn.btn-primary-submit.sendmessage {
   background-color: #d11574;
-  padding: 8px 40px;
+  padding: 8px 10px;
   color: #fff;
   font-size: 23px;
 
   text-decoration: none;
-  padding: 9px 64px;
+  padding: 9px 10px;
+  margin-bottom: 20px;
   border: 2px solid #fff;
-  width: 100%;
+  width: 50%;
   border-radius: 0;
   margin: 0px auto;
   display: block;

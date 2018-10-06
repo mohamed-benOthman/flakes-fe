@@ -36,6 +36,9 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { SelectCitiesComponent } from './utils/select-cities/select-cities.component';
 import { ArtistProfileEditComponent } from './artist-profile/edit/artist-profile-edit.component';
 import { SignupComponent } from './auth/signup/signup.component';
+import { ContactComponent } from './submenus/contact/contact.component';
+import { PartnershipComponent } from './submenus/partnership/partnership.component';
+import { AboutComponent } from './submenus/about/about.component';
 
 const appRoutes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -47,6 +50,9 @@ const appRoutes: Routes = [
   { path: 'search-manicure', component: SearchComponent },
   { path: 'search-eyelashes', component: SearchComponent },
   { path: 'signup', component: SignupComponent },
+  { path: 'contact', component: ContactComponent },
+  { path: 'about', component: AboutComponent },
+  { path: 'partnership', component: PartnershipComponent },
   { path: '', redirectTo: 'home', pathMatch: 'full'},
   { path: '**', redirectTo: 'home'}
 ];
@@ -67,7 +73,10 @@ const appRoutes: Routes = [
     SearchComponent,
     SelectCitiesComponent,
     ArtistProfileEditComponent,
-    SignupComponent
+    SignupComponent,
+    ContactComponent,
+    PartnershipComponent,
+    AboutComponent
   ],
   imports: [
     BrowserModule, BrowserAnimationsModule,
