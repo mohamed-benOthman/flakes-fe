@@ -59,6 +59,7 @@ export class SearchService {
     paramURL = `${paramURL}|`;
 
     if (city !== null) {
+      console.log('ici city = ' + JSON.stringify(city));
       paramURL += city.trim();
     }
     paramURL = `${paramURL}|`;

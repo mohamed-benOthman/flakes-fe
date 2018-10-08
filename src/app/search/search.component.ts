@@ -111,7 +111,7 @@ export class SearchComponent implements OnInit {
   updateSearch() {
     // const skin = (!this.selectedSkins || this.selectedSkins.length === 0) ? null : String(this.selectedSkins[0].value);
     const biz = String(this.businessType);
-    const city = !this.selectedCity ? null : String(this.selectedCity.code);
+    const city = !this.selectedCity ? null : String(this.selectedCity.code) + ';' + String(this.selectedCity.city);
     const dept = !this.selectedDept ? null : this.selectedDept.code;
 
     console.log(`skin = ${JSON.stringify(this.selectedSkins)}`);
