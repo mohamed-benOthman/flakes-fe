@@ -82,7 +82,7 @@ export class ProfileService {
       })
     };
 
-    return this.http.post(this.baseURL, JSON.stringify(profile));
+    return this.http.post(this.baseURL, JSON.stringify(profile), httpOptions);
   }
 
   formatProfileForUpload(profile) {

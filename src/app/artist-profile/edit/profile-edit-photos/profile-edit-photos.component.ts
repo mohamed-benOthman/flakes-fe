@@ -1,13 +1,14 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output, ViewEncapsulation} from '@angular/core';
 import {Profile} from '../../../models/profile.model';
 import {ProfileService} from '../../../services/profile.service';
-import {HttpClient, HttpEventType} from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 import {forkJoin} from 'rxjs';
 
 @Component({
   selector: 'app-profile-edit-photos',
   templateUrl: './profile-edit-photos.component.html',
-  styleUrls: ['./profile-edit-photos.component.css']
+  styleUrls: ['./profile-edit-photos.component.css'],
+  encapsulation: ViewEncapsulation.None
 })
 export class ProfileEditPhotosComponent implements OnInit {
 
@@ -124,6 +125,31 @@ export class ProfileEditPhotosComponent implements OnInit {
   removePhoto(position) {
     this.photosUrl.splice(position, 1);
     this.files.splice(position, 1);
+  }
+
+  applyDrag(arr, dragResult) {
+    const {removedIndex, addedIndex, payload} = dragResult;
+    if (removedIndex === null && addedIndex === null) {
+      return arr;
+    }
+
+    const result = [...arr];
+    let itemToAdd = payload;
+
+    if (removedIndex !== null) {
+      itemToAdd = result.splice(removedIndex, 1)[0];
+    }
+
+    if (addedIndex !== null) {
+      result.splice(addedIndex, 0, itemToAdd);
+    }
+
+    return result;
+  }
+
+  onDropImage(dropResult) {
+    this.currentProfile.photosUrl = this.applyDrag(this.currentProfile.photosUrl, dropResult);
+    console.log(JSON.stringify(this.currentProfile.photosUrl));
   }
 
 }

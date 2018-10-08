@@ -20,7 +20,7 @@ import {
   FileUploadModule,
   GrowlModule,
   MultiSelectModule,
-  ProgressSpinnerModule,
+  ProgressSpinnerModule, ScrollPanelModule,
   TabViewModule
 } from 'primeng/primeng';
 import {MatCheckboxModule, MatGridListModule, MatIconModule, MatInputModule, MatPaginatorModule, MatStepperModule} from '@angular/material';
@@ -39,6 +39,7 @@ import { SignupComponent } from './auth/signup/signup.component';
 import { ContactComponent } from './submenus/contact/contact.component';
 import { PartnershipComponent } from './submenus/partnership/partnership.component';
 import { AboutComponent } from './submenus/about/about.component';
+import {NgxSmoothDnDModule} from 'ngx-smooth-dnd';
 
 const appRoutes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -83,7 +84,7 @@ const appRoutes: Routes = [
     FormsModule,
     HttpClientModule,
     ReactiveFormsModule, NgxGalleryModule,
-    ButtonModule, DialogModule,
+    ButtonModule, DialogModule, NgxSmoothDnDModule, ScrollPanelModule,
     MatInputModule, MultiSelectModule, MatCheckboxModule, GrowlModule, CardModule, BlockUIModule,
     MatGridListModule, TabViewModule, FileUploadModule, DropdownModule, ProgressSpinnerModule,
     NgSelectModule, MatPaginatorModule, MatStepperModule, MatIconModule,

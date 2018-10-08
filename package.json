@@ -30,6 +30,7 @@
     "lightgallery.js": "^1.1.1",
     "lodash": "^4.17.10",
     "ngx-gallery": "^5.6.1",
+    "ngx-smooth-dnd": "^0.2.6",
     "primeicons": "^1.0.0-beta.10",
     "primeng": "^6.1.2",
     "rxjs": "^6.3.3",

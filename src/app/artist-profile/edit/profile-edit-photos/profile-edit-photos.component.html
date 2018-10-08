@@ -1,18 +1,5 @@
 <p-tabView>
   <p-tabPanel header="Portfolio">
-    <!--<mat-grid-list cols="3">
-      <ng-container *ngFor="let photoUrl of currentProfile.photosUrl; let i = index;">
-        <mat-grid-tile>
-          <div style="border:0px solid black; background-color: transparent; text-align: center; ">
-            <img [src]="photoUrl" style='height: 100px; width: 150px; object-fit: fill'/>
-            <span style="display:inline-block; height: 25px;"></span>
-            <button pButton type="button" icon="pi pi-trash" label="Supprimer"
-                    class="ui-button-raised ui-button-secondary"
-                    (click)="onDeletePhoto(i)"></button>
-          </div>
-        </mat-grid-tile>
-      </ng-container>
-    </mat-grid-list>-->
 
     <div *ngIf="!currentProfile.photosUrl || currentProfile.photosUrl.length == 0">
       <br>
@@ -20,7 +7,45 @@
       <br>
     </div>
 
-    <div class="container-fluid">
+    <!--<smooth-dnd-container [dragClass]="'opacity-ghost'" [dropClass]="'opacity-ghost-drop'" (drop)="onDropImage($event)">
+      <smooth-dnd-draggable *ngFor="let item of items">
+        <div class="draggable-item">
+          {{item.data}}
+        </div>
+      </smooth-dnd-draggable>
+    </smooth-dnd-container>-->
+
+    <div><h3 style="text-align: center"><strong>{{currentProfile.photosUrl.length}} Photo(s)</strong></h3></div>
+
+    <p-scrollPanel [style]="{width: '100%', height: '200px'}" styleClass="custom"
+                   *ngIf="currentProfile.photosUrl && currentProfile.photosUrl.length > 0">
+
+      <smooth-dnd-container [dragClass]="'opacity-ghost'" [dropClass]="'opacity-ghost-drop'"
+                            [dragHandleSelector]="'.column-drag-handle'"
+                            [orientation]="'horizontal'"
+                            (drop)="onDropImage($event)">
+        <smooth-dnd-draggable *ngFor="let photoUrl of currentProfile?.photosUrl; let i = index;">
+          <div style="border:0px solid black; background-color: transparent; text-align: center; margin-top: 20px">
+            <img [src]="photoUrl.url"
+                 style='height: 100px; width: 120px; object-fit: fill; margin-left: 10px; margin-right: 10px'/>
+          </div>
+          <div style="text-align: center; width: 120px; background-color: rgba(209,21,116,0.24);
+                      margin-left: 10px; margin-right: 10px; box-shadow: 5px 5px 5px grey;">
+            <button pButton type="button" icon="pi pi-times"
+                    style="border:0px solid black; background-color: transparent;"
+                    (click)="onDeletePhoto(i)"></button>
+            <span style="display:inline-block; width: 15px;"></span>
+            <button pButton type="button" icon="pi pi-bars"
+                    style="border:0px solid black; background-color: transparent;"
+                    class="column-drag-handle"></button>
+          </div>
+          <br>
+        </smooth-dnd-draggable>
+      </smooth-dnd-container>
+
+    </p-scrollPanel>
+
+    <!--<div class="container-fluid">
       <div class="row">
         <div class="col-sm-4" *ngFor="let photoUrl of currentProfile?.photosUrl; let i = index;">
           <div style="border:0px solid black; background-color: transparent; text-align: center; ">
@@ -33,7 +58,7 @@
           <br>
         </div>
       </div>
-    </div>
+    </div>-->
 
   </p-tabPanel>
 
@@ -46,33 +71,26 @@
             [disabled]="!(files && files.length > 0)"></button>
 
     <div *ngIf="!isPhotoValid">
-      <p style="color: red; text-align:center; margin-top: 10px; font-weight: bold;">La taille maximale est de 1Mo par image</p></div>
+      <p style="color: red; text-align:center; margin-top: 10px; font-weight: bold;">La taille maximale est de 1Mo par
+        image</p></div>
     <br>
 
     <ng-container *ngIf="photosUrl && photosUrl.length > 0">
-        <div class="container">
-          <div *ngFor="let photoUrl of photosUrl; let i = index">
+      <div class="container">
+        <div *ngFor="let photoUrl of photosUrl; let i = index">
           <span style="display:inline-block; height: 15px;"></span>
           <div class="row">
             <div>
               <p-button icon="pi pi-times" (click)="removePhoto(i)"></p-button>
               <span style="display: inline-block; width: 5px"></span>
               <img [src]="photoUrl" class="photo"/>
-            {{ (files[i].name.trim().length>40)? (' '+files[i].name.trim() | slice:0:40)+'...':(' '+files[i].name.trim()) }}
+              {{ (files[i].name.trim().length>40)? (' '+files[i].name.trim() |
+              slice:0:40)+'...':(''+files[i].name.trim()) }}
             </div>
           </div>
         </div>
       </div>
     </ng-container>
-    <!--<p-fileUpload mode="advanced" name="avatar1" url="http://82.165.253.223:3000/files/upload"
-                  (onUpload)="onUploadPhotos($event)" (onSelect)="onSelectPhotos($event)"
-                  multiple="false" accept="image/*" maxFileSize="1000000"
-                  invalidFileSizeMessageSummary="{0}: Taille de fichier non valide, "
-                  invalidFileSizeMessageDetail="La taille maximale d'envoi est {0}."
-                  invalidFileTypeMessageSummary="{0}: Type de fichier non valide, "
-                  invalidFileTypeMessageDetail="Types de fichiers autorisés: {0}."
-                  previewWidth="40" chooseLabel="Selectionner" uploadLabel="Envoyer" cancelLabel="Annuler">
-    </p-fileUpload>-->
   </p-tabPanel>
 
 </p-tabView>
