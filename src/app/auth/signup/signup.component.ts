@@ -1,12 +1,13 @@
 import {Component, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {MatCheckboxChange, MatStepper} from '@angular/material';
-import {PasswordValidation} from '../../utils/password.validation';
+import {AbstractControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Profile} from '../../models/profile.model';
 import {ProfileService} from '../../services/profile.service';
 import {Router} from '@angular/router';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { FormControl, FormGroupDirective, NgForm } from '@angular/forms';
+import {SignupService} from '../../services/signup.service';
+import {Subject} from 'rxjs';
+import {map} from 'rxjs/operators';
 
 export class PasswordErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -53,10 +54,30 @@ export class SignupComponent implements OnInit {
   isUploading = false;
   showCreationDone = false;
   profileCreatedSuccessfully = false;
+  isEmailTaken = false;
+  isUsernameTaken = false;
 
   matcher = new PasswordErrorStateMatcher();
 
-  constructor(private _formBuilder: FormBuilder, private profileService: ProfileService, private router: Router) {
+  emailSubject = new Subject<string>();
+  usernameSubject = new Subject<string>();
+
+
+  constructor(private _formBuilder: FormBuilder, private profileService: ProfileService,
+              private signupService: SignupService, private router: Router) {
+    this.signupService.search(this.usernameSubject, false).subscribe(result => {
+      this.isUsernameTaken = result;
+      if (this.isUsernameTaken) {
+        this.stepOneGroup.controls['username'].setErrors({'isTaken': true});
+      }
+    });
+
+    this.signupService.search(this.emailSubject, true).subscribe(result => {
+      this.isEmailTaken = result;
+      if (this.isEmailTaken) {
+        this.stepOneGroup.controls['email'].setErrors({'isTaken': true});
+      }
+    });
   }
 
   ngOnInit() {
