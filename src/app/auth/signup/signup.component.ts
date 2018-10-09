@@ -2,6 +2,21 @@ import {Component, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {MatCheckboxChange, MatStepper} from '@angular/material';
 import {PasswordValidation} from '../../utils/password.validation';
+import {Profile} from '../../models/profile.model';
+import {ProfileService} from '../../services/profile.service';
+import {Router} from '@angular/router';
+import { ErrorStateMatcher } from '@angular/material/core';
+import { FormControl, FormGroupDirective, NgForm } from '@angular/forms';
+
+export class PasswordErrorStateMatcher implements ErrorStateMatcher {
+  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+    const invalidCtrl = !!(control && control.invalid && control.parent.dirty);
+    const invalidParent = !!(control && control.parent && control.parent.invalid && control.parent.dirty);
+
+    return (invalidCtrl || invalidParent);
+  }
+}
+
 
 @Component({
   selector: 'app-signup',
@@ -11,9 +26,8 @@ import {PasswordValidation} from '../../utils/password.validation';
 })
 export class SignupComponent implements OnInit {
 
-  @ViewChild('card') pCard;
-
   stepOneGroup: FormGroup;
+  stepOneGroupPassword: FormGroup;
   stepTwoGroup: FormGroup;
   thirdFormGroup: FormGroup;
 
@@ -24,31 +38,55 @@ export class SignupComponent implements OnInit {
   usernameMinLen = 4;
 
   selectedCity = null;
+
   makeupChecked = false;
   microbladingChecked = false;
   manicureChecked = false;
   eyesExtenChecked = false;
 
-  constructor(private _formBuilder: FormBuilder) {
+  clearSkinChecked = false;
+  tannedSkinChecked = false;
+  darkSkinChecked = false;
+
+  sloganTxt = '';
+
+  isUploading = false;
+  showCreationDone = false;
+  profileCreatedSuccessfully = false;
+
+  matcher = new PasswordErrorStateMatcher();
+
+  constructor(private _formBuilder: FormBuilder, private profileService: ProfileService, private router: Router) {
   }
 
   ngOnInit() {
     this.stepOneGroup = this._formBuilder.group({
       username: ['', [Validators.required, Validators.minLength(this.usernameMinLen)]],
-      email: ['', [Validators.required, Validators.email]],
+      email: ['', [Validators.required, Validators.email]]
+    });
+
+    this.stepOneGroupPassword = this._formBuilder.group({
       password: [null, Validators.compose([Validators.required, Validators.minLength(this.passwordMinLen), Validators.maxLength(this.passwordMaxLen)])],
-      confirmPassword: [null, Validators.compose([Validators.required, Validators.minLength(this.passwordMinLen), Validators.maxLength(this.passwordMaxLen)])],
-    }, {validator: PasswordValidation.matchPassword});
+      confirmPassword: ['']
+    }, {validator: this.checkPasswords});
 
     this.stepTwoGroup = this._formBuilder.group({
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
       street: ['', Validators.required],
+      phone: ['', Validators.pattern('[0-9]+')]
     });
 
     this.thirdFormGroup = this._formBuilder.group({
       thirdCtrl: ['', Validators.required]
     });
+  }
+
+  checkPasswords(group: FormGroup) { // here we have the 'passwords' group
+    const pass = group.controls.password.value;
+    const confirmPass = group.controls.confirmPassword.value;
+
+    return pass === confirmPass ? null : { notSame: true };
   }
 
   phoneChecker(event: KeyboardEvent) {
@@ -57,11 +95,6 @@ export class SignupComponent implements OnInit {
     if (event.keyCode !== 8 && !pattern.test(inputChar)) {
       event.preventDefault();
     }
-  }
-
-  test(event) {
-    console.log('selected index: ' + event.selectedIndex);
-    this.selectedStep = event.selectedIndex;
   }
 
   onCitySelected(city) {
@@ -74,10 +107,74 @@ export class SignupComponent implements OnInit {
   }
 
   isReadyToPost() {
-    return this.stepOneGroup.valid && this.stepTwoGroup.valid && this.isBusinnessValid();
+    return this.stepOneGroup.valid && this.stepOneGroupPassword.valid && this.stepTwoGroup.valid && this.isBusinnessValid();
+  }
+
+  getBusinnessList() {
+    let biz = '';
+    if (this.makeupChecked) { biz += '1|'; }
+    if (this.manicureChecked) { biz += '2|'; }
+    if (this.microbladingChecked) { biz += '3|'; }
+    if (this.eyesExtenChecked) { biz += '4|'; }
+
+    if (biz !== null && biz.endsWith('|')) {
+      biz = biz.substring(0, biz.length - 1);
+    }
+    return biz;
+  }
+
+  getExpertiseList() {
+    let expertise = '';
+    if (this.clearSkinChecked) { expertise += '1|'; }
+    if (this.darkSkinChecked) { expertise += '2|'; }
+    if (this.tannedSkinChecked) { expertise += '3|'; }
+
+    if (expertise !== null && expertise.endsWith('|')) {
+      expertise = expertise.substring(0, expertise.length - 1);
+    }
+    return expertise;
   }
 
   submitPost() {
-    console.log('will submit: ' + JSON.stringify(this.stepOneGroup.value));
+    this.isUploading = true;
+
+    const newProfile = {
+      lastname: this.stepTwoGroup.value.lastName,
+      firstname: this.stepTwoGroup.value.firstName,
+      username: this.stepOneGroup.value.username,
+      emailAdress: this.stepOneGroup.value.email,
+      phone: this.stepTwoGroup.value.phone,
+      street: this.stepTwoGroup.value.street,
+      slogan: this.sloganTxt,
+      password: this.stepOneGroupPassword.value.password,
+      cities: this.selectedCity.code + ';' + this.selectedCity.city,
+      business: this.getBusinnessList(),
+      expertises: this.getExpertiseList()
+    };
+
+    console.log('will submit: ' + JSON.stringify(newProfile));
+
+    this.profileService.postProfileObserver(newProfile).subscribe(res => {
+        console.log('server response = ' + res);
+        this.isUploading = false;
+        this.showCreationDone = true;
+        this.profileCreatedSuccessfully = true;
+      },
+      err => {
+        console.log('post profile erreur: ' + JSON.stringify(err));
+        this.isUploading = false;
+        this.showCreationDone = true;
+        this.profileCreatedSuccessfully = false;
+      }
+    );
+  }
+
+  quitSignup() {
+    console.log('quitSignup');
+    this.router.navigate(['/home']);
+  }
+
+  onStepChanged(event) {
+    this.selectedStep = event.selectedIndex;
   }
 }

@@ -46,13 +46,18 @@ export class ProfileEditPhotosComponent implements OnInit {
     this.isUploading = false;
   }
 
-  onDeletePhoto(index) {
+  onDeletePhotoFromGallery(index) {
     this.currentProfile.photosUrl.splice(index, 1);
     this.profileService.updateProfile(this.currentProfile);
     this.photoDeletedEvent.emit(index);
   }
 
-  onImageAdded(event) {
+
+
+  /************************
+   --- Add Tab ---
+   ************************/
+  onImageAddedFromAddTab(event) {
     if (event.target.files && event.target.files[0]) {
       if (event.target.files[0].size > this.PHOTO_MAX_SIZE) {
         this.isPhotoValid = false;
@@ -75,28 +80,6 @@ export class ProfileEditPhotosComponent implements OnInit {
       }
     }
   }
-
-  /*onUploadPhotos() {
-    console.log('onUploadPhotos event');
-    // this.photoSentEvent.emit(true);
-
-    const uploadData = new FormData();
-    for (const file of this.files) {
-      uploadData.append(this.serverParam, file, file.name);
-    }
-    this.http.post(this.serverURL, uploadData, {
-      reportProgress: true,
-      observe: 'events'
-    })
-      .subscribe(event => {
-        if (event.type === HttpEventType.UploadProgress) {
-          console.log('progress = ' + JSON.stringify(event));
-          console.log('progress: ' + Math.round(event.loaded / event.total * 100) + ' %');
-        } else if (event.type === HttpEventType.Response) {
-          console.log('response = ' + JSON.stringify(event));
-        }
-      });
-  }*/
 
   onUploadPhotos() {
     console.log('onUploadPhotos event');
@@ -122,11 +105,16 @@ export class ProfileEditPhotosComponent implements OnInit {
     }, error1 => this.uploadingEvent.emit(false));
   }
 
-  removePhoto(position) {
+  removePhotoFromAddTab(position) {
     this.photosUrl.splice(position, 1);
     this.files.splice(position, 1);
   }
 
+
+
+  /************************
+   --- Drag n Drop ---
+   ************************/
   applyDrag(arr, dragResult) {
     const {removedIndex, addedIndex, payload} = dragResult;
     if (removedIndex === null && addedIndex === null) {
@@ -148,8 +136,10 @@ export class ProfileEditPhotosComponent implements OnInit {
   }
 
   onDropImage(dropResult) {
+    console.log('AVANT --- ' + JSON.stringify(this.currentProfile.photosUrl));
     this.currentProfile.photosUrl = this.applyDrag(this.currentProfile.photosUrl, dropResult);
-    console.log(JSON.stringify(this.currentProfile.photosUrl));
+    this.profileService.updateProfile(this.currentProfile);
+    console.log('APRES --- ' + JSON.stringify(this.currentProfile.photosUrl));
   }
 
 }

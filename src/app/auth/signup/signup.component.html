@@ -1,8 +1,15 @@
+<p-blockUI [blocked]="isUploading">
+  <p-progressSpinner [style]="{width: '180px', height: '180px', position: 'absolute', top: '30%', left: '40%'}"
+                     strokeWidth="5"
+                     fill="#FFFFFF"
+                     animationDuration="1s"></p-progressSpinner>
+</p-blockUI>
+
 <section class="search-banner">
   <div class="container-fluid">
     <div class="row">
       <div class="col-md-12">
-        <div class="search-heading">
+        <div class="search-heading-signup">
           <h1 style="font-family: 'Tangerine', serif;
                     text-shadow: 6px 6px 6px #aaa;
                     font-size: 60px;">Création de compte</h1>
@@ -16,7 +23,7 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col-sm-8">
-        <mat-vertical-stepper [linear]="false" #stepper (selectionChange)="test($event)">
+        <mat-vertical-stepper [linear]="false" #stepper (selectionChange)="onStepChanged($event)">
           <!------------------------->
           <!--STEP 1-->
           <!------------------------->
@@ -25,36 +32,50 @@
               <ng-template matStepLabel>Identifiant et adresse e-mail</ng-template>
               <mat-form-field style="width: 40%">
                 <input matInput placeholder="Identifiant" formControlName="username" required>
+                <mat-error *ngIf="stepOneGroup.get('username').hasError('minlength')">
+                  L'identifiant doit faire au moins {{usernameMinLen}} caractères
+                </mat-error>
               </mat-form-field>
               <span style="display: inline-block; width: 20px"></span>
               <mat-form-field style="width: 40%">
                 <input matInput placeholder="e-mail" formControlName="email" required>
+                <mat-error *ngIf="!stepOneGroup.get('email').valid">
+                  Veuillez saisir une adresse email valide
+                </mat-error>
               </mat-form-field>
+            </form>
 
-
-              <div *ngIf="stepOneGroup.get('username').hasError('minlength')" class="alert alert-warning">
+              <!--<div *ngIf="stepOneGroup.get('username').hasError('minlength')" class="alert alert-warning">
                 <span>L'identifiant doit faire au moins {{usernameMinLen}} caractères</span>
-              </div>
+              </div>-->
 
+            <form [formGroup]="stepOneGroupPassword">
               <div>
                 <mat-form-field style="width: 40%; margin-top: 15px">
                   <input matInput placeholder="Mot de passe" [type]="'password'" formControlName="password" required>
+                  <mat-error *ngIf="stepOneGroupPassword.get('password').hasError('minlength')">
+                    Le mot de passe doit faire entre {{passwordMinLen}} et {{passwordMaxLen}} caractères
+                  </mat-error>
                 </mat-form-field>
                 <span style="display: inline-block; width: 20px"></span>
                 <mat-form-field style="width: 40%">
-                  <input matInput placeholder="Re-saisir le mot de passe" [type]="'password'" formControlName="confirmPassword" required>
+                  <input matInput placeholder="Re-saisir le mot de passe" [type]="'password'"
+                         formControlName="confirmPassword" [errorStateMatcher]="matcher" required>
+                  <mat-error *ngIf="stepOneGroupPassword.hasError('notSame')">
+                    Les mots de passe ne sont pas identiques
+                  </mat-error>
                 </mat-form-field>
               </div>
 
               <!--Password qui ne match pas-->
-              <div *ngIf="!stepOneGroup.get('confirmPassword').hasError('ConfirmPasswordUndefined') && stepOneGroup.get('confirmPassword').hasError('MatchPassword')"
+              <!--<div *ngIf="stepOneGroup.get('confirmPassword').hasError('notSame')"
                    class="alert alert-danger">
                 <p>Les 2 mots de passe doivent correspondre.</p>
               </div>
 
               <div *ngIf="stepOneGroup.get('password').hasError('minlength')" class="alert alert-warning">
                 <span>Le mot de passe doit faire entre {{passwordMinLen}} et {{passwordMaxLen}} caractères</span>
-              </div>
+              </div>-->
               <!--<div style="margin-top: 50px">
                 <button mat-button matStepperNext [disabled]="!stepOneGroup.valid">Suivant</button>
               </div>-->
@@ -83,7 +104,7 @@
                                  (zipCodeCitySelected)="onCitySelected($event)"></app-select-cities>
 
               <mat-form-field style="margin-top: 25px; width: 45%">
-                <input matInput placeholder="Téléphone" (keypress)="phoneChecker($event)">
+                <input matInput placeholder="Téléphone" formControlName="phone" (keypress)="phoneChecker($event)">
               </mat-form-field>
 
               <!--<div style="margin-top: 50px; margin-bottom: 30px">
@@ -96,7 +117,6 @@
           <!--STEP 3-->
           <!------------------------->
           <mat-step [stepControl]="thirdFormGroup">
-
               <ng-template matStepLabel>Compétences et Expertises</ng-template>
               <!--<p style="margin-bottom: 20px; margin-top: 20px; font-weight: bold">Compétences</p>-->
               <div class="alert alert-warning">
@@ -134,13 +154,13 @@
               <div class="container">
                 <div class="row">
                   <div class="col-lg-12">
-                    <mat-checkbox>Peau claire</mat-checkbox>
+                    <mat-checkbox [(ngModel)]="clearSkinChecked">Peau claire</mat-checkbox>
                   </div>
                   <div class="col-lg-12">
-                    <mat-checkbox>Peau foncée</mat-checkbox>
+                    <mat-checkbox [(ngModel)]="tannedSkinChecked">Peau foncée</mat-checkbox>
                   </div>
                   <div class="col-lg-12">
-                    <mat-checkbox>Peau mate</mat-checkbox>
+                    <mat-checkbox [(ngModel)]="darkSkinChecked">Peau mate</mat-checkbox>
                   </div>
                 </div>
               </div>
@@ -157,7 +177,7 @@
               <ng-template matStepLabel>Présentation</ng-template>
 
               <mat-form-field style="width: 100%">
-                <textarea #sloganArea maxlength="500" style="display:inline-block; width: 100%; min-height: 80px;" placeholder="Présentez-vous en quelques mots" matInput></textarea>
+                <textarea #sloganArea maxlength="500" style="display:inline-block; width: 100%; min-height: 80px;" placeholder="Présentez-vous en quelques mots" [(ngModel)]="sloganTxt" matInput></textarea>
                 <mat-hint align="end">{{sloganArea.value.length}} / {{sloganMaxLength}}</mat-hint>
               </mat-form-field>
 
@@ -231,3 +251,22 @@
     </div>
   </div>
 </section>
+
+<p-dialog header="Création de profil" [(visible)]="showCreationDone" [modal]="true" [blockScroll]="true"
+          [closeOnEscape]="false" [closable]="false" [showHeader]="false">
+  <div *ngIf="profileCreatedSuccessfully; else errorCreation">
+    <h3 style="color: #4cae4c"><strong>Le profil a correctement été créé</strong></h3>
+    <br>
+    <p>Vous pouvez dès à présent vous connecter pour ajouter une photo de profil et ajouter des photos dans votre galerie!</p>
+  </div>
+
+  <ng-template #errorCreation>
+    <h3 style="color: #8b1941"><strong>Le profil n'a pas pu être créé</strong></h3>
+    <br>
+    <p>Veuillez ré-essayer dans quelques minutes.</p>
+  </ng-template>
+
+  <p-footer>
+    <button type="button" pButton icon="pi pi-check" (click)="quitSignup()" label="Ok"></button>
+  </p-footer>
+</p-dialog>

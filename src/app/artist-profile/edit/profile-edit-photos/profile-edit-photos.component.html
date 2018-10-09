@@ -7,17 +7,14 @@
       <br>
     </div>
 
-    <!--<smooth-dnd-container [dragClass]="'opacity-ghost'" [dropClass]="'opacity-ghost-drop'" (drop)="onDropImage($event)">
-      <smooth-dnd-draggable *ngFor="let item of items">
-        <div class="draggable-item">
-          {{item.data}}
-        </div>
-      </smooth-dnd-draggable>
-    </smooth-dnd-container>-->
+    <div *ngIf="currentProfile.photosUrl.length == 1">
+      <div><h3 style="text-align: center; margin-bottom: 20px"><strong>{{currentProfile.photosUrl.length}} Photo</strong></h3></div>
+    </div>
+    <div *ngIf="currentProfile.photosUrl.length > 1">
+      <div><h3 style="text-align: center; margin-bottom: 20px"><strong>{{currentProfile.photosUrl.length}} Photos</strong></h3></div>
+    </div>
 
-    <div><h3 style="text-align: center"><strong>{{currentProfile.photosUrl.length}} Photo(s)</strong></h3></div>
-
-    <p-scrollPanel [style]="{width: '100%', height: '200px'}" styleClass="custom"
+    <p-scrollPanel [style]="{width: '100%', height: '270px'}" styleClass="custom"
                    *ngIf="currentProfile.photosUrl && currentProfile.photosUrl.length > 0">
 
       <smooth-dnd-container [dragClass]="'opacity-ghost'" [dropClass]="'opacity-ghost-drop'"
@@ -33,7 +30,7 @@
                       margin-left: 10px; margin-right: 10px; box-shadow: 5px 5px 5px grey;">
             <button pButton type="button" icon="pi pi-times"
                     style="border:0px solid black; background-color: transparent;"
-                    (click)="onDeletePhoto(i)"></button>
+                    (click)="onDeletePhotoFromGallery(i)"></button>
             <span style="display:inline-block; width: 15px;"></span>
             <button pButton type="button" icon="pi pi-bars"
                     style="border:0px solid black; background-color: transparent;"
@@ -43,6 +40,14 @@
         </smooth-dnd-draggable>
       </smooth-dnd-container>
 
+      <hr>
+
+      <div style="margin-left: 10px; margin-top: 20px">
+        <p style="color:rgba(209,21,116,0.24);"><i class="pi pi-times" style="font-size: 0.9em"></i> pour supprimer une
+          photo de la galerie</p>
+        <p style="color:rgba(209,21,116,0.24);"><i class="pi pi-bars" style="font-size: 0.9em"></i> pour modifier
+          l'ordre d'apparition de la photo dans la galerie</p>
+      </div>
     </p-scrollPanel>
 
     <!--<div class="container-fluid">
@@ -53,7 +58,7 @@
             <span style="display:inline-block; height: 25px;"></span>
             <button pButton type="button" icon="pi pi-trash" label="Supprimer"
                     class="ui-button-raised ui-button-secondary"
-                    (click)="onDeletePhoto(i)"></button>
+                    (click)="onDeletePhotoFromGallery(i)"></button>
           </div>
           <br>
         </div>
@@ -63,7 +68,7 @@
   </p-tabPanel>
 
   <p-tabPanel header="Ajouter">
-    <input #fileUpload type="file" accept="image/*" (change)="onImageAdded($event)" style="display:none">
+    <input #fileUpload type="file" accept="image/*" (change)="onImageAddedFromAddTab($event)" style="display:none">
     <button pButton type="button" label="Selectionner" icon="pi pi-plus" class="ui-button-raised"
             (click)="fileUpload.click()" [disabled]="files && files.length+1 > MAX_PHOTOS"></button>
     <span style="display:inline-block; width: 25px;"></span>
@@ -81,7 +86,7 @@
           <span style="display:inline-block; height: 15px;"></span>
           <div class="row">
             <div>
-              <p-button icon="pi pi-times" (click)="removePhoto(i)"></p-button>
+              <p-button icon="pi pi-times" (click)="removePhotoFromAddTab(i)"></p-button>
               <span style="display: inline-block; width: 5px"></span>
               <img [src]="photoUrl" class="photo"/>
               {{ (files[i].name.trim().length>40)? (' '+files[i].name.trim() |

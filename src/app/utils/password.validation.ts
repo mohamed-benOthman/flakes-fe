@@ -14,7 +14,7 @@ export class PasswordValidation {
       abstractControl.get('confirmPassword').setErrors({MatchPassword: true, ConfirmPasswordUndefined: false});
     }
     else {
-      // abstractControl.get('confirmPassword').setErrors({MatchPassword: false, ConfirmPasswordUndefined: false});
+      abstractControl.get('confirmPassword').setErrors({MatchPassword: false, ConfirmPasswordUndefined: false});
       return null;
     }
   }
