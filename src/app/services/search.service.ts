@@ -1,16 +1,12 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {map} from 'rxjs/operators';
-import {of} from 'rxjs';
-import {Profile} from '../models/profile.model';
+import * as Constants from '../utils/globals';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SearchService {
-
-  private baseURL = 'http://82.165.253.223:3000/maquilleuse';
-  private defaultProfilePhoto = '../../assets/images/user_icon_placeholder.svg';
 
   constructor(private http: HttpClient) {
   }
@@ -24,15 +20,15 @@ export class SearchService {
     const typeURL = this.getTypePart(dept, city, businessType, expertiseType);
     const paramURL = this.getParamPart(dept, city, businessType, expertiseType);
 
-    console.log('requestSearch = ' + `${this.baseURL}/${paramURL}/${typeURL}/${displayedPage}/${elementsNumber}`);
+    console.log('requestSearch = ' + `${Constants.searchURL}/${paramURL}/${typeURL}/${displayedPage}/${elementsNumber}`);
 
-    return this.http.get<any>(`${this.baseURL}/${paramURL}/${typeURL}/${displayedPage}/${elementsNumber}`)
+    return this.http.get<any>(`${Constants.searchURL}/${paramURL}/${typeURL}/${displayedPage}/${elementsNumber}`)
       .pipe(
         map(profiles => {
           if (profiles) {
             for (const profile of profiles) {
               if (!profile.photo_profile) {
-                profile.photo_profile = this.defaultProfilePhoto;
+                profile.photo_profile = Constants.defaultProfilePhoto;
               }
             }
           }
@@ -44,9 +40,9 @@ export class SearchService {
     const typeURL = this.getTypePart(dept, city, businessType, expertiseType);
     const paramURL = this.getParamPart(dept, city, businessType, expertiseType);
 
-    console.log('requestCount = ' + `${this.baseURL}/${paramURL}/${typeURL}`);
+    console.log('requestCount = ' + `${Constants.searchURL}/${paramURL}/${typeURL}`);
 
-    return this.http.get<any>(`${this.baseURL}/${paramURL}/${typeURL}`);
+    return this.http.get<any>(`${Constants.searchURL}/${paramURL}/${typeURL}`);
   }
 
 

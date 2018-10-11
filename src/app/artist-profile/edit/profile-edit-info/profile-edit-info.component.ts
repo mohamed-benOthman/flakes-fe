@@ -4,7 +4,7 @@ import {ProfileService} from '../../../services/profile.service';
 
 import * as cloneDeep from 'lodash/cloneDeep';
 import {HttpClient} from '@angular/common/http';
-
+import * as Constants from '../../../utils/globals';
 
 @Component({
   selector: 'app-profile-edit-info',
@@ -19,8 +19,7 @@ export class ProfileEditInfoComponent implements OnInit {
 
   defaultProfilePhoto = '../../../assets/images/user_icon_placeholder.svg';
   isProfilePhotoValid: boolean; // pour afficher le message d'erreur si la photo de profile exède 1Mo
-  sloganMaxLen = 500;
-  // currentProfile: Profile;
+  sloganMaxLen = Constants.SLOGAN_MAX_LENGTH;
   currentProfileCopy: Profile;
 
   constructor(private http: HttpClient, private profileService: ProfileService) {}

@@ -4,9 +4,7 @@ import {Profile} from '../models/profile.model';
 import {BusinessExpertService} from './business-expert.service';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import * as cloneDeep from 'lodash/cloneDeep';
-import {Business} from '../models/business.model';
-import {map, tap} from 'rxjs/operators';
-import {RequestOptions} from '@angular/http';
+import * as Constants from '../utils/globals';
 
 @Injectable({
   providedIn: 'root'
@@ -31,7 +29,6 @@ export class ProfileService {
     expertises: []
 
   };
-  private baseURL = 'http://82.165.253.223:3000/maquilleuse';
   private userProfile: BehaviorSubject<Profile>;
 
   constructor(private http: HttpClient, private businessExpertiseService: BusinessExpertService) {
@@ -41,7 +38,7 @@ export class ProfileService {
 
   searchProfile(username: string) {
 
-    const profileObs = this.http.get<Profile>(`${this.baseURL}/${username}/5/0/1`);
+    const profileObs = this.http.get<Profile>(`${Constants.searchURL}/${username}/5/0/1`);
     const businessObs = this.businessExpertiseService.getBusiness();
     const expertiseObs = this.businessExpertiseService.getExpertises();
 
@@ -83,7 +80,7 @@ export class ProfileService {
       })
     };
 
-    return this.http.post(this.baseURL, JSON.stringify(profile), httpOptions);
+    return this.http.post(Constants.searchURL, JSON.stringify(profile), httpOptions);
   }
 
   formatProfileForUpload(profile) {

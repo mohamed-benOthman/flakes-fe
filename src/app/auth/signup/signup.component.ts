@@ -7,7 +7,7 @@ import { ErrorStateMatcher } from '@angular/material/core';
 import { FormControl, FormGroupDirective, NgForm } from '@angular/forms';
 import {SignupService} from '../../services/signup.service';
 import {Subject} from 'rxjs';
-import {map} from 'rxjs/operators';
+import * as Constants from '../../utils/globals';
 
 export class PasswordErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -32,11 +32,11 @@ export class SignupComponent implements OnInit {
   stepTwoGroup: FormGroup;
   thirdFormGroup: FormGroup;
 
-  sloganMaxLength = 500;
+  sloganMaxLength = Constants.SLOGAN_MAX_LENGTH;
   selectedStep = 0;
-  passwordMaxLen = 15;
-  passwordMinLen = 6;
-  usernameMinLen = 4;
+  passwordMaxLen = Constants.PASSWORD_MAX_LENGTH;
+  passwordMinLen = Constants.PASSWORD_MIN_LENGTH;
+  usernameMinLen = Constants.USERNAME_MIN_LENGTH;
 
   selectedCity = null;
 

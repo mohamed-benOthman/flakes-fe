@@ -4,6 +4,7 @@ import {ProfileService} from '../../../services/profile.service';
 import {HttpClient} from '@angular/common/http';
 import {forkJoin} from 'rxjs';
 import * as cloneDeep from 'lodash/cloneDeep';
+import * as Constants from '../../../utils/globals';
 
 @Component({
   selector: 'app-profile-edit-photos',
@@ -13,21 +14,12 @@ import * as cloneDeep from 'lodash/cloneDeep';
 })
 export class ProfileEditPhotosComponent implements OnInit {
 
-  PHOTO_MAX_SIZE = 1_000_000;
-  MAX_PHOTOS = 3;
   isPhotoValid = true;
-
-  // currentProfile: Profile;
   currentProfileCopy: Profile;
 
   files: File[] = []; // photos selectionnées pour l'envoi
   photosUrl = []; // url des photos selectionnées pour l'envoi
 
-  /********************
-   * PARAMETRES SERVEUR
-   ********************/
-  serverURL = 'http://82.165.253.223:3000/files/upload';
-  serverParam = 'avatar1';
   isUploading = false;
 
 
@@ -70,7 +62,7 @@ export class ProfileEditPhotosComponent implements OnInit {
    ************************/
   onImageAddedFromAddTab(event) {
     if (event.target.files && event.target.files[0]) {
-      if (event.target.files[0].size > this.PHOTO_MAX_SIZE) {
+      if (event.target.files[0].size > Constants.UPLOAD_PHOTO_MAX_SIZE) {
         this.isPhotoValid = false;
       } else {
         if (!this.files) {
@@ -98,8 +90,8 @@ export class ProfileEditPhotosComponent implements OnInit {
     const observables = [];
     for (const file of this.files) {
       const uploadData = new FormData();
-      uploadData.append(this.serverParam, file, file.name);
-      observables.push(this.http.post(this.serverURL, uploadData));
+      uploadData.append(Constants.uploadPhotoParam, file, file.name);
+      observables.push(this.http.post(Constants.uploadPhotoURL, uploadData));
     }
 
     forkJoin(observables).subscribe(results => {
@@ -148,7 +140,6 @@ export class ProfileEditPhotosComponent implements OnInit {
   onDropImage(dropResult) {
     console.log('AVANT --- ' + JSON.stringify(this.currentProfileCopy.photosUrl));
     this.currentProfileCopy.photosUrl = this.applyDrag(this.currentProfileCopy.photosUrl, dropResult);
-    // this.profileService.updateProfile(this.currentProfile);
     console.log('APRES --- ' + JSON.stringify(this.currentProfileCopy.photosUrl));
   }
 

@@ -57,8 +57,6 @@ export class ArtistProfileEditComponent implements OnInit {
     console.log('saveEditProfile');
 
     if (this.profileEditInfoComponent.isValidProfile()) {
-      // this.profileEditInfoComponent.saveEditProfile();
-      // this.profileEditPhotosComponent.savePhotosProfile();
 
       this.currentProfile = this.profileEditInfoComponent.currentProfileCopy;
       this.currentProfile.photosUrl = this.profileEditPhotosComponent.currentProfileCopy.photosUrl;
