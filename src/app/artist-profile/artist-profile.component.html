@@ -7,7 +7,7 @@
         </div>
       </div>
       <div class="col-md-2">
-        <div class="text-center">
+        <div *ngIf="currentProfile?.photo_profile" class="text-center">
           <img [src]="currentProfile.photo_profile" class="img-responsive center-block user"/>
         </div>
       </div>

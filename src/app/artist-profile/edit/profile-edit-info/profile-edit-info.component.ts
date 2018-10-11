@@ -20,16 +20,15 @@ export class ProfileEditInfoComponent implements OnInit {
   defaultProfilePhoto = '../../../assets/images/user_icon_placeholder.svg';
   isProfilePhotoValid: boolean; // pour afficher le message d'erreur si la photo de profile exède 1Mo
   sloganMaxLen = 500;
-  currentProfile: Profile;
+  // currentProfile: Profile;
   currentProfileCopy: Profile;
 
-  constructor(private http: HttpClient, private profileService: ProfileService) {
-  }
+  constructor(private http: HttpClient, private profileService: ProfileService) {}
 
   ngOnInit() {
     this.profileService.currentProfile.subscribe(res => {
-      this.currentProfile = res;
-      this.currentProfileCopy = cloneDeep(this.currentProfile);
+      // this.currentProfile = res;
+      this.currentProfileCopy = cloneDeep(res);
       if (!this.currentProfileCopy.photo_profile) {
         this.currentProfileCopy.photo_profile = this.defaultProfilePhoto;
       }
@@ -59,8 +58,8 @@ export class ProfileEditInfoComponent implements OnInit {
   }
 
   saveEditProfile() {
-    this.currentProfile = cloneDeep(this.currentProfileCopy);
-    this.profileService.updateProfile(this.currentProfile);
+    // this.currentProfile = cloneDeep(this.currentProfileCopy);
+    this.profileService.updateProfile(cloneDeep(this.currentProfileCopy));
   }
 
   isValidProfile() {

@@ -28,6 +28,12 @@
           <!--STEP 1-->
           <!------------------------->
           <mat-step [stepControl]="stepOneGroup">
+
+            <div *ngIf="isUsernameTaken || isEmailTaken" class="alert alert-danger">
+              <p *ngIf="isUsernameTaken">• Veuillez choisir un autre identifiant</p>
+              <p *ngIf="isEmailTaken">• Veuillez choisir une autre adresse email</p>
+            </div>
+
             <form [formGroup]="stepOneGroup">
               <ng-template matStepLabel>Identifiant et adresse e-mail</ng-template>
               <mat-form-field style="width: 40%">
@@ -49,14 +55,6 @@
                 </mat-error>
               </mat-form-field>
             </form>
-
-            <div *ngIf="isUsernameTaken" class="alert alert-danger">
-              <span>Veuillez choisir un autre identifiant</span>
-            </div>
-
-            <div *ngIf="isEmailTaken" class="alert alert-danger">
-              <span>Veuillez choisir une autre adresse email</span>
-            </div>
 
             <form [formGroup]="stepOneGroupPassword">
               <div>

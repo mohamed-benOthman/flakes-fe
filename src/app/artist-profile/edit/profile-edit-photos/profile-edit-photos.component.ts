@@ -3,6 +3,7 @@ import {Profile} from '../../../models/profile.model';
 import {ProfileService} from '../../../services/profile.service';
 import {HttpClient} from '@angular/common/http';
 import {forkJoin} from 'rxjs';
+import * as cloneDeep from 'lodash/cloneDeep';
 
 @Component({
   selector: 'app-profile-edit-photos',
@@ -16,7 +17,9 @@ export class ProfileEditPhotosComponent implements OnInit {
   MAX_PHOTOS = 3;
   isPhotoValid = true;
 
-  currentProfile: Profile;
+  // currentProfile: Profile;
+  currentProfileCopy: Profile;
+
   files: File[] = []; // photos selectionnées pour l'envoi
   photosUrl = []; // url des photos selectionnées pour l'envoi
 
@@ -36,7 +39,10 @@ export class ProfileEditPhotosComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.profileService.currentProfile.subscribe(res => this.currentProfile = res);
+    this.profileService.currentProfile.subscribe(res => {
+      // this.currentProfile = res;
+      this.currentProfileCopy = cloneDeep(res);
+    });
   }
 
   resetAll() {
@@ -47,11 +53,16 @@ export class ProfileEditPhotosComponent implements OnInit {
   }
 
   onDeletePhotoFromGallery(index) {
-    this.currentProfile.photosUrl.splice(index, 1);
-    this.profileService.updateProfile(this.currentProfile);
-    this.photoDeletedEvent.emit(index);
+    this.currentProfileCopy.photosUrl.splice(index, 1);
+    // this.profileService.updateProfile(this.currentProfile);
+    // this.photoDeletedEvent.emit(index);
   }
 
+  savePhotosProfile() {
+    // this.currentProfile = cloneDeep(this.currentProfileCopy);
+
+    this.profileService.updateProfile(cloneDeep(this.currentProfileCopy));
+  }
 
 
   /************************
@@ -82,7 +93,6 @@ export class ProfileEditPhotosComponent implements OnInit {
   }
 
   onUploadPhotos() {
-    console.log('onUploadPhotos event');
     this.uploadingEvent.emit(true);
 
     const observables = [];
@@ -96,10 +106,10 @@ export class ProfileEditPhotosComponent implements OnInit {
       console.log('response = ' + JSON.stringify(results));
       if (results && results.length > 0) {
         for (const photo of results) {
-          this.currentProfile.photosUrl.push(photo);
+          this.currentProfileCopy.photosUrl.push(photo);
         }
       }
-      this.profileService.updateProfile(this.currentProfile);
+      // this.profileService.updateProfile(this.currentProfile);
       this.uploadingEvent.emit(false);
       this.resetAll();
     }, error1 => this.uploadingEvent.emit(false));
@@ -136,10 +146,10 @@ export class ProfileEditPhotosComponent implements OnInit {
   }
 
   onDropImage(dropResult) {
-    console.log('AVANT --- ' + JSON.stringify(this.currentProfile.photosUrl));
-    this.currentProfile.photosUrl = this.applyDrag(this.currentProfile.photosUrl, dropResult);
-    this.profileService.updateProfile(this.currentProfile);
-    console.log('APRES --- ' + JSON.stringify(this.currentProfile.photosUrl));
+    console.log('AVANT --- ' + JSON.stringify(this.currentProfileCopy.photosUrl));
+    this.currentProfileCopy.photosUrl = this.applyDrag(this.currentProfileCopy.photosUrl, dropResult);
+    // this.profileService.updateProfile(this.currentProfile);
+    console.log('APRES --- ' + JSON.stringify(this.currentProfileCopy.photosUrl));
   }
 
 }
