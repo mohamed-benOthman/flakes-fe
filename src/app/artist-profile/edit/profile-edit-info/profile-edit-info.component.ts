@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
 import {Profile} from '../../../models/profile.model';
 import {ProfileService} from '../../../services/profile.service';
 
@@ -16,13 +16,17 @@ export class ProfileEditInfoComponent implements OnInit {
   @ViewChild('postalCodeInput') zipCodeInput;
   @ViewChild('sloganArea') sloganArea;
 
+  @Output() uploadingEvent = new EventEmitter<any>();
 
-  defaultProfilePhoto = '../../../assets/images/user_icon_placeholder.svg';
-  isProfilePhotoValid: boolean; // pour afficher le message d'erreur si la photo de profile exède 1Mo
   sloganMaxLen = Constants.SLOGAN_MAX_LENGTH;
+  defaultProfilePhoto = Constants.defaultProfilePhoto;
   currentProfileCopy: Profile;
+  isProfilePhotoValid: boolean; // pour afficher le message d'erreur si la photo de profile exède 1Mo
+  profilePhotoFile: File;
 
-  constructor(private http: HttpClient, private profileService: ProfileService) {}
+
+  constructor(private profileService: ProfileService) {}
+
 
   ngOnInit() {
     this.profileService.currentProfile.subscribe(res => {
@@ -57,8 +61,13 @@ export class ProfileEditInfoComponent implements OnInit {
   }
 
   saveEditProfile() {
-    // this.currentProfile = cloneDeep(this.currentProfileCopy);
-    this.profileService.updateProfile(cloneDeep(this.currentProfileCopy));
+    if (this.profilePhotoFile) {
+      console.log('we are uploading the photo');
+      this.uploadProfilePhoto();
+    } else { // --- si pas de photo de profile on continue sinon upload + mise à jour du profile
+      console.log('we are NOT uploading the photo');
+      this.profileService.updateProfile(cloneDeep(this.currentProfileCopy));
+    }
   }
 
   isValidProfile() {
@@ -80,14 +89,31 @@ export class ProfileEditInfoComponent implements OnInit {
         this.isProfilePhotoValid = false;
       } else {
         this.isProfilePhotoValid = true;
+        this.profilePhotoFile = event.target.files[0];
+
         const reader = new FileReader();
         reader.readAsDataURL(event.target.files[0]); // read file as data url
         reader.onload = (evn: Event) => { // called once readAsDataURL is completed
-          // this.currentProfileCopy.profilePhotoUrl = evn.target.result;
           this.currentProfileCopy.photo_profile = reader.result;
         };
       }
     }
+  }
+
+  uploadProfilePhoto() {
+    console.log('uploadProfilePhoto');
+    this.uploadingEvent.emit(true);
+    const uploadData = new FormData();
+    uploadData.append(Constants.uploadPhotoParam, this.profilePhotoFile, this.profilePhotoFile.name);
+
+    this.profileService.postPhoto(uploadData).subscribe(results => {
+      console.log('response = ' + JSON.stringify(results));
+      this.currentProfileCopy.photo_profile = results[0];
+      this.uploadingEvent.emit(false);
+    }, error1 => {
+      console.log('response error = ' + JSON.stringify(error1));
+      this.uploadingEvent.emit(false);
+    });
   }
 
   onCitySelected(cities) {

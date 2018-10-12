@@ -83,6 +83,10 @@ export class ProfileService {
     return this.http.post(Constants.searchURL, JSON.stringify(profile), httpOptions);
   }
 
+  postPhoto(uploadData) {
+    return this.http.post(Constants.uploadPhotoURL, uploadData);
+  }
+
   formatProfileForUpload(profile) {
     const formattedProfile = cloneDeep(profile);
     let business = '', expertises = '', photosUrl = '', cities = '';
@@ -129,4 +133,6 @@ export class ProfileService {
 
     return formattedProfile;
   }
+
+
 }

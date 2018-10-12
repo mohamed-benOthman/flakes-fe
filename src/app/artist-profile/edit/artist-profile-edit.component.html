@@ -17,7 +17,8 @@
             Edition des informations du profile
           </h1>
           <br>
-          <app-profile-edit-info></app-profile-edit-info>
+          <app-profile-edit-info
+            (uploadingEvent)="isUploading = $event"></app-profile-edit-info>
         </div>
       </div>
       <!------------------------------
@@ -65,6 +66,21 @@
     Certains éléments requis sont manquants.
     <p-footer>
       <button type="button" pButton icon="pi pi-check" (click)="displayInvalidProfile=false" label="Ok"></button>
+    </p-footer>
+  </p-dialog>
+
+  <p-dialog header="Mise à jour du profil" [(visible)]="updateProfileDone" [modal]="true" [blockScroll]="true"
+            [closeOnEscape]="false" [closable]="false" [showHeader]="true">
+    <div *ngIf="profileSuccessfullyUpdated; else errorCreation">
+      <h3 style="color: #4cae4c"><strong>Le profil a correctement été mis à jour</strong></h3>
+    </div>
+
+    <ng-template #errorCreation>
+      <h3 style="color: #8b1941"><strong>Erreur lors de la mise à jour du profil</strong></h3>
+    </ng-template>
+
+    <p-footer>
+      <button type="button" pButton icon="pi pi-check" (click)="quitEdit()" label="Ok"></button>
     </p-footer>
   </p-dialog>
 </section>

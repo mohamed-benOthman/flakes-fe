@@ -1,7 +1,6 @@
 import {Component, EventEmitter, OnInit, Output, ViewEncapsulation} from '@angular/core';
 import {Profile} from '../../../models/profile.model';
 import {ProfileService} from '../../../services/profile.service';
-import {HttpClient} from '@angular/common/http';
 import {forkJoin} from 'rxjs';
 import * as cloneDeep from 'lodash/cloneDeep';
 import * as Constants from '../../../utils/globals';
@@ -27,7 +26,7 @@ export class ProfileEditPhotosComponent implements OnInit {
   @Output() photoSentEvent = new EventEmitter<any>();
   @Output() uploadingEvent = new EventEmitter<any>();
 
-  constructor(private profileService: ProfileService, private http: HttpClient) {
+  constructor(private profileService: ProfileService) {
   }
 
   ngOnInit() {
@@ -51,8 +50,6 @@ export class ProfileEditPhotosComponent implements OnInit {
   }
 
   savePhotosProfile() {
-    // this.currentProfile = cloneDeep(this.currentProfileCopy);
-
     this.profileService.updateProfile(cloneDeep(this.currentProfileCopy));
   }
 
@@ -91,17 +88,17 @@ export class ProfileEditPhotosComponent implements OnInit {
     for (const file of this.files) {
       const uploadData = new FormData();
       uploadData.append(Constants.uploadPhotoParam, file, file.name);
-      observables.push(this.http.post(Constants.uploadPhotoURL, uploadData));
+      observables.push(this.profileService.postPhoto(uploadData));
     }
 
-    forkJoin(observables).subscribe(results => {
-      console.log('response = ' + JSON.stringify(results));
+    forkJoin(observables).subscribe(
+      results => {
+      console.log('response after uploading all photos = ' + JSON.stringify(results));
       if (results && results.length > 0) {
         for (const photo of results) {
           this.currentProfileCopy.photosUrl.push(photo);
         }
       }
-      // this.profileService.updateProfile(this.currentProfile);
       this.uploadingEvent.emit(false);
       this.resetAll();
     }, error1 => this.uploadingEvent.emit(false));
@@ -138,9 +135,7 @@ export class ProfileEditPhotosComponent implements OnInit {
   }
 
   onDropImage(dropResult) {
-    console.log('AVANT --- ' + JSON.stringify(this.currentProfileCopy.photosUrl));
     this.currentProfileCopy.photosUrl = this.applyDrag(this.currentProfileCopy.photosUrl, dropResult);
-    console.log('APRES --- ' + JSON.stringify(this.currentProfileCopy.photosUrl));
   }
 
 }
