@@ -1,9 +1,10 @@
-import {Component, EventEmitter, OnInit, Output, ViewEncapsulation} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output, ViewChild, ViewEncapsulation} from '@angular/core';
 import {Profile} from '../../../models/profile.model';
 import {ProfileService} from '../../../services/profile.service';
 import {forkJoin} from 'rxjs';
 import * as cloneDeep from 'lodash/cloneDeep';
 import * as Constants from '../../../utils/globals';
+import {SelectCitiesComponent} from '../../../utils/select-cities/select-cities.component';
 
 @Component({
   selector: 'app-profile-edit-photos',

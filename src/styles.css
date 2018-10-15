@@ -927,7 +927,9 @@ a.text-primary:focus, a.text-primary:hover {
     max-width: 20px;
   }
   .logo a img {
+    position: absolute;
     max-width: 158px;
+    z-index: 1;
   }
   .navigation-bar {
     margin: 9px 0 0 0;

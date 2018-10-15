@@ -6,8 +6,8 @@ import {forkJoin, Observable} from 'rxjs';
 import {SelectCitiesComponent} from '../utils/select-cities/select-cities.component';
 import {SearchService} from '../services/search.service';
 import {Profile} from '../models/profile.model';
-import {NgSelectComponent} from '@ng-select/ng-select';
 import {Department} from '../models/department.model';
+import * as Constants from '../utils/globals';
 
 @Component({
   selector: 'app-search',
@@ -28,9 +28,10 @@ export class SearchComponent implements OnInit {
   artistsProfiles: Profile[];
 
   pageLength = 1;
-  pageSize = 10;
+  pageSizeOptions: number[] = Constants.SEARCH_AVAILABLE_ITEMS_PER_PAGE;
+  pageSize = Constants.SEARCH_AVAILABLE_ITEMS_PER_PAGE[1];
   pageIndex = 0;
-  pageSizeOptions: number[] = [1, 5, 10, 25];
+
 
   skinTypes = [
     {value: 1, label: 'Peau claire'},
@@ -100,7 +101,6 @@ export class SearchComponent implements OnInit {
 
   onCitySelected(city) {
     this.selectedCity = city;
-    console.log('selected city = ' + JSON.stringify(this.selectedCity));
     this.updateSearch();
   }
 
@@ -114,9 +114,7 @@ export class SearchComponent implements OnInit {
     const city = !this.selectedCity ? null : String(this.selectedCity.code) + ';' + String(this.selectedCity.city);
     const dept = !this.selectedDept ? null : this.selectedDept.code;
 
-    console.log(`skin = ${JSON.stringify(this.selectedSkins)}`);
-
-    const searchObs = this.searchService.requestSearch(this.pageSize, this.pageIndex, dept, city, biz, this.selectedSkins);
+    const searchObs = this.searchService.requestSearch(this.pageSize, this.pageIndex * this.pageSize, dept, city, biz, this.selectedSkins);
     const countObs = this.searchService.requestSearchCount(dept, city, biz, this.selectedSkins);
 
     forkJoin([searchObs, countObs]).subscribe(results => {
@@ -126,7 +124,13 @@ export class SearchComponent implements OnInit {
       this.artistFound = count > 0;
 
       const remainder = count % this.pageSize === 0 ? 0 : 1;
-      this.pageLength = Math.floor(count / this.pageSize + remainder);
+      this.pageLength = count;
+
+      // this.pageLength = Math.floor(count / this.pageSize + remainder);
+      // setTimeout(() => this.pageIndex = 1, 1500);
+      console.log('this.pageLength' + this.pageLength);
+      console.log('this.pageSize' + this.pageSize);
+      console.log('this.pageIndex' + this.pageIndex);
     }, error1 => {
       console.log('updateSearch erreur:\n ' + JSON.stringify(error1));
       this.artistFound = false;
@@ -138,8 +142,8 @@ export class SearchComponent implements OnInit {
     this.pageSize = pageEvent.pageSize;
     this.pageIndex = pageEvent.pageIndex;
 
+    // console.log('BEFORE updateSearch: ' + JSON.stringify(pageEvent));
     this.updateSearch();
-    console.log('onPageEvent: ' + JSON.stringify(pageEvent));
   }
 
 }

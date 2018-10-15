@@ -6,11 +6,7 @@
       <div id="centered" class="col-sm-5">
         <div><img #profileImg [src]="currentProfileCopy.photo_profile" class="user"/></div>
         <span style="display:inline-block; margin-top: 0.5em"></span>
-        <div>
-          <input #fileUpload type="file" accept="image/*" (change)="profilePhotoChanged($event)" style="display:none">
-          <button pButton type="button" label="Modifier l'image" class="ui-button-rounded ui-button-secondary"
-                  (click)="fileUpload.click()"></button>
-        </div>
+
       </div>
       <div class="col-sm-7">
         <div>
@@ -29,6 +25,11 @@
           </mat-form-field>
         </div>
       </div>
+    </div>
+    <div>
+      <input #fileUpload type="file" accept="image/*" (change)="profilePhotoChanged($event)" style="display:none">
+      <p-splitButton label="Modifier l'image" styleClass="ui-button-secondary"
+                     [model]="splitButtonActions" (onClick)="fileUpload.click()"></p-splitButton>
     </div>
     <div *ngIf="!isProfilePhotoValid">
       <p style="color: red; text-align:center; margin-top: 10px;">La taille maximale pour la photo de profile est de 1Mo</p></div>

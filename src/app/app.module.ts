@@ -20,7 +20,7 @@ import {
   FileUploadModule,
   GrowlModule,
   MultiSelectModule,
-  ProgressSpinnerModule, ScrollPanelModule,
+  ProgressSpinnerModule, ScrollPanelModule, SplitButtonModule,
   TabViewModule
 } from 'primeng/primeng';
 import {MatCheckboxModule, MatGridListModule, MatIconModule, MatInputModule, MatPaginatorModule, MatStepperModule} from '@angular/material';
@@ -84,7 +84,7 @@ const appRoutes: Routes = [
     FormsModule,
     HttpClientModule,
     ReactiveFormsModule, NgxGalleryModule,
-    ButtonModule, DialogModule, NgxSmoothDnDModule, ScrollPanelModule,
+    ButtonModule, DialogModule, NgxSmoothDnDModule, ScrollPanelModule, SplitButtonModule,
     MatInputModule, MultiSelectModule, MatCheckboxModule, GrowlModule, CardModule, BlockUIModule,
     MatGridListModule, TabViewModule, FileUploadModule, DropdownModule, ProgressSpinnerModule,
     NgSelectModule, MatPaginatorModule, MatStepperModule, MatIconModule,

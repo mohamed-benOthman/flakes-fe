@@ -5,6 +5,7 @@ import {ProfileService} from '../../../services/profile.service';
 import * as cloneDeep from 'lodash/cloneDeep';
 import {HttpClient} from '@angular/common/http';
 import * as Constants from '../../../utils/globals';
+import {MenuItem} from 'primeng/api';
 
 @Component({
   selector: 'app-profile-edit-info',
@@ -24,6 +25,7 @@ export class ProfileEditInfoComponent implements OnInit {
   isProfilePhotoValid: boolean; // pour afficher le message d'erreur si la photo de profile exède 1Mo
   profilePhotoFile: File;
 
+  splitButtonActions: MenuItem[];
 
   constructor(private profileService: ProfileService) {}
 
@@ -38,6 +40,13 @@ export class ProfileEditInfoComponent implements OnInit {
     });
 
     this.isProfilePhotoValid = true; // par défaut on affiche pas le message car la photo est censée etre valide
+
+    this.splitButtonActions = [
+      {label: 'Supprimer la photo', icon: 'fa fa-close', command: () => {
+          this.profilePhotoFile = null;
+          this.currentProfileCopy.photo_profile = this.defaultProfilePhoto;
+        }}
+    ];
   }
 
   zipCodeChecker(event: KeyboardEvent) {

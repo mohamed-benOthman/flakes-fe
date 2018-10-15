@@ -3,8 +3,8 @@ import {AbstractControl, FormBuilder, FormGroup, Validators} from '@angular/form
 import {Profile} from '../../models/profile.model';
 import {ProfileService} from '../../services/profile.service';
 import {Router} from '@angular/router';
-import { ErrorStateMatcher } from '@angular/material/core';
-import { FormControl, FormGroupDirective, NgForm } from '@angular/forms';
+import {ErrorStateMatcher} from '@angular/material/core';
+import {FormControl, FormGroupDirective, NgForm} from '@angular/forms';
 import {SignupService} from '../../services/signup.service';
 import {Subject} from 'rxjs';
 import * as Constants from '../../utils/globals';
@@ -66,7 +66,7 @@ export class SignupComponent implements OnInit {
   constructor(private _formBuilder: FormBuilder, private profileService: ProfileService,
               private signupService: SignupService, private router: Router) {
     this.signupService.search(this.usernameSubject, false).subscribe(result => {
-      this.isUsernameTaken = result;
+      this.isUsernameTaken = result === true || result === false ? result : false;
       if (this.isUsernameTaken) {
         this.stepOneGroup.controls['username'].setErrors({'isTaken': true});
       }
@@ -107,7 +107,7 @@ export class SignupComponent implements OnInit {
     const pass = group.controls.password.value;
     const confirmPass = group.controls.confirmPassword.value;
 
-    return pass === confirmPass ? null : { notSame: true };
+    return pass === confirmPass ? null : {notSame: true};
   }
 
   phoneChecker(event: KeyboardEvent) {
@@ -133,10 +133,18 @@ export class SignupComponent implements OnInit {
 
   getBusinnessList() {
     let biz = '';
-    if (this.makeupChecked) { biz += '1|'; }
-    if (this.manicureChecked) { biz += '2|'; }
-    if (this.microbladingChecked) { biz += '3|'; }
-    if (this.eyesExtenChecked) { biz += '4|'; }
+    if (this.makeupChecked) {
+      biz += '1|';
+    }
+    if (this.manicureChecked) {
+      biz += '2|';
+    }
+    if (this.microbladingChecked) {
+      biz += '3|';
+    }
+    if (this.eyesExtenChecked) {
+      biz += '4|';
+    }
 
     if (biz !== null && biz.endsWith('|')) {
       biz = biz.substring(0, biz.length - 1);
@@ -146,9 +154,15 @@ export class SignupComponent implements OnInit {
 
   getExpertiseList() {
     let expertise = '';
-    if (this.clearSkinChecked) { expertise += '1|'; }
-    if (this.darkSkinChecked) { expertise += '2|'; }
-    if (this.tannedSkinChecked) { expertise += '3|'; }
+    if (this.clearSkinChecked) {
+      expertise += '1|';
+    }
+    if (this.darkSkinChecked) {
+      expertise += '2|';
+    }
+    if (this.tannedSkinChecked) {
+      expertise += '3|';
+    }
 
     if (expertise !== null && expertise.endsWith('|')) {
       expertise = expertise.substring(0, expertise.length - 1);
