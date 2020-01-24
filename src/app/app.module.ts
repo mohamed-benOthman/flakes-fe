@@ -40,6 +40,7 @@ import { ContactComponent } from './submenus/contact/contact.component';
 import { PartnershipComponent } from './submenus/partnership/partnership.component';
 import { AboutComponent } from './submenus/about/about.component';
 import {NgxSmoothDnDModule} from 'ngx-smooth-dnd';
+import {UserCharterComponent} from './submenus/user-charter/usercharter.component';
 
 const appRoutes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -53,6 +54,7 @@ const appRoutes: Routes = [
   { path: 'signup', component: SignupComponent },
   { path: 'contact', component: ContactComponent },
   { path: 'about', component: AboutComponent },
+  { path: 'usercharter', component: UserCharterComponent },
   { path: 'partnership', component: PartnershipComponent },
   { path: '', redirectTo: 'home', pathMatch: 'full'},
   { path: '**', redirectTo: 'home'}
@@ -77,7 +79,8 @@ const appRoutes: Routes = [
     SignupComponent,
     ContactComponent,
     PartnershipComponent,
-    AboutComponent
+    AboutComponent,
+    UserCharterComponent
   ],
   imports: [
     BrowserModule, BrowserAnimationsModule,

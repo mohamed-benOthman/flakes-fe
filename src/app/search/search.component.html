@@ -15,9 +15,11 @@
 <section class="content-search">
   <div class="container-fluid">
     <div class="row">
-      <div class="col-sm-4">
+      <div class="col-sm-12">
         <ng-select class="custom"
                    [items]="deptList | async"
+                   [multiple]="true"
+                   [maxSelectedItems]="3"
                    bindLabel="code"
                    placeholder="Département"
                    notFoundText="Aucun élément trouvé"
@@ -34,16 +36,16 @@
 
         </ng-select>
       </div>
-      <div class="col-sm-4">
+      <div class="col-sm-6">
         <app-select-cities #citiesSelect
                            [multipleValues]="false"
                            [disableComponent]="false"
-                           [departmentFilter]="selectedDept ? +(selectedDept.code) : 0"
+                           [departmentFilter]="selectedDept"
                            (zipCodeCitySelected)="onCitySelected($event)">
 
         </app-select-cities>
       </div>
-      <div class="col-sm-4">
+      <div class="col-sm-6">
         <ng-select #skinSelect
                    class="custom"
                    [items]="skinTypes"

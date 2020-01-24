@@ -56,7 +56,7 @@ export class SelectCitiesComponent implements OnInit {
   @Input() multipleValues = false;
   @Input() citiesSelected = [];
   @Input() disableComponent = false;
-  @Input() departmentFilter = 0; // Si 0 on prend tous les départements
+  @Input() departmentFilter = []; // Si  on prend tous les départements
   @Input() isValid = true;
   @Input() isRequired = false;
 
@@ -91,12 +91,18 @@ export class SelectCitiesComponent implements OnInit {
         tap(() => this.citiesLoading = true),
         switchMap(term => this.citiesService.getCitiesList(term).pipe(
           map(results => {
-            console.log('departement = ' + this.departmentFilter);
-            if (this.departmentFilter > 0) {
-              return results.filter(result => String(result.code).startsWith(String(this.departmentFilter)));
-            } else {
-              return results;
+            const res = [];
+            if (this.departmentFilter.length > 0) {
+              // this.departmentFilter.forEach(dpt => results.filter(result => String(result.code).startsWith(String(dpt.code))));
+              for (let i = 0; i < this.departmentFilter.length; i++) {
+                for (let j = 0; j < results.length; j++) {
+                  if (String(results[j].code).startsWith(String(this.departmentFilter[i].code))) {
+                    res.push(results[j]);
+                  }
+                }
+              }
             }
+            return res;
           }),
           catchError(() => of([])), // empty list on error
           tap(() => this.citiesLoading = false)))

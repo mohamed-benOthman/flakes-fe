@@ -17,6 +17,7 @@ export class SearchService {
                 dept: string = null, city: string = null,
                 businessType: string = null, expertiseType: any[] = null) {
 
+    console.log('dept = ' +  `${dept}`)
     const typeURL = this.getTypePart(dept, city, businessType, expertiseType);
     const paramURL = this.getParamPart(dept, city, businessType, expertiseType);
 

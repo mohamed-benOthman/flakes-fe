@@ -23,7 +23,7 @@ export class SearchComponent implements OnInit {
   categoryTitle: string;
   departments: Array<any>;
   // selectedDeptObservable: Observable<Department>;
-  selectedDept: Department;
+  selectedDept: Department[];
 
   artistsProfiles: Profile[];
 
@@ -112,7 +112,7 @@ export class SearchComponent implements OnInit {
     // const skin = (!this.selectedSkins || this.selectedSkins.length === 0) ? null : String(this.selectedSkins[0].value);
     const biz = String(this.businessType);
     const city = !this.selectedCity ? null : String(this.selectedCity.code) + ';' + String(this.selectedCity.city);
-    const dept = !this.selectedDept ? null : this.selectedDept.code;
+    const dept = !this.selectedDept ? null : this.selectedDept.map(dpt => dpt.code).toString()
 
     const searchObs = this.searchService.requestSearch(this.pageSize, this.pageIndex * this.pageSize, dept, city, biz, this.selectedSkins);
     const countObs = this.searchService.requestSearchCount(dept, city, biz, this.selectedSkins);
