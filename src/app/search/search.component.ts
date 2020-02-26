@@ -104,7 +104,7 @@ export class SearchComponent implements OnInit {
     this.updateSearch();
   }
 
-  openProfileDetails(artistID: number) {
+  openProfileDetails(artistID: String) {
     this.router.navigate(['/profile-details', artistID]);
   }
 

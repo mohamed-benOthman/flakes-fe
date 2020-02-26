@@ -58,12 +58,12 @@ body {
 }
 .navigation-bar .navbar-inverse .navbar-nav  li  a:focus, .navbar-inverse .navbar-nav  li  a:hover {
 
-  background-color: #d11574;
+  background-color: #ce9c8f;
   color: #fff!important;
 }
 
 .navigation-bar .navbar-inverse .navbar-nav  li  a:before:nth-child(2){
-  content: url('../../../assets/images/eye-w.png');
+  content: url('../../../assets/images/extension_cils.jpg');
 }
 
 .navigation-bar .navbar-inverse .navbar-nav li a {
@@ -75,7 +75,7 @@ body {
 }
 .navigation-bar .navbar-inverse .navbar-nav .active a, .navbar-inverse .navbar-nav .active a:focus, .navbar-inverse .navbar-nav .active a:hover:first-child {
   color: #fff;
-  background-color: #d11574;
+  background-color: #ce9c8f;
   padding: 12px 11px;
 }
 
@@ -137,7 +137,8 @@ body {
   margin: 0px 0px 38px 0px;
 }
 .btn.btn-primary-submit.hvr-shadow {
-  background-color: #d11574;
+  /*background-color: #d11574;*/
+  background-color: #ce9c8f;
   padding: 8px 40px;
   color: #fff;
   font-size: 23px;
@@ -172,7 +173,7 @@ body {
 .main-block
 {
 
-  border-top: 5px solid #d11574;
+  border-top: 5px solid #ce9c8f;
   padding: 40px 26px;
   border-right: 1px solid #eee;
   border-bottom: 1px solid #eee;
@@ -192,7 +193,7 @@ body {
 
 }
 .btn.btn-primary.read {
-  background-color: #d11574;
+  background-color: #ce9c8f;
   border: 0;
   border-radius: 0;
   font-size: 15px;
@@ -216,7 +217,7 @@ body {
 
 }
 .quote-text span {
-  color: #d11574;
+  color: #ce9c8f;
   text-align: center;
   display: block;
   font-size: 18px;
@@ -362,7 +363,7 @@ body {
   overflow: hidden;
   display: inline-block;
   vertical-align: middle;
-  background: url(../../../assets/images/eyeshadow-b.png);
+  background: url(../../../assets/images/maquillage.jpg);
 
 }
 /*active css*/
@@ -374,27 +375,27 @@ body {
   overflow: hidden;
   display: inline-block;
   vertical-align: middle;
-  background: url(../../../assets/images/eye-b.png);
+  background: url(../../../assets/images/microblading.jpg);
 }
 
 
 .maquillages-icon_scn {
-  width: 46px;
-  height: 25px;
+  width: 17px;
+  height: 20px;
   overflow: hidden;
   display: inline-block;
   vertical-align: middle;
-  background: url(../../../assets/images/manycure-b.png);
+  background: url(../../../assets/images/manucure.jpg);
 
 }
 
 .maquillages-icon_thr {
-  width: 46px;
-  height: 25px;
+  width: 50px;
+  height: 22px;
   overflow: hidden;
   display: inline-block;
   vertical-align: middle;
-  background: url(../../../assets/images/eyelash-b.png);
+  background: url(../../../assets/images/extension_cils.png);
 
 
 }
@@ -404,7 +405,7 @@ body {
   overflow: hidden;
   display: inline-block;
   vertical-align: middle;
-  background: url(../../../assets/images/eyeshadow-b.png);
+  background: url(../../../assets/images/maquillage.jpg);
 
 }
 .navbar-nav > li a:hover .img-icon,
@@ -468,7 +469,7 @@ body {
     margin: 4px 0;
   }
   .quote-text span {
-    color: #d11574;
+    color: #ce9c8f;
     text-align: center;
     display: block;
     font-size: 13px;
@@ -526,7 +527,7 @@ body {
     line-height: 31px;
   }
   .main-block {
-    border-top: 5px solid #d11574;
+    border-top: 5px solid #ce9c8f;
     padding: 21px 10px;
   }
   .quote-text p {
@@ -603,7 +604,7 @@ body {
   }
   .navigation-bar .navbar-inverse .navbar-nav .active a, .navbar-inverse .navbar-nav .active a:focus, .navbar-inverse .navbar-nav .active a:hover:first-child {
     color: #fff;
-    background-color: #d11574;
+    background-color: #ce9c8f;
     padding: 12px 5px;
   }
   .main-block {
@@ -617,7 +618,7 @@ body {
     font-size: 13px;
   }
   .main-block {
-    border-top: 5px solid #d11574;
+    border-top: 5px solid #ce9c8f;
     padding: 16px 7px;
   }
   .content-box p {

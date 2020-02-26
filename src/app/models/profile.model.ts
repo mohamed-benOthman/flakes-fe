@@ -31,5 +31,6 @@ export interface Profile {
   slogan: string;
   photosUrl: any[];
   photo_profile: string;
+  movings: any[];
 }
 

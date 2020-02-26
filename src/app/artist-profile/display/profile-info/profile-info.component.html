@@ -6,12 +6,12 @@
     <td><span style="display:inline-block; width: 15px;"></span></td>
     <td class="detail">{{ currentProfile?.username }}</td>
   </tr>
-  <tr>
+  <tr *ngIf="isLoggedIn()">
     <td><b>Nom</b></td>
     <td><span style="display:inline-block; width: 15px;"></span></td>
     <td class="detail">{{ currentProfile?.lastname }}</td>
   </tr>
-  <tr>
+  <tr *ngIf="isLoggedIn()">
     <td><b>Prénom</b></td>
     <td><span style="display:inline-block; width: 15px;"></span></td>
     <td class="detail">{{ currentProfile?.firstname }}</td>
@@ -26,7 +26,7 @@
     <td><span style="display:inline-block; width: 15px;"></span></td>
     <td class="detail">{{ currentProfile?.phone }}</td>
   </tr>
-  <tr>
+  <tr *ngIf="isLoggedIn()">
     <td><b>N° et Rue</b></td>
     <td><span style="display:inline-block; width: 15px;"></span></td>
     <td class="detail">{{currentProfile?.street}}</td>
@@ -64,6 +64,28 @@
         </div>
     </td>
   </tr>
+
+  <tr *ngIf="isMoving(); else notMovingTemplate">
+    <td><b>Déplacements</b></td>
+    <td><span style="display:inline-block; width: 15px;"></span></td>
+    <td class="detail">
+      <div *ngFor="let moving of currentProfile?.movings">
+        <ng-container *ngIf="moving.checked">
+          {{moving.libelle}}
+        </ng-container>
+      </div>
+    </td>
+  </tr>
+
+  <ng-template #notMovingTemplate>
+    <tr>
+    <td><b>Déplacements</b></td>
+    <td><span style="display:inline-block; width: 15px;"></span></td>
+    <td class="detail">
+      ---
+    </td>
+    </tr>
+  </ng-template>
 
   <tr>
     <td><b>Présentation</b></td>

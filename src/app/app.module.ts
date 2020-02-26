@@ -41,6 +41,10 @@ import { PartnershipComponent } from './submenus/partnership/partnership.compone
 import { AboutComponent } from './submenus/about/about.component';
 import {NgxSmoothDnDModule} from 'ngx-smooth-dnd';
 import {UserCharterComponent} from './submenus/user-charter/usercharter.component';
+import { FaqComponent } from './submenus/faq/faq.component';
+import { CgvComponent } from './submenus/cgv/cgv.component';
+import { ConfidentialityComponent } from './submenus/confidentiality/confidentiality.component';
+import { LegalsComponent } from './submenus/legals/legals.component';
 
 const appRoutes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -56,6 +60,10 @@ const appRoutes: Routes = [
   { path: 'about', component: AboutComponent },
   { path: 'usercharter', component: UserCharterComponent },
   { path: 'partnership', component: PartnershipComponent },
+  { path: 'faq', component: FaqComponent },
+  { path: 'cgv', component: CgvComponent },
+  { path: 'privacy', component: ConfidentialityComponent },
+  { path: 'disclaimer', component: LegalsComponent },
   { path: '', redirectTo: 'home', pathMatch: 'full'},
   { path: '**', redirectTo: 'home'}
 ];
@@ -80,7 +88,11 @@ const appRoutes: Routes = [
     ContactComponent,
     PartnershipComponent,
     AboutComponent,
-    UserCharterComponent
+    UserCharterComponent,
+    FaqComponent,
+    CgvComponent,
+    ConfidentialityComponent,
+    LegalsComponent
   ],
   imports: [
     BrowserModule, BrowserAnimationsModule,

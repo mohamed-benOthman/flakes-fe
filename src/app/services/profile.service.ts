@@ -26,8 +26,8 @@ export class ProfileService {
     photosUrl: [],
     cities: {},
     business: [],
-    expertises: []
-
+    expertises: [],
+    movings: []
   };
   private userProfile: BehaviorSubject<Profile>;
 

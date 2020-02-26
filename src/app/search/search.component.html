@@ -38,7 +38,7 @@
       </div>
       <div class="col-sm-6">
         <app-select-cities #citiesSelect
-                           [multipleValues]="false"
+                           [multipleValues]="true"
                            [disableComponent]="false"
                            [departmentFilter]="selectedDept"
                            (zipCodeCitySelected)="onCitySelected($event)">
@@ -50,10 +50,21 @@
                    class="custom"
                    [items]="skinTypes"
                    [multiple]="true"
+                   [closeOnSelect]="false"
                    placeholder="Type de peau"
                    (change)="updateSearch()"
-                   [(ngModel)]="selectedSkins">
+                    [(ngModel)]="selectedSkins">
+<!--          <ng-template ng-multi-label-tmp></ng-template>-->
+
+          <ng-template ng-option-tmp let-item="item" let-index="index" let-item$="item$">
+            <div class="custom-control custom-checkbox">
+              <input type="checkbox" [ngModel]="item$.selected" class="custom-control-input"/>
+              <span style="display:inline-block; width: 20px;"></span>
+              <label class="form-check-label ml-2 custom-control-label">{{item.label}}</label>
+            </div>
+          </ng-template>
         </ng-select>
+
       </div>
     </div>
 

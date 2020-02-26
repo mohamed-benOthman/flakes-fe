@@ -19,4 +19,11 @@ export class ProfileInfoComponent implements OnInit {
     this.profileService.currentProfile.subscribe(res => this.currentProfile = res);
   }
 
+  isLoggedIn() {
+    return this.profileService.isAuthenticated;
+  }
+
+  isMoving() {
+    return this.currentProfile.movings != null && this.currentProfile.movings.length > 0;
+  }
 }

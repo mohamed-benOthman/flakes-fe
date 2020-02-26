@@ -49,6 +49,9 @@ export class SignupComponent implements OnInit {
   tannedSkinChecked = false;
   darkSkinChecked = false;
 
+  movingInFranceOnly = false;
+  movingOutsideFrance = false;
+
   sloganTxt = '';
 
   isUploading = false;
@@ -170,6 +173,21 @@ export class SignupComponent implements OnInit {
     return expertise;
   }
 
+  getMovingList() {
+    let movings = '';
+    if (this.movingInFranceOnly) {
+      movings += '1|';
+    }
+    if (this.movingOutsideFrance) {
+      movings += '2|';
+    }
+
+    if (movings !== null && movings.endsWith('|')) {
+      movings = movings.substring(0, movings.length - 1);
+    }
+    return movings;
+  }
+
   submitPost() {
     this.isUploading = true;
 
@@ -184,7 +202,8 @@ export class SignupComponent implements OnInit {
       password: this.stepOneGroupPassword.value.password,
       cities: this.selectedCity.code + ';' + this.selectedCity.city,
       business: this.getBusinnessList(),
-      expertises: this.getExpertiseList()
+      expertises: this.getExpertiseList(),
+      movings: this.getMovingList()
     };
 
     console.log('will submit: ' + JSON.stringify(newProfile));
