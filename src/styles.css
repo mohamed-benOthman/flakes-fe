@@ -372,7 +372,7 @@ td a:hover {
 
 }
 
-.maquillages-icon {
+/*.maquillages-icon {
   width: 17px;
   height: 22px;
   overflow: hidden;
@@ -381,7 +381,7 @@ td a:hover {
   background: url(assets/images/maquillage.jpg);
 
 }
-/*active css*/
+!*active css*!
 
 .maquillages-icon_ft {
   width: 38px;
@@ -418,7 +418,7 @@ td a:hover {
   vertical-align: middle;
   background: url(assets/images/maquillage.jpg);
 
-}
+}*/
 .navbar-nav > li a:hover .img-icon,
 .navbar-nav > li.active a .img-icon {
   background-position: left top 25px;

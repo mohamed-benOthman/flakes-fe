@@ -172,6 +172,47 @@
               </div>
             </div>
 
+            <!--<div style="margin-top: 50px">
+              <button mat-button matStepperNext>Valider</button>
+            </div>-->
+          </mat-step>
+
+          <!------------------------->
+          <!--STEP 3 bis-->
+          <!------------------------->
+          <mat-step [stepControl]="thirdBisFormGroup">
+            <ng-template matStepLabel>Zone d'intervention</ng-template>
+            <!--<p style="margin-bottom: 20px; margin-top: 20px; font-weight: bold">Compétences</p>-->
+
+            <div class="alert alert-warning">
+              <p>Départements d'intervention</p>
+            </div>
+            <div class="container">
+              <div class="row">
+                <div class="col-sm-8">
+                  <ng-select class="custom"
+                             [items]="deptList | async"
+                             [multiple]="true"
+                             [maxSelectedItems]="5"
+                             bindLabel="code"
+                             placeholder="Départements"
+                             notFoundText="Aucun élément trouvé"
+                             [(ngModel)]="selectedDept">
+
+                    <ng-template ng-label-tmp let-item="item" let-clear="clear">
+                      <span class="ng-value-label" style="font-size: small">{{item.code}} <!-- ({{item.name}})--></span>
+                      <span class="ng-value-icon right" (click)="clear(item)" aria-hidden="true">×</span>
+                    </ng-template>
+
+                    <ng-template ng-option-tmp let-item="item">
+                      {{item.code}} - {{item.name}}
+                    </ng-template>
+
+                  </ng-select>
+                </div>
+              </div>
+            </div>
+
             <div class="alert alert-warning" style="margin-top: 50px">
               <p>Déplacement</p>
             </div>

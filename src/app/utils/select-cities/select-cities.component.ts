@@ -38,7 +38,8 @@ import {CitiesService} from '../../services/cities.service';
       (focus)="onFocus()">
 
       <ng-template ng-label-tmp let-item="item" let-clear="clear">
-        <span class="ng-value-label" style="font-size: small">{{item.code}} ({{item.city}})</span>
+        <span class="ng-value-label" style="font-size: small">{{item.code}} </span>
+        <!--<span class="ng-value-label" style="font-size: small">{{item.code}} ({{item.city}})</span>-->
         <span class="ng-value-icon right" (click)="clear(item)" aria-hidden="true">×</span>
       </ng-template>
 
@@ -70,6 +71,7 @@ export class SelectCitiesComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.departmentFilter = [];
     this.loadCities();
   }
 
@@ -92,6 +94,11 @@ export class SelectCitiesComponent implements OnInit {
         switchMap(term => this.citiesService.getCitiesList(term).pipe(
           map(results => {
             const res = [];
+            if (this.departmentFilter != null) {
+              console.log('hello');
+            }
+            console.log('dept len = ' + this.departmentFilter.length);
+            console.log('results = ' + JSON.stringify(results));
             if (this.departmentFilter.length > 0) {
               // this.departmentFilter.forEach(dpt => results.filter(result => String(result.code).startsWith(String(dpt.code))));
               for (let i = 0; i < this.departmentFilter.length; i++) {
@@ -101,6 +108,9 @@ export class SelectCitiesComponent implements OnInit {
                   }
                 }
               }
+            } else {
+              console.log('on est là!');
+              return results;
             }
             return res;
           }),

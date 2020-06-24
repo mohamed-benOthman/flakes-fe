@@ -32,5 +32,6 @@ export interface Profile {
   photosUrl: any[];
   photo_profile: string;
   movings: any[];
+  departements: any[];
 }
 

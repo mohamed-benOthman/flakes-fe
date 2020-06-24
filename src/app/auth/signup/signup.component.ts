@@ -6,8 +6,10 @@ import {Router} from '@angular/router';
 import {ErrorStateMatcher} from '@angular/material/core';
 import {FormControl, FormGroupDirective, NgForm} from '@angular/forms';
 import {SignupService} from '../../services/signup.service';
-import {Subject} from 'rxjs';
+import {Observable, Subject} from 'rxjs';
 import * as Constants from '../../utils/globals';
+import {DepartmentsService} from '../../services/departments.service';
+import {Department} from '../../models/department.model';
 
 export class PasswordErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -31,6 +33,7 @@ export class SignupComponent implements OnInit {
   stepOneGroupPassword: FormGroup;
   stepTwoGroup: FormGroup;
   thirdFormGroup: FormGroup;
+  thirdBisFormGroup: FormGroup;
 
   sloganMaxLength = Constants.SLOGAN_MAX_LENGTH;
   selectedStep = 0;
@@ -65,9 +68,13 @@ export class SignupComponent implements OnInit {
   emailSubject = new Subject<string>();
   usernameSubject = new Subject<string>();
 
+  deptList: Observable<any[]>;
+  selectedDept: Department[];
+
 
   constructor(private _formBuilder: FormBuilder, private profileService: ProfileService,
-              private signupService: SignupService, private router: Router) {
+              private signupService: SignupService, private router: Router,
+              private deptService: DepartmentsService) {
     this.signupService.search(this.usernameSubject, false).subscribe(result => {
       this.isUsernameTaken = result === true || result === false ? result : false;
       if (this.isUsernameTaken) {
@@ -84,6 +91,9 @@ export class SignupComponent implements OnInit {
   }
 
   ngOnInit() {
+
+    this.deptList = this.deptService.getJSON();
+
     this.stepOneGroup = this._formBuilder.group({
       username: ['', [Validators.required, Validators.minLength(this.usernameMinLen)]],
       email: ['', [Validators.required, Validators.email]]
@@ -167,7 +177,7 @@ export class SignupComponent implements OnInit {
       expertise += '3|';
     }
 
-    if (expertise !== null && expertise.endsWith('|')) {
+    if (expertise.endsWith('|')) {
       expertise = expertise.substring(0, expertise.length - 1);
     }
     return expertise;
@@ -182,10 +192,18 @@ export class SignupComponent implements OnInit {
       movings += '2|';
     }
 
-    if (movings !== null && movings.endsWith('|')) {
+    if (movings.endsWith('|')) {
       movings = movings.substring(0, movings.length - 1);
     }
     return movings;
+  }
+
+  getDeptsList() {
+    let depts = '';
+    this.selectedDept.forEach((dpt) => {
+      depts += dpt.code + '|';
+    });
+
   }
 
   submitPost() {
@@ -203,12 +221,13 @@ export class SignupComponent implements OnInit {
       cities: this.selectedCity.code + ';' + this.selectedCity.city,
       business: this.getBusinnessList(),
       expertises: this.getExpertiseList(),
-      movings: this.getMovingList()
+      movings: this.getMovingList(),
+      departements: this.getDeptsList()
     };
 
     console.log('will submit: ' + JSON.stringify(newProfile));
 
-    this.profileService.postProfileObserver(newProfile).subscribe(res => {
+    /*this.profileService.postProfileObserver(newProfile).subscribe(res => {
         console.log('server response = ' + res);
         this.isUploading = false;
         this.showCreationDone = true;
@@ -220,7 +239,7 @@ export class SignupComponent implements OnInit {
         this.showCreationDone = true;
         this.profileCreatedSuccessfully = false;
       }
-    );
+    );*/
   }
 
   quitSignup() {
