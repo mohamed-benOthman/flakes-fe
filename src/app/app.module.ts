@@ -20,10 +20,17 @@ import {
   FileUploadModule,
   GrowlModule,
   MultiSelectModule,
-  ProgressSpinnerModule, ScrollPanelModule, SplitButtonModule,
-  TabViewModule
+  ProgressSpinnerModule, ScrollPanelModule, SplitButtonModule, TabViewModule,
 } from 'primeng/primeng';
-import {MatCheckboxModule, MatGridListModule, MatIconModule, MatInputModule, MatPaginatorModule, MatStepperModule} from '@angular/material';
+import {
+  MatCheckboxModule,
+  MatGridListModule,
+  MatIconModule,
+  MatInputModule,
+  MatPaginatorModule,
+  MatRadioModule,
+  MatStepperModule
+} from '@angular/material';
 import {TruncatePipe} from './pipes/truncate.pipe';
 import {StringToNumberPipe} from './pipes/stringToNumber.pipe';
 import { ProfileInfoComponent } from './artist-profile/display/profile-info/profile-info.component';
@@ -102,8 +109,8 @@ const appRoutes: Routes = [
     ButtonModule, DialogModule, NgxSmoothDnDModule, ScrollPanelModule, SplitButtonModule,
     MatInputModule, MultiSelectModule, MatCheckboxModule, GrowlModule, CardModule, BlockUIModule,
     MatGridListModule, TabViewModule, FileUploadModule, DropdownModule, ProgressSpinnerModule,
-    NgSelectModule, MatPaginatorModule, MatStepperModule, MatIconModule,
-    RouterModule.forRoot(appRoutes),
+    NgSelectModule, MatPaginatorModule, MatStepperModule, MatIconModule, MatCheckboxModule,
+    RouterModule.forRoot(appRoutes), MatRadioModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

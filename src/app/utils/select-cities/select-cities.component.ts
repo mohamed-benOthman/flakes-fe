@@ -38,9 +38,13 @@ import {CitiesService} from '../../services/cities.service';
       (focus)="onFocus()">
 
       <ng-template ng-label-tmp let-item="item" let-clear="clear">
-        <span class="ng-value-label" style="font-size: small">{{item.code}} </span>
-        <!--<span class="ng-value-label" style="font-size: small">{{item.code}} ({{item.city}})</span>-->
+
+        <span *ngIf="showZipCodeOnly;else show_full_city_content" class="ng-value-label" style="font-size: small">{{item.code}} </span>
         <span class="ng-value-icon right" (click)="clear(item)" aria-hidden="true">×</span>
+
+        <ng-template #show_full_city_content>
+          <span class="ng-value-label" style="font-size: small">{{item.code}} ({{item.city}})</span>
+        </ng-template>
       </ng-template>
 
       <ng-template ng-option-tmp let-item="item">
@@ -57,9 +61,10 @@ export class SelectCitiesComponent implements OnInit {
   @Input() multipleValues = false;
   @Input() citiesSelected = [];
   @Input() disableComponent = false;
-  @Input() departmentFilter = []; // Si  on prend tous les départements
+  @Input() departmentFilter = []; // Si on prend tous les départements
   @Input() isValid = true;
   @Input() isRequired = false;
+  @Input() showZipCodeOnly = false;
 
   @Output() zipCodeCitySelected = new EventEmitter<any>();
 

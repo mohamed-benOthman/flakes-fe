@@ -52,8 +52,10 @@ export class SignupComponent implements OnInit {
   tannedSkinChecked = false;
   darkSkinChecked = false;
 
+  /*
   movingInFranceOnly = false;
   movingOutsideFrance = false;
+*/
 
   sloganTxt = '';
 
@@ -69,7 +71,8 @@ export class SignupComponent implements OnInit {
   usernameSubject = new Subject<string>();
 
   deptList: Observable<any[]>;
-  selectedDept: Department[];
+  // selectedDept: Department[];
+  movings = '1';
 
 
   constructor(private _formBuilder: FormBuilder, private profileService: ProfileService,
@@ -100,6 +103,7 @@ export class SignupComponent implements OnInit {
     });
 
     this.stepOneGroupPassword = this._formBuilder.group({
+      // tslint:disable-next-line:max-line-length
       password: [null, Validators.compose([Validators.required, Validators.minLength(this.passwordMinLen), Validators.maxLength(this.passwordMaxLen)])],
       confirmPassword: ['']
     }, {validator: this.checkPasswords});
@@ -183,31 +187,32 @@ export class SignupComponent implements OnInit {
     return expertise;
   }
 
-  getMovingList() {
-    let movings = '';
+  formatMovingList() {
+    /*let movings = '';
     if (this.movingInFranceOnly) {
       movings += '1|';
     }
     if (this.movingOutsideFrance) {
       movings += '2|';
-    }
+    }*/
 
-    if (movings.endsWith('|')) {
-      movings = movings.substring(0, movings.length - 1);
+    if (this.movings.endsWith('|')) {
+      this.movings = this.movings.substring(0, this.movings.length - 1);
     }
-    return movings;
+    return this.movings;
   }
 
   getDeptsList() {
-    let depts = '';
+    /*let depts = '';
     this.selectedDept.forEach((dpt) => {
       depts += dpt.code + '|';
-    });
+    });*/
 
   }
 
   submitPost() {
     this.isUploading = true;
+    this.formatMovingList();
 
     const newProfile = {
       lastname: this.stepTwoGroup.value.lastName,
@@ -221,8 +226,8 @@ export class SignupComponent implements OnInit {
       cities: this.selectedCity.code + ';' + this.selectedCity.city,
       business: this.getBusinnessList(),
       expertises: this.getExpertiseList(),
-      movings: this.getMovingList(),
-      departements: this.getDeptsList()
+      movings: this.movings
+      // departements: this.getDeptsList()
     };
 
     console.log('will submit: ' + JSON.stringify(newProfile));
