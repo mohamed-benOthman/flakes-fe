@@ -232,7 +232,7 @@ export class SignupComponent implements OnInit {
 
     console.log('will submit: ' + JSON.stringify(newProfile));
 
-    /*this.profileService.postProfileObserver(newProfile).subscribe(res => {
+    this.profileService.postProfileObserver(newProfile).subscribe(res => {
         console.log('server response = ' + res);
         this.isUploading = false;
         this.showCreationDone = true;
@@ -244,7 +244,7 @@ export class SignupComponent implements OnInit {
         this.showCreationDone = true;
         this.profileCreatedSuccessfully = false;
       }
-    );*/
+    );
   }
 
   quitSignup() {

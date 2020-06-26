@@ -109,7 +109,7 @@
     <!------------------------------
       ----- Déplacements
       ------------------------------>
-    <div>
+    <!--<div>
       <span style="font-size: 75%; opacity: 0.5; font-weight: bold">Déplacement</span>
       <section class="edit-profile-expertise-checkbox-section">
         <div *ngFor="let moving of currentProfileCopy.movings">
@@ -118,6 +118,22 @@
                         [ngModelOptions]="{standalone: true}">{{moving.libelle}}
           </mat-checkbox>
         </div>
+      </section>
+    </div>
+
+    <br>-->
+    <div>
+      <span style="font-size: 75%; opacity: 0.5; font-weight: bold">Déplacement</span>
+      <section class="edit-profile-expertise-checkbox-section">
+        <mat-radio-group [(ngModel)]="currentProfileCopy.movings"
+                         [ngModelOptions]="{standalone: true}" >
+          <div class="col-lg-12">
+            <mat-radio-button value="1" [checked]="true" >Je me déplace en France</mat-radio-button>
+          </div>
+          <div class="col-lg-12">
+            <mat-radio-button value="2">Je me déplace hors de France</mat-radio-button>
+          </div>
+        </mat-radio-group>
       </section>
     </div>
 

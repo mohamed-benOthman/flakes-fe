@@ -16,14 +16,17 @@ export class ProfileInfoComponent implements OnInit {
   constructor(private profileService: ProfileService) { }
 
   ngOnInit() {
-    this.profileService.currentProfile.subscribe(res => this.currentProfile = res);
+    this.profileService.currentProfile.subscribe(res => {
+      this.currentProfile = res;
+      console.log('ProfileInfoComponent updating profile:\n ' + JSON.stringify(res));
+    });
   }
 
   isLoggedIn() {
     return this.profileService.isAuthenticated;
   }
 
-  isMoving() {
-    return this.currentProfile.movings != null && this.currentProfile.movings.length > 0;
+  isFranceOnly() {
+    return this.currentProfile.movings != '' && this.currentProfile.movings == '1';
   }
 }

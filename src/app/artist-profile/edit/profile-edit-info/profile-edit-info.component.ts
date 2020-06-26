@@ -24,7 +24,6 @@ export class ProfileEditInfoComponent implements OnInit {
   currentProfileCopy: Profile;
   isProfilePhotoValid: boolean; // pour afficher le message d'erreur si la photo de profile exède 1Mo
   profilePhotoFile: File;
-
   splitButtonActions: MenuItem[];
 
   constructor(private profileService: ProfileService) {}

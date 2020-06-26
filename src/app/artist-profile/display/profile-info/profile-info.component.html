@@ -65,24 +65,20 @@
     </td>
   </tr>
 
-  <tr *ngIf="isMoving(); else notMovingTemplate">
+  <tr *ngIf="isFranceOnly(); else movingOutsideTemplate">
     <td><b>Déplacements</b></td>
     <td><span style="display:inline-block; width: 15px;"></span></td>
     <td class="detail">
-      <div *ngFor="let moving of currentProfile?.movings">
-        <ng-container *ngIf="moving.checked">
-          {{moving.libelle}}
-        </ng-container>
-      </div>
+      Je me déplace en France
     </td>
   </tr>
 
-  <ng-template #notMovingTemplate>
+  <ng-template #movingOutsideTemplate>
     <tr>
     <td><b>Déplacements</b></td>
     <td><span style="display:inline-block; width: 15px;"></span></td>
     <td class="detail">
-      ---
+      Je me déplace hors de France
     </td>
     </tr>
   </ng-template>
