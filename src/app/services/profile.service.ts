@@ -81,7 +81,7 @@ export class ProfileService {
       })
     };
 
-    return this.http.post(Constants.searchURL, JSON.stringify(profile), httpOptions);
+    return this.http.post(Constants.searchURL + '/create', JSON.stringify(profile), httpOptions);
   }
 
   postPhoto(uploadData) {

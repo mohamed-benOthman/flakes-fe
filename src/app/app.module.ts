@@ -38,7 +38,7 @@ import { ProfileEditInfoComponent } from './artist-profile/edit/profile-edit-inf
 import { ProfileEditPhotosComponent } from './artist-profile/edit/profile-edit-photos/profile-edit-photos.component';
 import { ProfilePhotosGalleryComponent } from './artist-profile/display/profile-photos-gallery/profile-photos-gallery.component';
 import { SearchComponent } from './search/search.component';
-import {HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { SelectCitiesComponent } from './utils/select-cities/select-cities.component';
 import { ArtistProfileEditComponent } from './artist-profile/edit/artist-profile-edit.component';
@@ -52,12 +52,17 @@ import { FaqComponent } from './submenus/faq/faq.component';
 import { CgvComponent } from './submenus/cgv/cgv.component';
 import { ConfidentialityComponent } from './submenus/confidentiality/confidentiality.component';
 import { LegalsComponent } from './submenus/legals/legals.component';
+import {AuthenticationService} from './services/authentication.service';
+import {AlertService} from './services/alert.service';
+import {JwtInterceptor} from './utils/helpers/jwt.interceptor';
+import {ErrorInterceptor} from './utils/helpers/error.interceptor';
+import {AuthGuard} from './utils/helpers/auth.guard';
 
 const appRoutes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'profile', component: ArtistProfileComponent },
   { path: 'profile-details/:username', component: ArtistProfileComponent },
-  { path: 'profile/edit', component: ArtistProfileEditComponent },
+  { path: 'profile/edit', component: ArtistProfileEditComponent, canActivate: [AuthGuard]},
   { path: 'search-makeup', component: SearchComponent },
   { path: 'search-microblading', component: SearchComponent },
   { path: 'search-manicure', component: SearchComponent },
@@ -112,7 +117,13 @@ const appRoutes: Routes = [
     NgSelectModule, MatPaginatorModule, MatStepperModule, MatIconModule, MatCheckboxModule,
     RouterModule.forRoot(appRoutes), MatRadioModule,
   ],
-  providers: [],
+  providers: [
+    AuthGuard,
+    AlertService,
+    AuthenticationService,
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
