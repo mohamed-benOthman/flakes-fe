@@ -72,6 +72,7 @@ export class SigninComponent implements OnInit {
 
   resetPassword() {
     this.authenticationService.resetPassword(this.resetEmail.nativeElement.value);
+    this.resetEmail.nativeElement.value = '';
     const element: HTMLElement = document.getElementById('dismissResetPassDialog') as HTMLElement;
     element.click();
   }
