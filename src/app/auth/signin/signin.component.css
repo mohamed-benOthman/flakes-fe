@@ -38,6 +38,8 @@ body {
   font-family: Gotham;
 }
 
+.modal-footer {   border-top: 0px; }
+
 .main-header
 {
   padding: 1% 5%;

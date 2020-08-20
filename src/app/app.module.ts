@@ -38,7 +38,7 @@ import { ProfileEditInfoComponent } from './artist-profile/edit/profile-edit-inf
 import { ProfileEditPhotosComponent } from './artist-profile/edit/profile-edit-photos/profile-edit-photos.component';
 import { ProfilePhotosGalleryComponent } from './artist-profile/display/profile-photos-gallery/profile-photos-gallery.component';
 import { SearchComponent } from './search/search.component';
-import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { SelectCitiesComponent } from './utils/select-cities/select-cities.component';
 import { ArtistProfileEditComponent } from './artist-profile/edit/artist-profile-edit.component';
@@ -46,17 +46,17 @@ import { SignupComponent } from './auth/signup/signup.component';
 import { ContactComponent } from './submenus/contact/contact.component';
 import { PartnershipComponent } from './submenus/partnership/partnership.component';
 import { AboutComponent } from './submenus/about/about.component';
-import {NgxSmoothDnDModule} from 'ngx-smooth-dnd';
-import {UserCharterComponent} from './submenus/user-charter/usercharter.component';
+import { NgxSmoothDnDModule } from 'ngx-smooth-dnd';
+import { UserCharterComponent } from './submenus/user-charter/usercharter.component';
 import { FaqComponent } from './submenus/faq/faq.component';
 import { CgvComponent } from './submenus/cgv/cgv.component';
 import { ConfidentialityComponent } from './submenus/confidentiality/confidentiality.component';
 import { LegalsComponent } from './submenus/legals/legals.component';
-import {AuthenticationService} from './services/authentication.service';
-import {AlertService} from './services/alert.service';
-import {JwtInterceptor} from './utils/helpers/jwt.interceptor';
-import {ErrorInterceptor} from './utils/helpers/error.interceptor';
-import {AuthGuard} from './utils/helpers/auth.guard';
+import { AuthenticationService } from './services/authentication.service';
+import { AlertService } from './services/alert.service';
+import { JwtInterceptor } from './utils/helpers/jwt.interceptor';
+import { ErrorInterceptor } from './utils/helpers/error.interceptor';
+import { AuthGuard } from './utils/helpers/auth.guard';
 
 const appRoutes: Routes = [
   { path: 'home', component: HomeComponent },

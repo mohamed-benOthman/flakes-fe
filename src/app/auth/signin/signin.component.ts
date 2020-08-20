@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
@@ -12,6 +12,7 @@ import {AlertService} from '../../services/alert.service';
   styleUrls: ['./signin.component.css']
 })
 export class SigninComponent implements OnInit {
+  @ViewChild('resetemail') resetEmail;
   loginForm: FormGroup;
   loading = false;
   submitted = false;
@@ -67,5 +68,11 @@ export class SigninComponent implements OnInit {
           this.alertService.error(error);
           this.loading = false;
         });
+  }
+
+  resetPassword() {
+    this.authenticationService.resetPassword(this.resetEmail.nativeElement.value);
+    const element: HTMLElement = document.getElementById('dismissResetPassDialog') as HTMLElement;
+    element.click();
   }
 }
