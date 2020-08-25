@@ -52,6 +52,7 @@ export class SigninComponent implements OnInit {
     }
 
     this.loading = true;
+    this.authenticationService.logout();
     this.authenticationService.login(this.f.username.value, this.f.password.value)
       .pipe(first())
       .subscribe(
@@ -61,7 +62,7 @@ export class SigninComponent implements OnInit {
           if (data == null) {
             this.cantFindUser = true;
           } else {
-            this.router.navigate(['signup']); // TODO: à remplacer par la bonne route
+            this.router.navigate(['profile']);
           }
         },
         error => {

@@ -37,9 +37,10 @@ export class ProfileService {
     this.currentProfile = this.userProfile.asObservable();
   }
 
-  searchProfile(username: string) {
-
-    const profileObs = this.http.get<Profile>(`${Constants.searchURL}/${username}/5/0/1`);
+  searchProfile(username: string = null, email: string = null) {
+    const profileUrl = email != null ? `${Constants.searchURL}/${email}/6/0/1` : `${Constants.searchURL}/${username}/5/0/1`;
+    console.log('url profile = ' + profileUrl);
+    const profileObs = this.http.get<Profile>(profileUrl);
     const businessObs = this.businessExpertiseService.getBusiness();
     const expertiseObs = this.businessExpertiseService.getExpertises();
 
