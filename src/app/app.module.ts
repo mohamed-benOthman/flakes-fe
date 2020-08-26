@@ -57,6 +57,7 @@ import { AlertService } from './services/alert.service';
 import { JwtInterceptor } from './utils/helpers/jwt.interceptor';
 import { ErrorInterceptor } from './utils/helpers/error.interceptor';
 import { AuthGuard } from './utils/helpers/auth.guard';
+import { LoggedInComponent } from './auth/logged-in/logged-in.component';
 
 const appRoutes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -104,7 +105,8 @@ const appRoutes: Routes = [
     FaqComponent,
     CgvComponent,
     ConfidentialityComponent,
-    LegalsComponent
+    LegalsComponent,
+    LoggedInComponent
   ],
   imports: [
     BrowserModule, BrowserAnimationsModule,
@@ -115,7 +117,9 @@ const appRoutes: Routes = [
     MatInputModule, MultiSelectModule, MatCheckboxModule, GrowlModule, CardModule, BlockUIModule,
     MatGridListModule, TabViewModule, FileUploadModule, DropdownModule, ProgressSpinnerModule,
     NgSelectModule, MatPaginatorModule, MatStepperModule, MatIconModule, MatCheckboxModule,
-    RouterModule.forRoot(appRoutes), MatRadioModule,
+    // RouterModule.forRoot(appRoutes),
+    [RouterModule.forRoot(appRoutes, {onSameUrlNavigation: 'reload'})],
+    MatRadioModule,
   ],
   providers: [
     AuthGuard,
@@ -124,6 +128,7 @@ const appRoutes: Routes = [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  exports: [RouterModule]
 })
 export class AppModule { }

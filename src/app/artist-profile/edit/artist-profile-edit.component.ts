@@ -30,7 +30,7 @@ export class ArtistProfileEditComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.profileService.currentProfile.subscribe(res => {
+    this.profileService.currentDisplayedProfile.subscribe(res => {
       this.currentProfile = res;
     });
   }

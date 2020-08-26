@@ -31,8 +31,8 @@ export class ProfileEditPhotosComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.profileService.currentProfile.subscribe(res => {
-      // this.currentProfile = res;
+    this.profileService.currentDisplayedProfile.subscribe(res => {
+      // this.currentDisplayedProfile = res;
       this.currentProfileCopy = cloneDeep(res);
     });
   }
@@ -46,7 +46,7 @@ export class ProfileEditPhotosComponent implements OnInit {
 
   onDeletePhotoFromGallery(index) {
     this.currentProfileCopy.photosUrl.splice(index, 1);
-    // this.profileService.updateProfile(this.currentProfile);
+    // this.profileService.updateProfile(this.currentDisplayedProfile);
     // this.photoDeletedEvent.emit(index);
   }
 

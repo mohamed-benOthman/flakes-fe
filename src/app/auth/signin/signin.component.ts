@@ -38,6 +38,12 @@ export class SigninComponent implements OnInit {
 
     // get return url from route parameters or default to '/'
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+
+    // TODO: REMOVE THIS - TESTS ONLY
+    // @ts-ignore
+    this.f.username.value = 'shark@yopmail.com';
+    // @ts-ignore
+    this.f.password.value = 'password';
   }
 
   // convenience getter for easy access to form fields
@@ -61,9 +67,9 @@ export class SigninComponent implements OnInit {
           // this.router.navigate([this.returnUrl]);
           if (data == null) {
             this.cantFindUser = true;
-          } else {
+          } /*else {
             this.router.navigate(['profile']);
-          }
+          }*/
         },
         error => {
           this.alertService.error(error);

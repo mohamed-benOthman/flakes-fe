@@ -18,7 +18,7 @@ export class ProfilePhotosGalleryComponent implements OnInit {
   constructor(private profileService: ProfileService) { }
 
   ngOnInit() {
-    this.profileService.currentProfile.subscribe(res => {
+    this.profileService.currentDisplayedProfile.subscribe(res => {
       this.currentProfile = res;
       this.galleryImages = [];
       for (const img of this.currentProfile.photosUrl) {

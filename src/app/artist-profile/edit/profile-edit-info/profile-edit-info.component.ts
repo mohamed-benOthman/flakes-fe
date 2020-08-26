@@ -30,8 +30,8 @@ export class ProfileEditInfoComponent implements OnInit {
 
 
   ngOnInit() {
-    this.profileService.currentProfile.subscribe(res => {
-      // this.currentProfile = res;
+    this.profileService.currentDisplayedProfile.subscribe(res => {
+      // this.currentDisplayedProfile = res;
       this.currentProfileCopy = cloneDeep(res);
       if (!this.currentProfileCopy.photo_profile) {
         this.currentProfileCopy.photo_profile = this.defaultProfilePhoto;

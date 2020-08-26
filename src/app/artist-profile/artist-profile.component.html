@@ -27,7 +27,7 @@
             Informations de votre profil
           </h1>
           <br>
-          <app-profile-info></app-profile-info>
+          <app-profile-info [currentProfile]="currentProfile"></app-profile-info>
         </div>
 
         <ng-template #notLoggedProfilInfo>
@@ -36,7 +36,7 @@
               Informations
             </h1>
             <br>
-            <app-profile-info></app-profile-info>
+            <app-profile-info [currentProfile]="currentProfile"></app-profile-info>
           </div>
         </ng-template>
       </div>

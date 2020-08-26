@@ -8,5 +8,5 @@ import {transition, trigger, query, style, animate, group, animateChild, stagger
 })
 
 export class AppComponent {
-  title = 'Flakes';
+  title = 'LTBeauty';
 }

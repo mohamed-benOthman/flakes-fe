@@ -1,8 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {Profile} from '../../../models/profile.model';
 import {ProfileService} from '../../../services/profile.service';
-import {BusinessExpertService} from '../../../services/business-expert.service';
-import {Business} from '../../../models/business.model';
 
 @Component({
   selector: 'app-profile-info',
@@ -11,22 +9,35 @@ import {Business} from '../../../models/business.model';
 })
 export class ProfileInfoComponent implements OnInit {
 
-  currentProfile: Profile;
+  @Input() currentProfile: Profile;
 
   constructor(private profileService: ProfileService) { }
 
   ngOnInit() {
-    this.profileService.currentProfile.subscribe(res => {
-      this.currentProfile = res;
-      console.log('ProfileInfoComponent updating profile:\n ' + JSON.stringify(res));
-    });
+    // this.loadProfile();
+  }
+
+  loadProfile() {
+    console.log('we load profile in ProfileInfoComponent');
+    if (this.isLoggedIn()) {
+      this.profileService.currentLoggedInProfile.subscribe(res => {
+        this.currentProfile = res;
+      });
+    }
+    else {
+      this.profileService.currentDisplayedProfile.subscribe(res => {
+        this.currentProfile = res;
+      });
+    }
+    return false;
   }
 
   isLoggedIn() {
+    console.log('ProfileInfoComponent currentProfile: ' + JSON.stringify(this.currentProfile));
     return this.profileService.isAuthenticated;
   }
 
   isFranceOnly() {
-    return this.currentProfile.movings != '' && this.currentProfile.movings == '1';
+    return this.currentProfile.movings !== '' && this.currentProfile.movings === '1';
   }
 }

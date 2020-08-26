@@ -8,6 +8,7 @@ import {ProfileEditInfoComponent} from './edit/profile-edit-info/profile-edit-in
 import {ProfilePhotosGalleryComponent} from './display/profile-photos-gallery/profile-photos-gallery.component';
 import {BusinessExpertService} from '../services/business-expert.service';
 import {ActivatedRoute, Router} from '@angular/router';
+import {AuthenticationService} from '../services/authentication.service';
 
 @Component({
   selector: 'app-artist-profile',
@@ -31,14 +32,7 @@ export class ArtistProfileComponent implements OnInit, OnDestroy {
     this.displayEditProfileDialog = false;
     this.displayEditPhotosDialog = false;
 
-    const routeParams = this.activeRoute.snapshot.params;
-    if (routeParams) {
-      this.profileService.searchProfile(String(routeParams.username));
-    }
-
-    this.profileService.currentProfile.subscribe(res => {
-      this.currentProfile = res;
-    });
+    this.loadProfile();
   }
 
   ngOnDestroy() {
@@ -83,7 +77,27 @@ export class ArtistProfileComponent implements OnInit, OnDestroy {
   }
 
   isEditEnabled() {
-    return this.profileService.isAuthenticated;
+    const currentUser = localStorage.getItem('currentUser');
+    const jsonUser = JSON.parse(currentUser);
+    return jsonUser && this.currentProfile && jsonUser.email === this.currentProfile.emailAdress;
   }
 
+  private loadProfile() {
+    const routeParams = this.activeRoute.snapshot.params;
+    if (routeParams && routeParams.username) {
+      console.log('ArtistProfileComponent ngOnInit() we are loading the profile: ' + JSON.stringify(routeParams));
+      this.profileService.loadProfile(String(routeParams.username));
+    }
+    else if(this.profileService.isAuthenticated) {
+      this.profileService.currentLoggedInProfile.subscribe(res => {
+        console.log('loaded logged in profile');
+        this.currentProfile = res;
+      });
+    }
+
+    this.profileService.currentDisplayedProfile.subscribe(res => {
+      console.log('loaded displayed profile');
+      this.currentProfile = res;
+    });
+  }
 }

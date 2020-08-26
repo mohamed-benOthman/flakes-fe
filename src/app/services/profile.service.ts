@@ -11,8 +11,9 @@ import * as Constants from '../utils/globals';
 })
 export class ProfileService {
 
-  currentProfile: Observable<Profile>;
-  isAuthenticated = true;
+  currentDisplayedProfile: Observable<Profile>;
+  currentLoggedInProfile: Observable<Profile>;
+  isAuthenticated = false;
   private emptyProfile: Profile = {
     idMaquilleuse: 0,
     lastname: '',
@@ -31,13 +32,17 @@ export class ProfileService {
     departements: []
   };
   private userProfile: BehaviorSubject<Profile>;
+  private loggedProfile: BehaviorSubject<Profile>;
 
   constructor(private http: HttpClient, private businessExpertiseService: BusinessExpertService) {
     this.userProfile = new BehaviorSubject<Profile>(this.emptyProfile);
-    this.currentProfile = this.userProfile.asObservable();
+    this.loggedProfile = new BehaviorSubject<Profile>(this.emptyProfile);
+
+    this.currentDisplayedProfile = this.userProfile.asObservable();
+    this.currentLoggedInProfile = this.loggedProfile.asObservable();
   }
 
-  searchProfile(username: string = null, email: string = null) {
+  loadProfile(username: string = null, email: string = null, isAuthUser: boolean = false) {
     const profileUrl = email != null ? `${Constants.searchURL}/${email}/6/0/1` : `${Constants.searchURL}/${username}/5/0/1`;
     console.log('url profile = ' + profileUrl);
     const profileObs = this.http.get<Profile>(profileUrl);
@@ -61,13 +66,17 @@ export class ProfileService {
       profile.expertises = expertises;
 
       // this.formatCities(profile);
-      this.updateProfile(profile);
+      this.updateProfile(profile, isAuthUser);
     });
   }
 
-  updateProfile(profile) {
+  updateProfile(profile, isAuthUser: boolean = false) {
     console.log('updating profile with ' + JSON.stringify(profile));
-    this.userProfile.next(profile);
+    // isAuthUser ? this.loggedProfile.next(profile) : this.userProfile.next(profile);
+    if (isAuthUser) {
+      this.loggedProfile.next(profile);
+    }
+    this.userProfile.next(profile); // on charge dans tous les cas le displayed profile
   }
 
   postProfileObserver(profile) {
