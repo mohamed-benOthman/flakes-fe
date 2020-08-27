@@ -1,7 +1,7 @@
 <table class="table table-condensed">
   <thead></thead>
   <tbody>
-  <tr>
+  <tr *ngIf="isLoggedIn()">
     <td><b>Identifiant</b></td>
     <td><span style="display:inline-block; width: 15px;"></span></td>
     <td class="detail">{{ currentProfile?.username }}</td>
@@ -19,12 +19,12 @@
   <tr>
     <td><b>E-mail</b></td>
     <td><span style="display:inline-block; width: 15px;"></span></td>
-    <td class="detail">{{ currentProfile?.emailAdress }}</td>
+    <td class="detail"><a href="mailto:{{ currentProfile?.emailAdress }}"><div>{{ currentProfile?.emailAdress }}</div></a></td>
   </tr>
   <tr>
     <td><b>Téléphone</b></td>
     <td><span style="display:inline-block; width: 15px;"></span></td>
-    <td class="detail">{{ currentProfile?.phone }}</td>
+    <td class="detail"><a href="tel://{{ currentProfile?.phone }}"><div>{{ currentProfile?.phone }}</div></a></td>
   </tr>
   <tr *ngIf="isLoggedIn()">
     <td><b>N° et Rue</b></td>

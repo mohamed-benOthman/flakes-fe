@@ -117,8 +117,7 @@ const appRoutes: Routes = [
     MatInputModule, MultiSelectModule, MatCheckboxModule, GrowlModule, CardModule, BlockUIModule,
     MatGridListModule, TabViewModule, FileUploadModule, DropdownModule, ProgressSpinnerModule,
     NgSelectModule, MatPaginatorModule, MatStepperModule, MatIconModule, MatCheckboxModule,
-    // RouterModule.forRoot(appRoutes),
-    [RouterModule.forRoot(appRoutes, {onSameUrlNavigation: 'reload'})],
+    RouterModule.forRoot(appRoutes),
     MatRadioModule,
   ],
   providers: [
@@ -128,7 +127,6 @@ const appRoutes: Routes = [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
   ],
-  bootstrap: [AppComponent],
-  exports: [RouterModule]
+  bootstrap: [AppComponent]
 })
 export class AppModule { }
