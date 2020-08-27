@@ -184,8 +184,8 @@ export class ProfileService {
   };
   private userProfile: BehaviorSubject<Profile>;
 
-  isAuthenticated = false;
-  authenticatedUsername: string = null;
+  // isAuthenticated = false;
+  // authenticatedUsername: string = null;
 
   constructor(private http: HttpClient, private businessExpertiseService: BusinessExpertService) {
     this.userProfile = new BehaviorSubject<Profile>(this.emptyProfile);
@@ -290,6 +290,18 @@ export class ProfileService {
 
   getEmptyProfile() {
     return cloneDeep(this.emptyProfile);
+  }
+
+  isAuthenticated(): boolean {
+    return localStorage.getItem('currentUser') != null;
+  }
+
+  getAuthUsername(): string {
+    const user = localStorage.getItem('currentUser');
+    if (user) {
+      return JSON.parse(user).userna;
+    }
+    return null;
   }
 
 }

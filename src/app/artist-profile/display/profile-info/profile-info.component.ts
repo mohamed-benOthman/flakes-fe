@@ -67,7 +67,7 @@ export class ProfileInfoComponent implements OnInit {
   }
 
   isLoggedIn() {
-    return this.profileService.isAuthenticated && this.currentProfile.username === this.profileService.authenticatedUsername;
+    return this.profileService.isAuthenticated() && this.currentProfile.username === this.profileService.getAuthUsername();
   }
 
   isFranceOnly() {

@@ -58,10 +58,11 @@ import { JwtInterceptor } from './utils/helpers/jwt.interceptor';
 import { ErrorInterceptor } from './utils/helpers/error.interceptor';
 import { AuthGuard } from './utils/helpers/auth.guard';
 import { LoggedInComponent } from './auth/logged-in/logged-in.component';
+import {AuthGuardGuard} from './guards/auth-guard.guard';
 
 const appRoutes: Routes = [
   { path: 'home', component: HomeComponent },
-  { path: 'profile', component: ArtistProfileComponent },
+  { path: 'profile', component: ArtistProfileComponent, canActivate: [AuthGuard] },
   { path: 'profile-details/:username', component: ArtistProfileComponent },
   { path: 'profile/edit', component: ArtistProfileEditComponent, canActivate: [AuthGuard]},
   { path: 'search-makeup', component: SearchComponent },

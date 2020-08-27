@@ -137,8 +137,10 @@ export class ArtistProfileComponent implements OnInit, OnDestroy {
 
     const routeParams = this.activeRoute.snapshot.params;
     if (routeParams && routeParams.username) {
-      console.log('ArtistProfileComponent ngOnInit() we are loading the profile: ' + JSON.stringify(routeParams));
       this.profileService.loadProfile(String(routeParams.username));
+    }
+    else if (this.profileService.isAuthenticated()) {
+      this.profileService.loadProfile(this.profileService.getAuthUsername());
     }
 
     this.profileService.currentDisplayedProfile.subscribe(res => {
