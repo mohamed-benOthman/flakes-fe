@@ -91,9 +91,9 @@ export class ArtistProfileEditComponent implements OnInit {
     this.profileService.updateProfile(this.currentProfile);
 
     const formattedProfile = this.profileService.formatProfileForUpload(this.currentProfile);
-    this.profileService.postProfileObserver(formattedProfile).subscribe(
+    this.profileService.updateProfileObserver(formattedProfile).subscribe(
       res => {
-        console.log('post profile response: ' + JSON.stringify(formattedProfile));
+        console.log('update profile response: ' + JSON.stringify(formattedProfile));
         console.log('server response = ' + res);
         this.showSaveSuccess();
         this.isUploading = false;
@@ -101,7 +101,7 @@ export class ArtistProfileEditComponent implements OnInit {
         this.profileSuccessfullyUpdated = true;
       },
       err => {
-        console.log('post profile erreur: ' + JSON.stringify(err));
+        console.log('update profile erreur: ' + JSON.stringify(err));
         this.isUploading = false;
         this.updateProfileDone = true;
         this.profileSuccessfullyUpdated = false;

@@ -80,10 +80,10 @@ export class ProfileService {
     this.userProfile.next(profile); // on charge dans tous les cas le displayed profile
   }
 
-  postProfileObserver(profile) {
+  createProfileObserver(profile) {
     const regex = /\"/gi;
-    // console.log('postProfileObserver: ' + JSON.stringify(profile).replace(regex, '\\\"'));
-    console.log('postProfileObserver: ' + JSON.stringify(profile));
+    // console.log('createProfileObserver: ' + JSON.stringify(profile).replace(regex, '\\\"'));
+    console.log('createProfileObserver: ' + JSON.stringify(profile));
 
     const httpOptions = {
       headers: new HttpHeaders({
@@ -218,10 +218,10 @@ export class ProfileService {
     });
   }
 
-  postProfileObserver(profile) {
+  createProfileObserver(profile) {
     const regex = /\"/gi;
-    // console.log('postProfileObserver: ' + JSON.stringify(profile).replace(regex, '\\\"'));
-    console.log('postProfileObserver: ' + JSON.stringify(profile));
+    // console.log('createProfileObserver: ' + JSON.stringify(profile).replace(regex, '\\\"'));
+    console.log('createProfileObserver: ' + JSON.stringify(profile));
 
     const httpOptions = {
       headers: new HttpHeaders({
@@ -231,6 +231,26 @@ export class ProfileService {
     };
 
     return this.http.post(Constants.searchURL + '/create', JSON.stringify(profile), httpOptions);
+  }
+
+  updateProfileObserver(profile) {
+    const regex = /\"/gi;
+    // console.log('postProfileObserver: ' + JSON.stringify(profile).replace(regex, '\\\"'));
+    console.log('updateProfileObserver: ' + JSON.stringify(profile));
+
+    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'accept': 'application/json',
+        // 'authorization': `Token ${currentUser.token}`
+      })
+    };
+
+    console.log('updating with headers: ' + JSON.stringify(httpOptions));
+
+    return this.http.post(Constants.searchURL + '/modify', JSON.stringify(profile), httpOptions);
   }
 
   postPhoto(uploadData) {
