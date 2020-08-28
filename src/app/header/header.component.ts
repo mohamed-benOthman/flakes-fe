@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {ProfileService} from '../services/profile.service';
+import {AuthenticationService} from '../services/authentication.service';
 
 @Component({
   selector: 'app-header',
@@ -7,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor() { }
+  constructor(private profileService: ProfileService, private authService: AuthenticationService) { }
 
   ngOnInit() {
   }

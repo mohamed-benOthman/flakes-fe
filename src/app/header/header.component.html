@@ -4,7 +4,7 @@
 
       <div class="col-xs-3 col-sm-2 col-md-5 col-lg-4">
         <div class="logo">
-          <a routerLink="/home"><img src="../../assets/images/logo1.png"></a>
+          <a routerLink="/home"><img src="../../assets/images/logo1.png" alt=""></a>
         </div> <!--end of logo-->
       </div> <!--end of col-->
 
@@ -32,6 +32,17 @@
                   class="img-icon main maquillages-icon_scn"></span> MANUCURE</a></li>
                 <li><a routerLink="/search-eyelashes" routerLinkActive="active"><span
                   class="img-icon main maquillages-icon_thr"></span> EXTENSION DE CILS</a></li>
+                <li *ngIf="profileService.isAuthenticated()" class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                     style="background-color: rgba(206,156,143,0.61); border-radius: 5px; text-decoration: none; color: white">
+                    Connecté(e)
+                  </a>
+                  <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <li><a class="dropdown-item" routerLink="/profile">Votre profile</a></li>
+                    <li><a class="dropdown-item" (click)="authService.logout()">Se déconnecter</a></li>
+                  </ul>
+                </li>
               </ul>
             </div>
           </div> <!--end of navbar-->
