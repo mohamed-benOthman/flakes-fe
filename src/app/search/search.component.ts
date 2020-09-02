@@ -91,16 +91,17 @@ export class SearchComponent implements OnInit {
   }
 
   onDeptChanged() {
-    if (this.selectedCity) {
-      if (!String(this.selectedCity.code).startsWith(this.selectedCity.code)) {
+    /*if (this.selectedCity && this.selectedDept) {
+      if (!String(this.selectedCity[0].code).startsWith(this.selectedDept[0].code)) {
         this.citiesSelect.clearFields();
       }
-    }
+    }*/
+    this.citiesSelect.clearFields();
     this.updateSearch();
   }
 
   onCitySelected(city) {
-    this.selectedCity = city;
+    this.selectedCity = city[0];
     this.updateSearch();
   }
 
@@ -112,7 +113,8 @@ export class SearchComponent implements OnInit {
     // const skin = (!this.selectedSkins || this.selectedSkins.length === 0) ? null : String(this.selectedSkins[0].value);
     const biz = String(this.businessType);
     const city = !this.selectedCity ? null : String(this.selectedCity.code) + ';' + String(this.selectedCity.city);
-    const dept = !this.selectedDept ? null : this.selectedDept.map(dpt => dpt.code).toString();
+    const dept = !this.selectedDept || this.selectedDept.length === 0 ? null : this.selectedDept.map(dpt => dpt.code).toString();
+    console.log('updateSearch: ' + JSON.stringify(this.selectedDept));
 
     const searchObs = this.searchService.requestSearch(this.pageSize, this.pageIndex * this.pageSize, dept, city, biz, this.selectedSkins);
     const countObs = this.searchService.requestSearchCount(dept, city, biz, this.selectedSkins);

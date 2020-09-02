@@ -19,7 +19,7 @@ export class SearchService {
                 dept: string = null, city: string = null,
                 businessType: string = null, expertiseType: any[] = null) {
 
-    console.log('dept = ' +  `${dept}`)
+    console.log('dept = ' +  `${dept}`);
     const typeURL = this.getTypePart(dept, city, businessType, expertiseType);
     const paramURL = this.getParamPart(dept, city, businessType, expertiseType);
 
@@ -111,7 +111,7 @@ export class SearchService {
       typeURL += '|4';
     }
 
-    if (typeURL !== null && typeURL.startsWith('|')) {
+    if (typeURL.startsWith('|')) {
       typeURL = typeURL.substring(1);
     }
 
