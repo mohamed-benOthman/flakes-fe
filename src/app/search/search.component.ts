@@ -114,7 +114,7 @@ export class SearchComponent implements OnInit {
     const biz = String(this.businessType);
     const city = !this.selectedCity ? null : String(this.selectedCity.code) + ';' + String(this.selectedCity.city);
     const dept = !this.selectedDept || this.selectedDept.length === 0 ? null : this.selectedDept.map(dpt => dpt.code).toString();
-    console.log('updateSearch: ' + JSON.stringify(this.selectedDept));
+    console.log('updateSearch: ' + dept);
 
     const searchObs = this.searchService.requestSearch(this.pageSize, this.pageIndex * this.pageSize, dept, city, biz, this.selectedSkins);
     const countObs = this.searchService.requestSearchCount(dept, city, biz, this.selectedSkins);

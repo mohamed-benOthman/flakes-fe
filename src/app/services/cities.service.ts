@@ -1,7 +1,7 @@
 import {Injectable, OnDestroy} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable, of} from 'rxjs';
-import {map} from 'rxjs/operators';
+import {map, shareReplay} from 'rxjs/operators';
 import * as Constants from '../utils/globals';
 
 @Injectable({
@@ -33,8 +33,10 @@ export class CitiesService {
       const url = `${Constants.citiesSearchURL}/${term}`;
 
       if (!this.cache[url]) {
-        // @ts-ignore
-        this.cache[url] = this.http.get<any>(url, this.requestOptions).pipe(map(obj => obj.cities));
+        this.cache[url] = this.http.get<any>(url, this.requestOptions).pipe(
+          shareReplay(1),
+          // @ts-ignore
+          map(obj => obj.cities));
       }
       else {
         console.log('on récupère le cache des villes: ' + url);

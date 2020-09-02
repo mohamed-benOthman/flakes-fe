@@ -1,7 +1,10 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {map, shareReplay} from 'rxjs/operators';
+import {catchError, map, shareReplay} from 'rxjs/operators';
 import * as Constants from '../utils/globals';
+import {EMPTY, of, throwError} from 'rxjs';
+import {el} from '@angular/platform-browser/testing/src/browser_util';
+import {CACHE_TTL} from '../utils/globals';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +22,7 @@ export class SearchService {
                 dept: string = null, city: string = null,
                 businessType: string = null, expertiseType: any[] = null) {
 
-    console.log('dept = ' +  `${dept}`);
+    console.log('dept = ' + `${dept}`);
     const typeURL = this.getTypePart(dept, city, businessType, expertiseType);
     const paramURL = this.getParamPart(dept, city, businessType, expertiseType);
 
@@ -27,23 +30,36 @@ export class SearchService {
 
     const url = `${Constants.searchURL}/${paramURL}/${typeURL}/${displayedPage}/${elementsNumber}`;
 
-    if (!this.cache[url]) {
-      this.cache[url] = this.http.get<any>(url)
-        .pipe(
-          shareReplay(1),
-          map(profiles => {
-            if (profiles) {
-              for (const profile of profiles) {
-                if (!profile.photo_profile) {
-                  profile.photo_profile = Constants.defaultProfilePhoto;
+    const now = new Date().getTime();
+    if (!this.cache[url] || (this.cache[url].expiry && now > this.cache[url].expiry)) {
+      if (this.cache[url] && this.cache[url].expiry) {
+        console.log('==> cache expired or not yet added: now = ' + now + ' - exp = ' + this.cache[url].expiry);
+      }
+      this.cache[url] = {
+        value: this.http.get<any>(url)
+          .pipe(
+            shareReplay(1),
+            map(profiles => {
+              if (profiles) {
+                for (const profile of profiles) {
+                  if (!profile.photo_profile) {
+                    profile.photo_profile = Constants.defaultProfilePhoto;
+                  }
                 }
               }
-            }
-            return profiles;
-          }));
+              return profiles;
+            }),
+            catchError(err => {
+              delete this.cache[url];
+              return throwError(err);
+            })),
+        expiry: now + CACHE_TTL
+      };
+    } else {
+      console.log('==> using cache');
     }
 
-    return this.cache[url];
+    return this.cache[url].value;
   }
 
   requestSearchCount(dept: string = null, city: string = null, businessType: string = null, expertiseType: any[] = null) {
@@ -53,10 +69,14 @@ export class SearchService {
     console.log('requestCount = ' + `${Constants.searchURL}/${paramURL}/${typeURL}`);
 
     const url = `${Constants.searchURL}/${paramURL}/${typeURL}`;
-    if (!this.cache[url]) {
-      this.cache[url] = this.http.get<any>(url);
+    const now = new Date().getTime();
+    if (!this.cache[url] || now > this.cache[url].expiry) {
+      this.cache[url] = {
+        value: this.http.get<any>(url),
+        expiry: now + CACHE_TTL
+      };
     }
-    return this.cache[url];
+    return this.cache[url].value;
   }
 
 

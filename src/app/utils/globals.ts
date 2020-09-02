@@ -28,4 +28,4 @@ export const AUTH0_CLIENT_ID = 'zCs9uYfFgL1mKlDvtTDarJUJ240uKr2S';
 export const AUTH0_DOMAIN = 'dimacsoftware.eu.auth0.com';
 
 export const LOGGED_IN_KEY = 'currentUser';
-export const CITIES_CACHE_KEY = 'citiesCache';
+export const CACHE_TTL = 30_000;
