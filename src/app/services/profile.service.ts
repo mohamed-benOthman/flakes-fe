@@ -158,6 +158,7 @@ import {BusinessExpertService} from './business-expert.service';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import * as cloneDeep from 'lodash/cloneDeep';
 import * as Constants from '../utils/globals';
+import {LOGGED_IN_KEY} from '../utils/globals';
 
 @Injectable({
   providedIn: 'root'
@@ -238,7 +239,7 @@ export class ProfileService {
     // console.log('postProfileObserver: ' + JSON.stringify(profile).replace(regex, '\\\"'));
     console.log('updateProfileObserver: ' + JSON.stringify(profile));
 
-    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    const currentUser = JSON.parse(localStorage.getItem(LOGGED_IN_KEY));
 
     const httpOptions = {
       headers: new HttpHeaders({
@@ -313,11 +314,11 @@ export class ProfileService {
   }
 
   isAuthenticated(): boolean {
-    return localStorage.getItem('currentUser') != null;
+    return localStorage.getItem(LOGGED_IN_KEY) != null;
   }
 
   getAuthUsername(): string {
-    const user = localStorage.getItem('currentUser');
+    const user = localStorage.getItem(LOGGED_IN_KEY);
     if (user) {
       return JSON.parse(user).userna;
     }

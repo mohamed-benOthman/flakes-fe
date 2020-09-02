@@ -112,6 +112,7 @@ import {ProfileService} from '../services/profile.service';
 import {ProfileEditInfoComponent} from './edit/profile-edit-info/profile-edit-info.component';
 import {ProfilePhotosGalleryComponent} from './display/profile-photos-gallery/profile-photos-gallery.component';
 import {ActivatedRoute, Router} from '@angular/router';
+import {LOGGED_IN_KEY} from '../utils/globals';
 
 @Component({
   selector: 'app-artist-profile',
@@ -190,7 +191,7 @@ export class ArtistProfileComponent implements OnInit, OnDestroy {
   }
 
   isEditEnabled() {
-    const currentUser = localStorage.getItem('currentUser');
+    const currentUser = localStorage.getItem(LOGGED_IN_KEY);
     const jsonUser = JSON.parse(currentUser);
     return jsonUser && this.currentProfile && jsonUser.email === this.currentProfile.emailAdress;
   }

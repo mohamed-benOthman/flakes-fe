@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {map} from 'rxjs/operators';
+import {map, shareReplay} from 'rxjs/operators';
 import * as Constants from '../utils/globals';
 
 @Injectable({
@@ -10,6 +10,8 @@ export class SearchService {
 
   constructor(private http: HttpClient) {
   }
+
+  private cache = {};
 
 
   // exemple: http://82.165.253.223:3000/maquilleuse/|34000;montpellier|1|1,3/2|3|4/0/10
@@ -23,18 +25,25 @@ export class SearchService {
 
     console.log('requestSearch = ' + `${Constants.searchURL}/${paramURL}/${typeURL}/${displayedPage}/${elementsNumber}`);
 
-    return this.http.get<any>(`${Constants.searchURL}/${paramURL}/${typeURL}/${displayedPage}/${elementsNumber}`)
-      .pipe(
-        map(profiles => {
-          if (profiles) {
-            for (const profile of profiles) {
-              if (!profile.photo_profile) {
-                profile.photo_profile = Constants.defaultProfilePhoto;
+    const url = `${Constants.searchURL}/${paramURL}/${typeURL}/${displayedPage}/${elementsNumber}`;
+
+    if (!this.cache[url]) {
+      this.cache[url] = this.http.get<any>(url)
+        .pipe(
+          shareReplay(1),
+          map(profiles => {
+            if (profiles) {
+              for (const profile of profiles) {
+                if (!profile.photo_profile) {
+                  profile.photo_profile = Constants.defaultProfilePhoto;
+                }
               }
             }
-          }
-          return profiles;
-        }));
+            return profiles;
+          }));
+    }
+
+    return this.cache[url];
   }
 
   requestSearchCount(dept: string = null, city: string = null, businessType: string = null, expertiseType: any[] = null) {
@@ -43,7 +52,11 @@ export class SearchService {
 
     console.log('requestCount = ' + `${Constants.searchURL}/${paramURL}/${typeURL}`);
 
-    return this.http.get<any>(`${Constants.searchURL}/${paramURL}/${typeURL}`);
+    const url = `${Constants.searchURL}/${paramURL}/${typeURL}`;
+    if (!this.cache[url]) {
+      this.cache[url] = this.http.get<any>(url);
+    }
+    return this.cache[url];
   }
 
 

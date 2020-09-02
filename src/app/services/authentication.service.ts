@@ -54,19 +54,27 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {map, tap} from 'rxjs/operators';
 import * as Constants from '../utils/globals';
 import {ProfileService} from './profile.service';
+import {LOGGED_IN_KEY} from '../utils/globals';
 
 @Injectable()
 export class AuthenticationService {
   constructor(private http: HttpClient, private profileService: ProfileService) { }
 
   login(email: string, password: string) {
-    return this.http.post<any>(`${Constants.userURL}/login`, { email: email, password: password })
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'accept': 'application/json'
+      })
+    };
+
+    return this.http.post<any>(`${Constants.userURL}/login`, { email: email, password: password }, httpOptions)
       .pipe(map(response => {
         if (response.user && response.user.token) {
-          localStorage.setItem('currentUser', JSON.stringify(response.user));
-          //this.profileService.authenticatedUsername = response.user.userna;
+          localStorage.setItem(LOGGED_IN_KEY, JSON.stringify(response.user));
+          // this.profileService.authenticatedUsername = response.user.userna;
           this.profileService.loadProfile(response.user.userna);
-          //this.profileService.isAuthenticated = true;
+          // this.profileService.isAuthenticated = true;
         }
         console.log('----> login: storing currentUser: ' + JSON.stringify(response.user));
 
@@ -76,7 +84,7 @@ export class AuthenticationService {
 
   logout() {
     console.log('we log out');
-    localStorage.removeItem('currentUser');
+    localStorage.removeItem(LOGGED_IN_KEY);
     // this.profileService.isAuthenticated = false;
     // this.profileService.authenticatedUsername = null;
   }

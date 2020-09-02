@@ -114,7 +114,6 @@ export class SelectCitiesComponent implements OnInit {
                 }
               }
             } else {
-              console.log('on est là!');
               return results;
             }
             return res;

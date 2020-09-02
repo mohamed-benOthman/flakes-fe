@@ -1,5 +1,6 @@
 ﻿import { Injectable } from '@angular/core';
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+import {LOGGED_IN_KEY} from '../globals';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
@@ -7,7 +8,7 @@ export class AuthGuard implements CanActivate {
     constructor(private router: Router) { }
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-        if (localStorage.getItem('currentUser')) {
+        if (localStorage.getItem(LOGGED_IN_KEY)) {
             // logged in so return true
             return true;
         }

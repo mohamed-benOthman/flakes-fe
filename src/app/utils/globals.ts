@@ -26,3 +26,6 @@ export const SEARCH_AVAILABLE_ITEMS_PER_PAGE = [1, 3, 6, 25];
 
 export const AUTH0_CLIENT_ID = 'zCs9uYfFgL1mKlDvtTDarJUJ240uKr2S';
 export const AUTH0_DOMAIN = 'dimacsoftware.eu.auth0.com';
+
+export const LOGGED_IN_KEY = 'currentUser';
+export const CITIES_CACHE_KEY = 'citiesCache';
