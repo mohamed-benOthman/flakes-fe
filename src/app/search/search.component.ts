@@ -1,13 +1,14 @@
 import {Component, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
 import {Router} from '@angular/router';
 import {DepartmentsService} from '../services/departments.service';
-import {MatPaginator, PageEvent} from '@angular/material';
+
 import {forkJoin, Observable} from 'rxjs';
 import {SelectCitiesComponent} from '../utils/select-cities/select-cities.component';
 import {SearchService} from '../services/search.service';
 import {Profile} from '../models/profile.model';
 import {Department} from '../models/department.model';
 import * as Constants from '../utils/globals';
+import {MatPaginator, PageEvent} from '@angular/material/paginator';
 
 @Component({
   selector: 'app-search',
@@ -29,7 +30,7 @@ export class SearchComponent implements OnInit {
 
   pageLength = 1;
   pageSizeOptions: number[] = Constants.SEARCH_AVAILABLE_ITEMS_PER_PAGE;
-  pageSize = Constants.SEARCH_AVAILABLE_ITEMS_PER_PAGE[1];
+  pageSize = Constants.SEARCH_AVAILABLE_ITEMS_PER_PAGE[2];
   pageIndex = 0;
 
 
@@ -53,7 +54,7 @@ export class SearchComponent implements OnInit {
 
     this.deptList = this.deptService.getJSON();
 
-    this.paginator._intl.itemsPerPageLabel = 'Prestataires par page';
+    /*this.paginator._intl.itemsPerPageLabel = 'Prestataires par page';
     this.paginator._intl.firstPageLabel = 'Première page';
     this.paginator._intl.previousPageLabel = 'Page précédente';
     this.paginator._intl.nextPageLabel = 'Page suivante';
@@ -66,7 +67,7 @@ export class SearchComponent implements OnInit {
       const startIndex = page * pageSize;
       const endIndex = startIndex < length ? Math.min(startIndex + pageSize, length) : startIndex + pageSize;
       return `${startIndex + 1} - ${endIndex} sur ${length}`;
-    };
+    };*/
 
     if (this.router.url.startsWith('/search-makeup')) {
       this.categoryTitle = 'maquillage';
@@ -120,8 +121,8 @@ export class SearchComponent implements OnInit {
     const countObs = this.searchService.requestSearchCount(dept, city, biz, this.selectedSkins);
 
     forkJoin([searchObs, countObs]).subscribe(results => {
-      this.artistsProfiles = results[0];
-      const count = results[1];
+      this.artistsProfiles = results[0] as Profile[];
+      const count = results[1] as number;
 
       this.artistFound = count > 0;
 

@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {AfterViewChecked, Component, OnInit, ViewChild} from '@angular/core';
 import {Profile} from '../../models/profile.model';
 import {ProfileService} from '../../services/profile.service';
 import {ProfileEditInfoComponent} from './profile-edit-info/profile-edit-info.component';
@@ -7,6 +7,8 @@ import {Message} from 'primeng/api';
 import {Router} from '@angular/router';
 import {ProfileEditPhotosComponent} from './profile-edit-photos/profile-edit-photos.component';
 import * as Constants from '../../utils/globals';
+import {ICreateOrderRequest, IPayPalConfig} from 'ngx-paypal';
+
 
 @Component({
   selector: 'app-artist-profile-edit',
@@ -29,10 +31,70 @@ export class ArtistProfileEditComponent implements OnInit {
   constructor(private profileService: ProfileService, private router: Router) {
   }
 
+  public payPalConfig?: IPayPalConfig;
+
   ngOnInit() {
     this.profileService.currentDisplayedProfile.subscribe(res => {
       this.currentProfile = res;
     });
+    this.initConfig();
+  }
+
+  private initConfig(): void {
+    this.payPalConfig = {
+      currency: 'EUR',
+      clientId: 'sb',
+      createOrderOnClient: (data) => < ICreateOrderRequest > {
+        intent: 'CAPTURE',
+        purchase_units: [{
+          amount: {
+            currency_code: 'EUR',
+            value: '9.99',
+            breakdown: {
+              item_total: {
+                currency_code: 'EUR',
+                value: '9.99'
+              }
+            }
+          },
+          items: [{
+            name: 'Enterprise Subscription',
+            quantity: '1',
+            category: 'DIGITAL_GOODS',
+            unit_amount: {
+              currency_code: 'EUR',
+              value: '9.99',
+            },
+          }]
+        }]
+      },
+      advanced: {
+        commit: 'true'
+      },
+      style: {
+        label: 'paypal',
+        layout: 'vertical'
+      },
+      onApprove: (data, actions) => {
+        console.log('onApprove - transaction was approved, but not authorized', data, actions);
+        actions.order.get().then(details => {
+          console.log('onApprove - you can get full order details inside onApprove: ', details);
+        });
+
+      },
+      onClientAuthorization: (data) => {
+        console.log('onClientAuthorization - you should probably inform your server about completed transaction at this point', data);
+      },
+      onCancel: (data, actions) => {
+        console.log('OnCancel', data, actions);
+      },
+      onError: err => {
+        console.log('OnError', err);
+      },
+      onClick: (data, actions) => {
+        console.log('onClick', data, actions);
+      },
+    };
   }
 
   deleteFromGallery(index) {

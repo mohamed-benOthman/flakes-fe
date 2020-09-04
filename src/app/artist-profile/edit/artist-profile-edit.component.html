@@ -51,7 +51,9 @@
       <button type="button" pButton icon="pi pi-times" (click)="cancelEditProfile()" label="Annuler"
               class="ui-button-secondary"></button>
     </div>
-    <div class="col-md-4"></div>
+    <div class="col-md-4">
+      <ngx-paypal [config]="payPalConfig"></ngx-paypal>
+    </div>
 
   </div>
 

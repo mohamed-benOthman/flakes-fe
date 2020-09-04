@@ -2,8 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {catchError, map, shareReplay} from 'rxjs/operators';
 import * as Constants from '../utils/globals';
-import {EMPTY, of, throwError} from 'rxjs';
-import {el} from '@angular/platform-browser/testing/src/browser_util';
+import {throwError} from 'rxjs';
 import {CACHE_TTL} from '../utils/globals';
 
 @Injectable({

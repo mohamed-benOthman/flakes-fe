@@ -3,7 +3,6 @@ import {Profile} from '../../../models/profile.model';
 import {ProfileService} from '../../../services/profile.service';
 
 import * as cloneDeep from 'lodash/cloneDeep';
-import {HttpClient} from '@angular/common/http';
 import * as Constants from '../../../utils/globals';
 import {MenuItem} from 'primeng/api';
 
@@ -102,7 +101,7 @@ export class ProfileEditInfoComponent implements OnInit {
         const reader = new FileReader();
         reader.readAsDataURL(event.target.files[0]); // read file as data url
         reader.onload = (evn: Event) => { // called once readAsDataURL is completed
-          this.currentProfileCopy.photo_profile = reader.result;
+          this.currentProfileCopy.photo_profile = reader.result as string;
         };
       }
     }

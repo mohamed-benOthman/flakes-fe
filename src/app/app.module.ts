@@ -10,27 +10,9 @@ import {SigninComponent} from './auth/signin/signin.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {ArtistProfileComponent} from './artist-profile/artist-profile.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {NgxGalleryModule} from 'ngx-gallery';
+
 import {ButtonModule} from 'primeng/button';
-import {
-  BlockUIModule,
-  CardModule,
-  DialogModule,
-  DropdownModule,
-  FileUploadModule,
-  GrowlModule,
-  MultiSelectModule,
-  ProgressSpinnerModule, ScrollPanelModule, SplitButtonModule, TabViewModule,
-} from 'primeng/primeng';
-import {
-  MatCheckboxModule,
-  MatGridListModule,
-  MatIconModule,
-  MatInputModule,
-  MatPaginatorModule,
-  MatRadioModule,
-  MatStepperModule
-} from '@angular/material';
+
 import {TruncatePipe} from './pipes/truncate.pipe';
 import {StringToNumberPipe} from './pipes/stringToNumber.pipe';
 import { ProfileInfoComponent } from './artist-profile/display/profile-info/profile-info.component';
@@ -58,7 +40,31 @@ import { JwtInterceptor } from './utils/helpers/jwt.interceptor';
 import { ErrorInterceptor } from './utils/helpers/error.interceptor';
 import { AuthGuard } from './utils/helpers/auth.guard';
 import { LoggedInComponent } from './auth/logged-in/logged-in.component';
-import {AuthGuardGuard} from './guards/auth-guard.guard';
+import {NgxPayPalModule} from 'ngx-paypal';
+import {NgxGalleryModule} from 'ngx-gallery-9';
+import {MatInputModule} from '@angular/material/input';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatGridListModule} from '@angular/material/grid-list';
+import {MatPaginatorIntl, MatPaginatorModule} from '@angular/material/paginator';
+import {MatStepperModule} from '@angular/material/stepper';
+import {MatIconModule} from '@angular/material/icon';
+import {MatRadioModule} from '@angular/material/radio';
+import {
+  BlockUIModule,
+  CardModule,
+  DialogModule, DropdownModule, FileUploadModule,
+  MultiSelectModule, ProgressSpinnerModule,
+  ScrollPanelModule,
+  SplitButtonModule,
+  TabViewModule,
+  ToastModule
+} from 'primeng';
+import {MatPaginatorIntlCro} from './utils/intl/MatPaginatorIntlCro';
+
+
+
+
+
 
 const appRoutes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -115,11 +121,11 @@ const appRoutes: Routes = [
     HttpClientModule,
     ReactiveFormsModule, NgxGalleryModule,
     ButtonModule, DialogModule, NgxSmoothDnDModule, ScrollPanelModule, SplitButtonModule,
-    MatInputModule, MultiSelectModule, MatCheckboxModule, GrowlModule, CardModule, BlockUIModule,
+    MatInputModule, MultiSelectModule, MatCheckboxModule, ToastModule, CardModule, BlockUIModule,
     MatGridListModule, TabViewModule, FileUploadModule, DropdownModule, ProgressSpinnerModule,
     NgSelectModule, MatPaginatorModule, MatStepperModule, MatIconModule, MatCheckboxModule,
     RouterModule.forRoot(appRoutes),
-    MatRadioModule,
+    MatRadioModule, NgxPayPalModule
   ],
   providers: [
     AuthGuard,
@@ -127,6 +133,7 @@ const appRoutes: Routes = [
     AuthenticationService,
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+    { provide: MatPaginatorIntl, useClass: MatPaginatorIntlCro}
   ],
   bootstrap: [AppComponent]
 })
