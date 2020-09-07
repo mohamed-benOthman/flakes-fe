@@ -52,7 +52,7 @@ import {MatRadioModule} from '@angular/material/radio';
 import {
   BlockUIModule,
   CardModule,
-  DialogModule, DropdownModule, FileUploadModule,
+  DialogModule, DropdownModule, FileUploadModule, GalleriaModule,
   MultiSelectModule, ProgressSpinnerModule,
   ScrollPanelModule,
   SplitButtonModule,
@@ -125,7 +125,7 @@ const appRoutes: Routes = [
     MatGridListModule, TabViewModule, FileUploadModule, DropdownModule, ProgressSpinnerModule,
     NgSelectModule, MatPaginatorModule, MatStepperModule, MatIconModule, MatCheckboxModule,
     RouterModule.forRoot(appRoutes),
-    MatRadioModule, NgxPayPalModule
+    MatRadioModule, NgxPayPalModule, GalleriaModule
   ],
   providers: [
     AuthGuard,

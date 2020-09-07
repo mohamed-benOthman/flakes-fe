@@ -36,6 +36,11 @@
             (photoSentEvent)="showPhotoUploadedSuccess()"
             (uploadingEvent)="isUploading = $event"></app-profile-edit-photos>
         </div>
+
+        <div class="col-xs-6">
+
+          <ngx-paypal [config]="payPalConfig"></ngx-paypal>
+        </div>
       </div>
     </div>
   </div>
@@ -52,7 +57,7 @@
               class="ui-button-secondary"></button>
     </div>
     <div class="col-md-4">
-      <ngx-paypal [config]="payPalConfig"></ngx-paypal>
+
     </div>
 
   </div>
