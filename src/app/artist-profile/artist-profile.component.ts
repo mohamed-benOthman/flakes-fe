@@ -107,7 +107,7 @@ export class ArtistProfileComponent implements OnInit, OnDestroy {
 
 import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {Profile} from '../models/profile.model';
-import {Message} from 'primeng/api';
+import {Message, MessageService} from 'primeng/api';
 import {ProfileService} from '../services/profile.service';
 import {ProfileEditInfoComponent} from './edit/profile-edit-info/profile-edit-info.component';
 import {ProfilePhotosGalleryComponent} from './display/profile-photos-gallery/profile-photos-gallery.component';
@@ -117,7 +117,8 @@ import {LOGGED_IN_KEY} from '../utils/globals';
 @Component({
   selector: 'app-artist-profile',
   templateUrl: './artist-profile.component.html',
-  styleUrls: ['./artist-profile.component.css']
+  styleUrls: ['./artist-profile.component.css'],
+  providers: [MessageService]
 })
 export class ArtistProfileComponent implements OnInit, OnDestroy {
 
@@ -127,9 +128,12 @@ export class ArtistProfileComponent implements OnInit, OnDestroy {
   currentProfile: Profile;
   displayEditProfileDialog: boolean;
   displayEditPhotosDialog: boolean;
-  growlMessage: Message[] = [];
+  // growlMessage: Message[] = [];
 
-  constructor(private profileService: ProfileService, private router: Router, private activeRoute: ActivatedRoute) {
+  constructor(private profileService: ProfileService,
+              private router: Router,
+              private activeRoute: ActivatedRoute,
+              private messageService: MessageService) {
   }
 
   ngOnInit() {
@@ -139,8 +143,7 @@ export class ArtistProfileComponent implements OnInit, OnDestroy {
     const routeParams = this.activeRoute.snapshot.params;
     if (routeParams && routeParams.username) {
       this.profileService.loadProfile(String(routeParams.username));
-    }
-    else if (this.profileService.isAuthenticated()) {
+    } else if (this.profileService.isAuthenticated()) {
       this.profileService.loadProfile(this.profileService.getAuthUsername());
     }
 
@@ -173,17 +176,19 @@ export class ArtistProfileComponent implements OnInit, OnDestroy {
   }
 
   showPhotoDeletedSuccess() {
-    this.growlMessage = [];
-    this.growlMessage.push({
+    // this.growlMessage = [];
+    this.messageService.clear();
+    this.messageService.add({
       severity: 'success',
       summary: 'Photo supprimée',
-      detail: 'La photo a été correctement supprimée sur le serveur'
+      detail: 'La photo a été correctement supprimée du serveur'
     });
   }
 
   showPhotoUploadedSuccess() {
-    this.growlMessage = [];
-    this.growlMessage.push({
+    // this.growlMessage = [];
+    this.messageService.clear();
+    this.messageService.add({
       severity: 'success',
       summary: 'Photo(s) envoyée(s)',
       detail: ''

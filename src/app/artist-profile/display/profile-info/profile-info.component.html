@@ -65,22 +65,25 @@
     </td>
   </tr>
 
-  <tr *ngIf="isFranceOnly(); else movingOutsideTemplate">
+  <tr >
     <td><b>Déplacements</b></td>
     <td><span style="display:inline-block; width: 15px;"></span></td>
     <td class="detail">
+      <div *ngIf="isFranceOnly(); else movingOutsideTemplate">
       Je me déplace en France
+      </div>
     </td>
   </tr>
 
   <ng-template #movingOutsideTemplate>
-    <tr>
+    <div>Je me déplace hors de France</div>
+    <!--<tr>
     <td><b>Déplacements</b></td>
     <td><span style="display:inline-block; width: 15px;"></span></td>
     <td class="detail">
       Je me déplace hors de France
     </td>
-    </tr>
+    </tr>-->
   </ng-template>
 
   <tr>

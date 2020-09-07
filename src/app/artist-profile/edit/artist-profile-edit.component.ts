@@ -3,7 +3,7 @@ import {Profile} from '../../models/profile.model';
 import {ProfileService} from '../../services/profile.service';
 import {ProfileEditInfoComponent} from './profile-edit-info/profile-edit-info.component';
 import {ProfilePhotosGalleryComponent} from '../display/profile-photos-gallery/profile-photos-gallery.component';
-import {Message} from 'primeng/api';
+import {Message, MessageService} from 'primeng/api';
 import {Router} from '@angular/router';
 import {ProfileEditPhotosComponent} from './profile-edit-photos/profile-edit-photos.component';
 import * as Constants from '../../utils/globals';
@@ -13,7 +13,8 @@ import {ICreateOrderRequest, IPayPalConfig} from 'ngx-paypal';
 @Component({
   selector: 'app-artist-profile-edit',
   templateUrl: './artist-profile-edit.component.html',
-  styleUrls: ['./artist-profile-edit.component.css']
+  styleUrls: ['./artist-profile-edit.component.css'],
+  providers: [MessageService]
 })
 export class ArtistProfileEditComponent implements OnInit {
 
@@ -28,7 +29,9 @@ export class ArtistProfileEditComponent implements OnInit {
   updateProfileDone = false;
   profileSuccessfullyUpdated = false;
 
-  constructor(private profileService: ProfileService, private router: Router) {
+  constructor(private profileService: ProfileService,
+              private router: Router,
+              private messageService: MessageService) {
   }
 
   public payPalConfig?: IPayPalConfig;
@@ -101,8 +104,9 @@ export class ArtistProfileEditComponent implements OnInit {
   }
 
   showPhotoUploadedSuccess() {
-    this.growlMessage = [];
-    this.growlMessage.push({
+    // this.growlMessage = [];
+    this.messageService.clear();
+    this.messageService.add({
       severity: 'success',
       summary: 'Photo(s) envoyée(s)',
       detail: ''
@@ -110,8 +114,9 @@ export class ArtistProfileEditComponent implements OnInit {
   }
 
   showSaveSuccess() {
-    this.growlMessage = [];
-    this.growlMessage.push({
+    // this.growlMessage = [];
+    this.messageService.clear();
+    this.messageService.add({
       severity: 'success',
       summary: 'Modifications sauvegardées',
       detail: ''

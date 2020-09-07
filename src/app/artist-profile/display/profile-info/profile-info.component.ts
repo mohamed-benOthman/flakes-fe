@@ -71,6 +71,7 @@ export class ProfileInfoComponent implements OnInit {
   }
 
   isFranceOnly() {
-    return this.currentProfile.movings !== '' && this.currentProfile.movings === '1';
+    // console.log('isFranceOnly() profile = ' + JSON.stringify(this.currentProfile));
+    return this.currentProfile.movings && this.currentProfile.movings == '1';
   }
 }

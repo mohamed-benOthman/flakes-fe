@@ -60,7 +60,8 @@
   <!----------------------------
   ----- POPUP DIALOG WITH AUTO-DISMISS
   ------------------------------>
-  <p-growl [(value)]="growlMessage"></p-growl>
+  <!--<p-growl [(value)]="growlMessage"></p-growl>-->
+  <p-toast [style]="{marginTop: '80px'}"></p-toast>
 
   <p-dialog header="Eléments manquants" [(visible)]="displayInvalidProfile" [modal]="true" [responsive]="true">
     Veuillez vérifier les informations du profile.
