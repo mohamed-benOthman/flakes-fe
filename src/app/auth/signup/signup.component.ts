@@ -239,7 +239,7 @@ export class SignupComponent implements OnInit {
         this.profileCreatedSuccessfully = true;
       },
       err => {
-        console.log('post profile erreur: ' + JSON.stringify(err));
+        console.log('post profil erreur: ' + JSON.stringify(err));
         this.isUploading = false;
         this.showCreationDone = true;
         this.profileCreatedSuccessfully = false;

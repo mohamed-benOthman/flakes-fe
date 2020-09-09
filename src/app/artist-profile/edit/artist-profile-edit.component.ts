@@ -37,11 +37,18 @@ export class ArtistProfileEditComponent implements OnInit {
   public payPalConfig?: IPayPalConfig;
 
   ngOnInit() {
+
     this.profileService.currentDisplayedProfile.subscribe(res => {
-      this.currentProfile = res;
+      console.log('res = ' + JSON.stringify(res));
+      if (res.username == '' && this.profileService.isAuthenticated())
+        this.profileService.loadProfile(this.profileService.getAuthUsername());
+      else
+        this.currentProfile = res;
     });
     this.initConfig();
   }
+
+  private loadAuth
 
   private initConfig(): void {
     this.payPalConfig = {

@@ -60,6 +60,7 @@ import {
   ToastModule
 } from 'primeng';
 import {MatPaginatorIntlCro} from './utils/intl/MatPaginatorIntlCro';
+import { PricingComponent } from './artist-profile/edit/pricing/pricing.component';
 
 
 
@@ -113,7 +114,8 @@ const appRoutes: Routes = [
     CgvComponent,
     ConfidentialityComponent,
     LegalsComponent,
-    LoggedInComponent
+    LoggedInComponent,
+    PricingComponent
   ],
   imports: [
     BrowserModule, BrowserAnimationsModule,
