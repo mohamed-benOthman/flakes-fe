@@ -1,0 +1,129 @@
+<section class="profile-banner">
+  <div class="container-fluid">
+    <div class="row profile-heading">
+      <div class="col-md-10">
+        <div>
+          <h1>Profil de <b>{{currentProfile?.lastname | uppercase}} {{currentProfile?.firstname | uppercase}}</b></h1>
+        </div>
+      </div>
+      <div class="col-md-2">
+        <div *ngIf="currentProfile?.photo_profile" class="text-center">
+          <img [src]="currentProfile.photo_profile" class="img-responsive center-block user"/>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="content-profile">
+  <div class="container-fluid">
+    <!------------------------------
+    ----- PROFIL INFORMATION
+    ------------------------------>
+    <div class="row">
+      <div class="col-xs-12 col-sm-5 col-md-5">
+        <div *ngIf="isEditEnabled(); else notLoggedProfilInfo" class="content-title">
+          <h1>
+            Informations de votre profil
+          </h1>
+          <br>
+          <app-profile-info [currentProfile]="currentProfile"></app-profile-info>
+        </div>
+
+        <ng-template #notLoggedProfilInfo>
+          <div class="content-title">
+            <h1>
+              Informations
+            </h1>
+            <br>
+            <app-profile-info [currentProfile]="currentProfile"></app-profile-info>
+          </div>
+        </ng-template>
+      </div>
+      <!------------------------------
+      ----- PHOTOS GALLERY
+      ------------------------------>
+      <div class="col-xs-12 col-sm-7 col-md-7">
+        <div *ngIf="isEditEnabled(); else notLoggedPhotosTitle" class="content-title">
+          <h1>Mes Photos</h1>
+        </div>
+        <ng-template #notLoggedPhotosTitle>
+          <div class="content-title">
+          <h1>Photos</h1>
+          </div>
+        </ng-template>
+        <br>
+        <br>
+        <div *ngIf="currentProfile.photosUrl && currentProfile.photosUrl.length > 0; else no_photo_content">
+          <app-profile-photos-gallery></app-profile-photos-gallery>
+        </div>
+        <ng-template #no_photo_content>
+          <h3 style="text-align: center">Aucune photo n'a été ajoutée à la galerie pour le moment</h3>
+          <br>
+          <ng-container *ngIf="isEditEnabled()">
+            <p>Les profiles avec photos sont plus consultés que ceux qui n'en ont pas et permettent aux visiteurs
+              d'avoir
+              un aperçu de vos talents.</p>
+            <br>
+            <p>Vous pouvez ajouter des photos en cliquant sur le bouton ci-dessous "Editer le profil"</p>
+          </ng-container>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+
+  <!------------------------------
+  ----- BOTTOM BUTTONS (EDIT / ADD PHOTOS)
+  ------------------------------>
+  <ng-container *ngIf="isEditEnabled()">
+    <button pButton type="button" label="Editer le profil" class="ui-button-raised"
+            (click)="editProfileClicked()"></button>
+    <span style="display:inline-block; width: 25px;"></span>
+    <!--<button pButton type="button" label="Editer les photos" class="ui-button-raised"
+            (click)="editPhotosClicked()"></button>-->
+  </ng-container>
+
+  <!------------------------------
+  ----- EDIT PROFILE DIALOG
+  ------------------------------>
+  <p-dialog styleClass="myStyle" header="Editer le profil" [(visible)]="displayEditProfileDialog" [modal]="true"
+            [minY]="20" [dismissableMask]="true" [responsive]="true" [showHeader]="true"
+            [maximizable]="false" [baseZIndex]="500000">
+
+    <app-profile-edit-info></app-profile-edit-info>
+
+    <p-footer>
+      <button type="button" pButton icon="pi pi-check" (click)="saveEditProfile()"
+              label="Sauvegarder"></button>
+      <button type="button" pButton icon="pi pi-times" (click)="displayEditProfileDialog=false" label="Annuler"
+              class="ui-button-secondary"></button>
+    </p-footer>
+  </p-dialog>
+
+
+  <!------------------------------
+  ----- EDIT PHOTOS DIALOG
+  ------------------------------>
+
+  <p-dialog header="Editer les photos" [(visible)]="displayEditPhotosDialog" [modal]="true"
+            [dismissableMask]="true"
+            [showHeader]="true" [maximizable]="false" [baseZIndex]="500000">
+
+    <app-profile-edit-photos
+      (photoDeletedEvent)="deleteFromGallery($event)"
+      (photoSentEvent)="showPhotoUploadedSuccess()"></app-profile-edit-photos>
+
+    <p-footer>
+      <button type="button" pButton icon="pi pi-check" (click)="displayEditPhotosDialog=false"
+              label="Valider"></button>
+    </p-footer>
+  </p-dialog>
+
+
+  <!----------------------------
+  ----- POPUP DIALOG WITH AUTO-DISMISS
+  ------------------------------>
+  <p-growl [(value)]="growlMessage"></p-growl>
+</section>
+
+

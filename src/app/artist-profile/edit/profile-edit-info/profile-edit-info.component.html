@@ -1,0 +1,174 @@
+<form class="edit-profile-form">
+
+  <ng-container *ngIf="currentProfileCopy">
+  <div class="container-fluid">
+    <div class="row">
+      <div id="centered" class="col-sm-5">
+        <div><img #profileImg [src]="currentProfileCopy.photo_profile" class="user"/></div>
+        <span style="display:inline-block; margin-top: 0.5em"></span>
+
+      </div>
+      <div class="col-sm-7">
+        <div>
+          <br>
+          <mat-form-field class="edit-profile-full-width">
+            <input matInput placeholder="identifiant" disabled
+                   [(ngModel)]="currentProfileCopy.username"
+                   [ngModelOptions]="{standalone: true}">
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-form-field class="edit-profile-full-width">
+            <input matInput placeholder="E-mail" disabled
+                   [(ngModel)]="currentProfileCopy.emailAdress"
+                   [ngModelOptions]="{standalone: true}">
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+    <div>
+      <input #fileUpload type="file" accept="image/*" (change)="profilePhotoChanged($event)" style="display:none">
+      <p-splitButton label="Modifier l'image" styleClass="ui-button-secondary"
+                     [model]="splitButtonActions" (onClick)="fileUpload.click()"></p-splitButton>
+    </div>
+    <div *ngIf="!isProfilePhotoValid">
+      <p style="color: red; text-align:center; margin-top: 10px;">La taille maximale pour la photo de profile est de 1Mo</p></div>
+    <br>
+  </div>
+
+  <!------------------------------
+  ----- Nom / Prénom
+  ------------------------------>
+  <div class="container-fluid">
+    <div class="row">
+      <div>
+        <div class="col-md-6">
+          <mat-form-field class="edit-profile-full-width">
+            <input matInput placeholder="Nom" [(ngModel)]="currentProfileCopy.lastname" required
+                   [ngModelOptions]="{standalone: true}">
+          </mat-form-field>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field class="edit-profile-full-width">
+            <input matInput placeholder="Prénom" [(ngModel)]="currentProfileCopy.firstname" required
+                   [ngModelOptions]="{standalone: true}">
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!------------------------------
+  ----- Adresse
+  ------------------------------>
+  <div class="container-fluid">
+    <mat-form-field class="edit-profile-full-width">
+      <input matInput placeholder="N° et Rue" required
+             [(ngModel)]="currentProfileCopy.street" [ngModelOptions]="{standalone: true}">
+    </mat-form-field>
+  </div>
+
+  <!------------------------------
+  ----- Code Postal / Telephone
+  ------------------------------>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-lg-8">
+        <app-select-cities [multipleValues]="false"
+                           [isRequired]="true"
+                           [citiesSelected]="currentProfileCopy.cities"
+                           (zipCodeCitySelected)="onCitySelected($event)"></app-select-cities>
+      </div>
+      <div class="col-lg-4">
+        <mat-form-field class="edit-profile-full-width">
+          <input matInput placeholder="Téléphone"
+                 [(ngModel)]="currentProfileCopy.phone" [ngModelOptions]="{standalone: true}"
+                 (keypress)="phoneChecker($event)">
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+
+  <!------------------------------
+  ----- Expertise (type de peau)
+  ------------------------------>
+  <div>
+    <span style="font-size: 75%; opacity: 0.5; font-weight: bold">Expertise</span>
+    <section class="edit-profile-expertise-checkbox-section">
+      <div *ngFor="let expertise of currentProfileCopy.expertises">
+        <mat-checkbox class="edit-profile-expertise-checkbox-margin"
+                      [(ngModel)]="expertise.checked"
+                      [ngModelOptions]="{standalone: true}">{{expertise.libelle}}
+        </mat-checkbox>
+      </div>
+    </section>
+  </div>
+
+  <br>
+
+    <!------------------------------
+      ----- Déplacements
+      ------------------------------>
+    <!--<div>
+      <span style="font-size: 75%; opacity: 0.5; font-weight: bold">Déplacement</span>
+      <section class="edit-profile-expertise-checkbox-section">
+        <div *ngFor="let moving of currentProfileCopy.movings">
+          <mat-checkbox class="edit-profile-expertise-checkbox-margin"
+                        [(ngModel)]="moving.checked"
+                        [ngModelOptions]="{standalone: true}">{{moving.libelle}}
+          </mat-checkbox>
+        </div>
+      </section>
+    </div>
+
+    <br>-->
+    <div>
+      <span style="font-size: 75%; opacity: 0.5; font-weight: bold">Déplacement</span>
+      <section class="edit-profile-expertise-checkbox-section">
+        <mat-radio-group [(ngModel)]="currentProfileCopy.movings"
+                         [ngModelOptions]="{standalone: true}" >
+          <div class="col-lg-12">
+            <mat-radio-button value="1" [checked]="true" >Je me déplace en France</mat-radio-button>
+          </div>
+          <div class="col-lg-12">
+            <mat-radio-button value="2">Je me déplace hors de France</mat-radio-button>
+          </div>
+        </mat-radio-group>
+      </section>
+    </div>
+
+    <br>
+
+  <!------------------------------
+  ----- Compétences (Maquillage, Microblading, Manucure, Extension)
+  ------------------------------>
+  <div class="container-fluid">
+    <div class="row full-width-row">
+      <span style="font-size: 75%; opacity: 0.5; font-weight: bold">Compétences</span>
+      <div *ngFor="let business of currentProfileCopy.business">
+        <div class="col-sm-6">
+          <mat-checkbox class="edit-profile-expertise-checkbox-margin"
+                        [(ngModel)]="business.checked"
+                        [ngModelOptions]="{standalone: true}">{{business.libelle}}
+          </mat-checkbox>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <br>
+
+  <!------------------------------
+  ----- Présentation
+  ------------------------------>
+  <p>
+    <mat-form-field class="edit-profile-full-width">
+          <textarea #sloganArea style="display:inline-block; width: 100%; min-height: 80px;"
+                    matInput placeholder="Présentation"
+                    [maxlength]="sloganMaxLen"
+                    [(ngModel)]="currentProfileCopy.slogan" [ngModelOptions]="{standalone: true}"></textarea>
+      <mat-hint align="end">{{sloganArea.value.length}} / {{sloganMaxLen}}</mat-hint>
+    </mat-form-field>
+  </p>
+  </ng-container>
+</form>

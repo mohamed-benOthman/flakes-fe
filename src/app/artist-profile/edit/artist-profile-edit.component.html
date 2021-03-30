@@ -1,0 +1,86 @@
+<p-blockUI [blocked]="isUploading">
+  <p-progressSpinner [style]="{width: '180px', height: '180px', position: 'absolute', top: '30%', left: '40%'}"
+                     strokeWidth="5"
+                     fill="#FFFFFF"
+                     animationDuration="1s"></p-progressSpinner>
+</p-blockUI>
+
+<section class="content-profile">
+  <div class="container-fluid">
+    <!------------------------------
+    ----- PROFIL INFORMATION
+    ------------------------------>
+    <div class="row">
+      <div class="col-xs-12 col-sm-5 col-md-5">
+        <div class="content-title">
+          <h1>
+            Edition des informations du profile
+          </h1>
+          <br>
+          <app-profile-edit-info
+            (uploadingEvent)="isUploading = $event"></app-profile-edit-info>
+        </div>
+      </div>
+      <!------------------------------
+      ----- PHOTOS GALLERY
+      ------------------------------>
+      <div class="col-xs-12 col-sm-7 col-md-7">
+        <div class="content-title">
+          <h1>Edition des photos</h1>
+        </div>
+        <br>
+        <br>
+        <div>
+          <app-profile-edit-photos
+            (photoDeletedEvent)="deleteFromGallery($event)"
+            (photoSentEvent)="showPhotoUploadedSuccess()"
+            (uploadingEvent)="isUploading = $event"></app-profile-edit-photos>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <br><br>
+  <hr>
+  <div class="row">
+    <div class="col-md-4"></div>
+    <div class="col-md-4">
+      <button type="button" pButton icon="pi pi-check" (click)="saveEditProfile()"
+              label="Sauvegarder"></button>
+      <span style="display:inline-block; width: 25px;"></span>
+      <button type="button" pButton icon="pi pi-times" (click)="cancelEditProfile()" label="Annuler"
+              class="ui-button-secondary"></button>
+    </div>
+    <div class="col-md-4"></div>
+
+  </div>
+
+  <!----------------------------
+  ----- POPUP DIALOG WITH AUTO-DISMISS
+  ------------------------------>
+  <p-growl [(value)]="growlMessage"></p-growl>
+
+  <p-dialog header="Eléments manquants" [(visible)]="displayInvalidProfile" [modal]="true" [responsive]="true">
+    Veuillez vérifier les informations du profile.
+    <br>
+    Certains éléments requis sont manquants.
+    <p-footer>
+      <button type="button" pButton icon="pi pi-check" (click)="displayInvalidProfile=false" label="Ok"></button>
+    </p-footer>
+  </p-dialog>
+
+  <p-dialog header="Mise à jour du profil" [(visible)]="updateProfileDone" [modal]="true" [blockScroll]="true"
+            [closeOnEscape]="false" [closable]="false" [showHeader]="true">
+    <div *ngIf="profileSuccessfullyUpdated; else errorCreation">
+      <h3 style="color: #4cae4c"><strong>Le profil a correctement été mis à jour</strong></h3>
+    </div>
+
+    <ng-template #errorCreation>
+      <h3 style="color: #8b1941"><strong>Erreur lors de la mise à jour du profil</strong></h3>
+    </ng-template>
+
+    <p-footer>
+      <button type="button" pButton icon="pi pi-check" (click)="quitEdit()" label="Ok"></button>
+    </p-footer>
+  </p-dialog>
+</section>

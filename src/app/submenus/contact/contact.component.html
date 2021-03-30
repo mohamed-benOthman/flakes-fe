@@ -1,0 +1,65 @@
+<section class="search-banner">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="submenus-heading">
+          <h1 style="font-family: 'Tangerine', serif;
+                    text-shadow: 6px 6px 6px #aaa;
+                    font-size: 60px;">Contact</h1>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="margin-bottom: 70px">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-8" style="margin-top: 70px;">
+        <p-card>
+          <br>
+          <form [formGroup]="contactGroup" (ngSubmit)="processForm()">
+            <mat-form-field style="width: 48%">
+              <input matInput placeholder="Nom" formControlName="name" required>
+            </mat-form-field>
+            <span style="display: inline-block; width: 4%"></span>
+            <mat-form-field style="width: 48%">
+              <input matInput placeholder="E-mail" formControlName="email" required>
+            </mat-form-field>
+
+            <mat-form-field style="width: 100%; margin-top: 25px">
+            <textarea formControlName="message" maxlength="1000"
+                      style="display:inline-block; width: 100%; min-height: 80px;" placeholder="Message"
+                      matInput></textarea>
+            </mat-form-field>
+
+            <p-footer>
+              <div style="margin-top: 70px">
+                <button class="btn btn-primary-submit sendmessage"
+                        type="submit"
+                        [disabled]="!contactGroup.valid">Envoyer
+                </button>
+              </div>
+            </p-footer>
+
+          </form>
+        </p-card>
+      </div>
+
+      <div class="col-sm-4">
+        <p-card [style]="{marginBottom: '30px', marginTop: '70px'}" title="Contact" >
+          <p-header>
+            <img src="../../../assets/images/contact-us.png">
+          </p-header>
+          <p>In his tractibus navigerum nusquam visitur flumen sed in locis plurimis aquae suapte natura calentes
+            emergunt ad usus aptae multiplicium medelarum. verum has quoque regiones pari sorte Pompeius Iudaeis domitis
+            et Hierosolymis captis in provinciae speciem delata iuris dictione formavit.</p>
+
+          <p>Victus universis caro ferina est lactisque abundans copia qua sustentantur, et herbae multiplices et siquae
+            alites capi per aucupium possint, et plerosque mos vidimus frumenti usum et vini penitus ignorantes.</p>
+        </p-card>
+      </div>
+
+    </div>
+  </div>
+</section>

@@ -1,0 +1,349 @@
+<p-blockUI [blocked]="isUploading">
+  <p-progressSpinner [style]="{width: '180px', height: '180px', position: 'absolute', top: '30%', left: '40%'}"
+                     strokeWidth="5"
+                     fill="#FFFFFF"
+                     animationDuration="1s"></p-progressSpinner>
+</p-blockUI>
+
+<section class="search-banner">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="search-heading-signup">
+          <h1 style="font-family: 'Tangerine', serif;
+                    text-shadow: 6px 6px 6px #aaa;
+                    font-size: 60px;">Création de compte</h1>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-8">
+        <mat-vertical-stepper [linear]="false" #stepper (selectionChange)="onStepChanged($event)">
+          <!------------------------->
+          <!--STEP 1-->
+          <!------------------------->
+          <mat-step [stepControl]="stepOneGroup">
+
+            <div *ngIf="isUsernameTaken || isEmailTaken" class="alert alert-danger">
+              <p *ngIf="isUsernameTaken">• Veuillez choisir un autre identifiant</p>
+              <p *ngIf="isEmailTaken">• Veuillez choisir une autre adresse email</p>
+            </div>
+
+            <form [formGroup]="stepOneGroup">
+              <ng-template matStepLabel>Identifiant et adresse e-mail</ng-template>
+              <mat-form-field style="width: 40%">
+                <input matInput placeholder="Identifiant" formControlName="username"
+                       (input)="usernameSubject.next($event.target.value)" required>
+                <mat-error *ngIf="stepOneGroup.get('username').hasError('minlength')">
+                  L'identifiant doit faire au moins {{usernameMinLen}} caractères
+                </mat-error>
+                <mat-error *ngIf="stepOneGroup.get('username').hasError('isTaken')">
+                  Cet identifiant existe déjà
+                </mat-error>
+              </mat-form-field>
+              <span style="display: inline-block; width: 20px"></span>
+              <mat-form-field style="width: 40%">
+                <input matInput placeholder="e-mail" formControlName="email"
+                       (input)="emailSubject.next($event.target.value)"required>
+                <mat-error *ngIf="!stepOneGroup.get('email').valid">
+                  Veuillez saisir une adresse email valide
+                </mat-error>
+              </mat-form-field>
+            </form>
+
+            <form [formGroup]="stepOneGroupPassword">
+              <div>
+                <mat-form-field style="width: 40%; margin-top: 15px">
+                  <input matInput placeholder="Mot de passe" [type]="'password'" formControlName="password" required>
+                  <mat-error *ngIf="stepOneGroupPassword.get('password').hasError('minlength')">
+                    Le mot de passe doit faire entre {{passwordMinLen}} et {{passwordMaxLen}} caractères
+                  </mat-error>
+                </mat-form-field>
+                <span style="display: inline-block; width: 20px"></span>
+                <mat-form-field style="width: 40%">
+                  <input matInput placeholder="Re-saisir le mot de passe" [type]="'password'"
+                         formControlName="confirmPassword" [errorStateMatcher]="matcher" required>
+                  <mat-error *ngIf="stepOneGroupPassword.hasError('notSame')">
+                    Les mots de passe ne sont pas identiques
+                  </mat-error>
+                </mat-form-field>
+              </div>
+
+              <!--Password qui ne match pas-->
+              <!--<div *ngIf="stepOneGroup.get('confirmPassword').hasError('notSame')"
+                   class="alert alert-danger">
+                <p>Les 2 mots de passe doivent correspondre.</p>
+              </div>
+
+              <div *ngIf="stepOneGroup.get('password').hasError('minlength')" class="alert alert-warning">
+                <span>Le mot de passe doit faire entre {{passwordMinLen}} et {{passwordMaxLen}} caractères</span>
+              </div>-->
+              <!--<div style="margin-top: 50px">
+                <button mat-button matStepperNext [disabled]="!stepOneGroup.valid">Suivant</button>
+              </div>-->
+            </form>
+          </mat-step>
+
+          <!------------------------->
+          <!--STEP 2-->
+          <!------------------------->
+          <mat-step [stepControl]="stepTwoGroup">
+            <form [formGroup]="stepTwoGroup">
+              <ng-template matStepLabel>Identité et Coordonnées</ng-template>
+              <mat-form-field style="width: 48%">
+                <input matInput placeholder="Nom" formControlName="lastName" required>
+              </mat-form-field>
+              <span style="display: inline-block; width: 4%"></span>
+              <mat-form-field style="width: 48%">
+                <input matInput placeholder="Prénom" formControlName="firstName" required>
+              </mat-form-field>
+
+              <mat-form-field style="width: 100%; margin-top: 25px">
+                <input matInput placeholder="N° et Rue" formControlName="street" required>
+              </mat-form-field>
+
+              <app-select-cities [isValid]="selectedCity" [isRequired]="true" [showZipCodeOnly]="false"
+                                 (zipCodeCitySelected)="onCitySelected($event)"></app-select-cities>
+
+              <mat-form-field style="margin-top: 25px; width: 45%">
+                <input matInput placeholder="Téléphone" formControlName="phone" (keypress)="phoneChecker($event)">
+              </mat-form-field>
+
+              <!--<div style="margin-top: 50px; margin-bottom: 30px">
+                <button mat-button matStepperNext>Valider</button>
+              </div>-->
+            </form>
+          </mat-step>
+
+          <!------------------------->
+          <!--STEP 3-->
+          <!------------------------->
+          <mat-step [stepControl]="thirdFormGroup">
+            <ng-template matStepLabel>Compétences et Expertises</ng-template>
+            <!--<p style="margin-bottom: 20px; margin-top: 20px; font-weight: bold">Compétences</p>-->
+            <div class="alert alert-warning">
+              <p>Compétences</p>
+            </div>
+            <div class="container">
+              <div class="row">
+                <div class="col-sm-4">
+                  <mat-checkbox [(ngModel)]="makeupChecked">Maquillages</mat-checkbox>
+                </div>
+                <div class="col-sm-4">
+                  <mat-checkbox [(ngModel)]="microbladingChecked">Microblading</mat-checkbox>
+                </div>
+                <div class="col-sm-4"></div>
+              </div>
+              <div class="row">
+                <div class="col-sm-4">
+                  <mat-checkbox [(ngModel)]="manicureChecked">Manucure</mat-checkbox>
+                </div>
+                <div class="col-sm-4">
+                  <mat-checkbox [(ngModel)]="eyesExtenChecked">Extension de cils</mat-checkbox>
+                </div>
+                <div class="col-sm-4"></div>
+              </div>
+            </div>
+            <!--<div *ngIf="!makeupChecked && !microbladingChecked && !manicureChecked && !eyesExtenChecked" style="margin-top: 10px">-->
+            <div *ngIf="!isBusinnessValid()" style="margin-top: 10px">
+              <p style="color: red; font-size: small;">Veuillez sélectionner une compétence au minimum</p>
+            </div>
+
+            <!--<p style="margin-bottom: 20px; font-weight: bold">Expertises</p>-->
+            <div class="alert alert-warning" style="margin-top: 50px">
+              <p>Expertises</p>
+            </div>
+            <div class="container">
+              <div class="row">
+                <div class="col-lg-12">
+                  <mat-checkbox [(ngModel)]="clearSkinChecked">Peau claire</mat-checkbox>
+                </div>
+                <div class="col-lg-12">
+                  <mat-checkbox [(ngModel)]="tannedSkinChecked">Peau foncée</mat-checkbox>
+                </div>
+                <div class="col-lg-12">
+                  <mat-checkbox [(ngModel)]="darkSkinChecked">Peau mate</mat-checkbox>
+                </div>
+              </div>
+            </div>
+
+            <!--<div style="margin-top: 50px">
+              <button mat-button matStepperNext>Valider</button>
+            </div>-->
+          </mat-step>
+
+          <!------------------------->
+          <!--STEP 3 bis-->
+          <!------------------------->
+          <mat-step [stepControl]="thirdBisFormGroup">
+            <ng-template matStepLabel>Zone d'intervention</ng-template>
+            <!--<p style="margin-bottom: 20px; margin-top: 20px; font-weight: bold">Compétences</p>-->
+
+            <!--<div class="alert alert-warning">
+              <p>Départements d'intervention</p>
+            </div>
+            <div class="container">
+              <div class="row">
+                <div class="col-sm-8">
+                  <ng-select class="custom"
+                             [items]="deptList | async"
+                             [multiple]="true"
+                             [maxSelectedItems]="5"
+                             bindLabel="code"
+                             placeholder="Départements"
+                             notFoundText="Aucun élément trouvé"
+                             [(ngModel)]="selectedDept">
+
+                    <ng-template ng-label-tmp let-item="item" let-clear="clear">
+                      <span class="ng-value-label" style="font-size: small">{{item.code}} &lt;!&ndash; ({{item.name}})&ndash;&gt;</span>
+                      <span class="ng-value-icon right" (click)="clear(item)" aria-hidden="true">×</span>
+                    </ng-template>
+
+                    <ng-template ng-option-tmp let-item="item">
+                      {{item.code}} - {{item.name}}
+                    </ng-template>
+
+                  </ng-select>
+                </div>
+              </div>
+            </div>-->
+
+            <!--<div class="alert alert-warning" style="margin-top: 50px">
+              <p>Déplacement</p>
+            </div>-->
+            <div class="container">
+              <div class="row">
+                <!--<div class="col-lg-12">
+                  <mat-checkbox [(ngModel)]="movingInFranceOnly">Je me déplace dans toute la France</mat-checkbox>
+                </div>
+                <div class="col-lg-12">
+                  <mat-checkbox [(ngModel)]="movingOutsideFrance">Je me déplace hors de la France</mat-checkbox>
+                </div>-->
+                <mat-radio-group [(ngModel)]="movings" aria-label="Déplacement">
+                  <div class="col-lg-12">
+                    <mat-radio-button value="1" checked="true">Je me déplace en France</mat-radio-button>
+                  </div>
+                  <div class="col-lg-12">
+                    <span style="display:inline-block; height: 10px;"></span>
+                  </div>
+                  <div class="col-lg-12">
+                    <mat-radio-button value="2">Je me déplace hors de France</mat-radio-button>
+                  </div>
+                </mat-radio-group>
+              </div>
+            </div>
+
+            <!--<div style="margin-top: 50px">
+              <button mat-button matStepperNext>Valider</button>
+            </div>-->
+          </mat-step>
+
+          <!------------------------->
+          <!--STEP 4-->
+          <!------------------------->
+          <mat-step [stepControl]="stepTwoGroup">
+            <ng-template matStepLabel>Présentation</ng-template>
+
+            <mat-form-field style="width: 100%">
+              <textarea #sloganArea maxlength="500" style="display:inline-block; width: 100%; min-height: 80px;"
+                        placeholder="Présentez-vous en quelques mots" [(ngModel)]="sloganTxt" matInput></textarea>
+              <mat-hint align="end">{{sloganArea.value.length}} / {{sloganMaxLength}}</mat-hint>
+            </mat-form-field>
+
+            <!--<div style="margin-top: 50px">
+              <button mat-button matStepperNext>Valider</button>
+            </div>-->
+          </mat-step>
+
+          <mat-step>
+            <ng-template matStepLabel>Terminer</ng-template>
+            <div *ngIf="!isReadyToPost()" class="alert alert-danger">
+              <p *ngIf="!stepOneGroup.valid">• Des informations sont manquantes dans l'étape 1</p>
+              <p *ngIf="!stepTwoGroup.valid">• Des informations sont manquantes dans l'étape 2</p>
+              <p *ngIf="!isBusinnessValid()">• Des informations sont manquantes dans l'étape 3</p>
+            </div>
+            <div style="margin-top: 50px">
+              <button class="btn btn-primary-submit hvr-shadow"
+                      [disabled]="!isReadyToPost()"
+                      (click)="submitPost()">Créer le compte!
+              </button>
+            </div>
+          </mat-step>
+        </mat-vertical-stepper>
+      </div>
+
+      <!------------------------->
+      <!--CARD-->
+      <!------------------------->
+      <div class="col-sm-4">
+        <p-card [style]="{marginTop: '30px', color: '#ff5123'}" title="Etape {{selectedStep + 1}}">
+          <hr>
+          <ng-container *ngIf="selectedStep === 0">
+            <p>• Saisissez un identifiant (qui doit être unique sur notre site) et une adresse email.</p>
+            <br>
+            <p>• Le mot de passe vous permettra de vous connecter à votre espace</p>
+            <hr>
+            <div class="alert alert-secondary">
+              <p style="color: #8b1941">➦ L'identifiant doit faire au minimum {{usernameMinLen}} caractères</p>
+              <p style="color: #8b1941">➦ Le mot de passe doit faire entre {{passwordMinLen}} et {{passwordMaxLen}}
+                caractères</p>
+            </div>
+          </ng-container>
+          <ng-container *ngIf="selectedStep === 1">
+            <p>Ces informations permettront</p>
+            <br>
+            <ul>
+              <li>de pouvoir vous connaître</li>
+              <li>de pouvoir vous retrouver en fonction de la ville ou du département</li>
+              <li>de pouvoir vous contacter sur votre téléphone</li>
+            </ul>
+          </ng-container>
+          <ng-container *ngIf="selectedStep === 2">
+            <p>Définissez ici vos compétences et vos expertises.</p>
+            <br>
+            <p><strong>Cela permettra à vos futurs clients de plus facilement vous retrouver.</strong></p>
+          </ng-container>
+          <ng-container *ngIf="selectedStep === 3">
+            <p>Présentez-vous en quelques mots!</p>
+            <br>
+            <p>Une jolie phrase d'accroche donnera envie aux prospects d'entrer en contact avec vous.</p>
+          </ng-container>
+          <ng-container *ngIf="selectedStep === 4">
+            <p>Il ne vous reste plus qu'à créer votre compte!</p>
+            <br>
+            <p>Une fois la création terminée, vous pourrez ajouter une photo de profil mais également des photos à
+              ajouter à votre galerie.</p>
+            <br>
+            <p><i>Vous pourrez toujours modifier les informations saisies dans cette page (en dehors de votre idenfiant
+              et de votre adresse email)</i></p>
+          </ng-container>
+        </p-card>
+      </div>
+    </div>
+  </div>
+</section>
+
+<p-dialog header="Création de profil" [(visible)]="showCreationDone" [modal]="true" [blockScroll]="true"
+          [closeOnEscape]="false" [closable]="false" [showHeader]="false">
+  <div *ngIf="profileCreatedSuccessfully; else errorCreation">
+    <h3 style="color: #4cae4c"><strong>Le profil a correctement été créé</strong></h3>
+    <br>
+    <p>Vous pouvez dès à présent vous connecter pour ajouter une photo de profil et ajouter des photos dans votre
+      galerie!</p>
+  </div>
+
+  <ng-template #errorCreation>
+    <h3 style="color: #8b1941"><strong>Le profil n'a pas pu être créé</strong></h3>
+    <br>
+    <p>Veuillez ré-essayer dans quelques minutes.</p>
+  </ng-template>
+
+  <p-footer>
+    <button type="button" pButton icon="pi pi-check" (click)="quitSignup()" label="Ok"></button>
+  </p-footer>
+</p-dialog>

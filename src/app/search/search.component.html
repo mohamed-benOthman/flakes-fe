@@ -1,0 +1,144 @@
+<section class="search-banner">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="search-heading">
+          <h1 style="font-family: 'Tangerine', serif;
+                    text-shadow: 6px 6px 6px #aaa;
+                    font-size: 60px;">{{categoryTitle | titlecase}}</h1>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="content-search">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-12">
+        <ng-select class="custom"
+                   [items]="deptList | async"
+                   [multiple]="true"
+                   [maxSelectedItems]="3"
+                   bindLabel="code"
+                   placeholder="Département"
+                   notFoundText="Aucun élément trouvé"
+                   [(ngModel)]="selectedDept" (change)="onDeptChanged()">
+
+          <ng-template ng-label-tmp let-item="item" let-clear="clear">
+            <span class="ng-value-label" style="font-size: small">{{item.code}} ({{item.name}})</span>
+            <span class="ng-value-icon right" (click)="clear(item)" aria-hidden="true">×</span>
+          </ng-template>
+
+          <ng-template ng-option-tmp let-item="item">
+            {{item.code}} - {{item.name}}
+          </ng-template>
+
+        </ng-select>
+      </div>
+      <div class="col-sm-6">
+        <app-select-cities #citiesSelect
+                           [multipleValues]="true"
+                           [disableComponent]="false"
+                           [departmentFilter]="selectedDept"
+                           [showZipCodeOnly]="true"
+                           (zipCodeCitySelected)="onCitySelected($event)">
+
+        </app-select-cities>
+      </div>
+      <div class="col-sm-6">
+        <ng-select #skinSelect
+                   class="custom"
+                   [items]="skinTypes"
+                   [multiple]="true"
+                   [closeOnSelect]="false"
+                   placeholder="Type de peau"
+                   (change)="updateSearch()"
+                    [(ngModel)]="selectedSkins">
+<!--          <ng-template ng-multi-label-tmp></ng-template>-->
+
+          <ng-template ng-option-tmp let-item="item" let-index="index" let-item$="item$">
+            <div class="custom-control custom-checkbox">
+              <input type="checkbox" [ngModel]="item$.selected" class="custom-control-input"/>
+              <span style="display:inline-block; width: 20px;"></span>
+              <label class="form-check-label ml-2 custom-control-label">{{item.label}}</label>
+            </div>
+          </ng-template>
+        </ng-select>
+
+      </div>
+    </div>
+
+
+    <div *ngIf="artistFound;else no_artist_found">
+      <div class="row search-content">
+        <div class="col-sm-8 col-md-6 col-lg-4 padding-right-non" *ngFor="let profile of artistsProfiles">
+          <p-card>
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-xs-3"><img [src]="profile.photo_profile" class="search-user-photo"/></div>
+
+                <div class="col-xs-6">
+                  <div>
+                    <h4 style="font-weight: bold; text-align: center">{{profile.lastname | titlecase}}
+                      {{profile.firstname | uppercase}}</h4>
+                  </div>
+                </div>
+                <div class="col-xs-3">
+                  <button pButton type="button"
+                          label="Détails"
+                          class="ui-button-raised"
+                          (click)="openProfileDetails(profile.username)"></button>
+                </div>
+              </div>
+              <hr>
+              <table>
+                <tr>
+                  <td><p style="color:#8b1941; font-weight:bold;">Ville</p></td>
+                  <td><span style="display:inline-block; width: 15px;"></span></td>
+                  <td><span
+                    style="color: #000; font-weight: lighter">  {{profile.cities.city}} ({{profile.cities.code}})</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td><p style="color:#8b1941; font-weight:bold;">E-mail</p></td>
+                  <td><span style="display:inline-block; width: 15px;"></span></td>
+                  <td><span style="color: #000; font-weight: lighter">  {{profile.emailAdress}}</span></td>
+                </tr>
+                <tr>
+                  <td><p style="color:#8b1941; font-weight:bold;">Tél</p></td>
+                  <td><span style="display:inline-block; width: 15px;"></span></td>
+                  <td><span style="color: #000; font-weight: lighter">  {{profile.phone}}</span></td>
+                </tr>
+              </table>
+            </div>
+
+          </p-card>
+          <br>
+        </div>
+      </div>
+    </div>
+
+    <ng-template #no_artist_found>
+      <br><br><br><br><hr>
+      <h3 style="text-align: center">Aucun professionel n'a été trouvé avec les filtres donnés.</h3>
+      <br>
+      <p style="text-align: center">Essayez d'élargir le champ de recherche pour trouver plus de professionnels.</p>
+      <hr><br><br><br><br>
+    </ng-template>
+
+    <mat-paginator #MatPaginator
+                   [length]="pageLength" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions"
+                   [pageIndex]="pageIndex"
+                   (page)="onPageChange($event)">
+    </mat-paginator>
+
+    <!--<div *ngIf="pageEvent">
+      <h5>Page Change Event Properties</h5>
+      <div>List length: {{pageEvent.length}}</div>
+      <div>Page size: {{pageEvent.pageSize}}</div>
+      <div>Page index: {{pageEvent.pageIndex}}</div>
+    </div>-->
+  </div>
+
+</section>

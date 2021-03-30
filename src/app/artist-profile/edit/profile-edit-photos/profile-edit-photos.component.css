@@ -1,0 +1,23 @@
+.custom .ui-scrollpanel-wrapper .ui-scrollpanel {
+  border: 5px solid #ce9c8f;
+  box-shadow: 10px 10px 5px grey;
+}
+
+.column-drag-handle{
+  cursor: move;
+}
+
+/*.custom .ui-scrollpanel-bar {
+  background-color: #ce9c8f;
+  opacity: 1;
+  transition: background-color .3s;
+}*/
+
+.photo {
+  display: inline-block;
+  width: 80px;
+  height: 50px;
+  object-fit: cover;
+  z-index: 1;
+  margin-right: 10px;
+}

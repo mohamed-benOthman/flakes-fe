@@ -1,0 +1,94 @@
+<table class="table table-condensed">
+  <thead></thead>
+  <tbody>
+  <tr *ngIf="isLoggedIn()">
+    <td><b>Identifiant</b></td>
+    <td><span style="display:inline-block; width: 15px;"></span></td>
+    <td class="detail">{{ currentProfile?.username }}</td>
+  </tr>
+  <tr *ngIf="isLoggedIn()">
+    <td><b>Nom</b></td>
+    <td><span style="display:inline-block; width: 15px;"></span></td>
+    <td class="detail">{{ currentProfile?.lastname }}</td>
+  </tr>
+  <tr *ngIf="isLoggedIn()">
+    <td><b>Prénom</b></td>
+    <td><span style="display:inline-block; width: 15px;"></span></td>
+    <td class="detail">{{ currentProfile?.firstname }}</td>
+  </tr>
+  <tr>
+    <td><b>E-mail</b></td>
+    <td><span style="display:inline-block; width: 15px;"></span></td>
+    <td class="detail"><a href="mailto:{{ currentProfile?.emailAdress }}"><div>{{ currentProfile?.emailAdress }}</div></a></td>
+  </tr>
+  <tr>
+    <td><b>Téléphone</b></td>
+    <td><span style="display:inline-block; width: 15px;"></span></td>
+    <td class="detail"><a href="tel://{{ currentProfile?.phone }}"><div>{{ currentProfile?.phone }}</div></a></td>
+  </tr>
+  <tr *ngIf="isLoggedIn()">
+    <td><b>N° et Rue</b></td>
+    <td><span style="display:inline-block; width: 15px;"></span></td>
+    <td class="detail">{{currentProfile?.street}}</td>
+  </tr>
+  <tr>
+    <td><b>Code postal</b></td>
+    <td><span style="display:inline-block; width: 15px;"></span></td>
+    <td class="detail">{{currentProfile?.cities.code}} ({{currentProfile?.cities.city}})</td>
+  </tr>
+  <!--<tr>
+    <td>Département</td>
+    <td><span style="display:inline-block; width: 15px;"></span></td>
+    <td class="detail">{{ currentDisplayedProfile?.departments }}</td>
+  </tr>-->
+  <tr>
+    <td><b>Compétences</b></td>
+    <td><span style="display:inline-block; width: 15px;"></span></td>
+    <td class="detail">
+      <div *ngFor="let business of currentProfile?.business">
+        <ng-container *ngIf="business.checked">
+          {{business.libelle}}
+        </ng-container>
+      </div>
+    </td>
+  </tr>
+
+  <tr>
+    <td><b>Expertises</b></td>
+    <td><span style="display:inline-block; width: 15px;"></span></td>
+    <td class="detail">
+        <div *ngFor="let expertise of currentProfile?.expertises">
+          <ng-container *ngIf="expertise.checked">
+            {{expertise.libelle}}
+          </ng-container>
+        </div>
+    </td>
+  </tr>
+
+  <tr *ngIf="isFranceOnly(); else movingOutsideTemplate">
+    <td><b>Déplacements</b></td>
+    <td><span style="display:inline-block; width: 15px;"></span></td>
+    <td class="detail">
+      Je me déplace en France
+    </td>
+  </tr>
+
+  <ng-template #movingOutsideTemplate>
+    <tr>
+    <td><b>Déplacements</b></td>
+    <td><span style="display:inline-block; width: 15px;"></span></td>
+    <td class="detail">
+      Je me déplace hors de France
+    </td>
+    </tr>
+  </ng-template>
+
+  <tr>
+    <td><b>Présentation</b></td>
+    <td><span style="display:inline-block; width: 15px;"></span></td>
+    <td>
+      {{ currentProfile?.slogan }}
+    </td>
+  </tr>
+  </tbody>
+</table>
