@@ -19,6 +19,11 @@ export class PasswordErrorStateMatcher implements ErrorStateMatcher {
     return (invalidCtrl || invalidParent);
   }
 }
+interface expertise  {
+  // tslint:disable-next-line:label-position
+  label:String,
+  checked:Boolean
+}
 
 
 @Component({
@@ -27,6 +32,7 @@ export class PasswordErrorStateMatcher implements ErrorStateMatcher {
   styleUrls: ['./signup.component.css'],
   encapsulation: ViewEncapsulation.None
 })
+
 export class SignupComponent implements OnInit {
 
   stepOneGroup: FormGroup;
@@ -51,6 +57,8 @@ export class SignupComponent implements OnInit {
   clearSkinChecked = false;
   tannedSkinChecked = false;
   darkSkinChecked = false;
+
+  expertises=[];
 
   /*
   movingInFranceOnly = false;
@@ -90,6 +98,16 @@ export class SignupComponent implements OnInit {
       if (this.isEmailTaken) {
         this.stepOneGroup.controls['email'].setErrors({'isTaken': true});
       }
+    });
+    this.signupService.getExpertises().subscribe((res: any) => {
+      console.log(res);
+      res.map(item=>{
+        const expertise : expertise={
+          label:item.libelle,
+          checked:false
+        }
+        this.expertises.push(expertise)
+      });
     });
   }
 
