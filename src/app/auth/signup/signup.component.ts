@@ -53,13 +53,14 @@ export class SignupComponent implements OnInit {
   microbladingChecked = false;
   manicureChecked = false;
   eyesExtenChecked = false;
-
   clearSkinChecked = false;
   tannedSkinChecked = false;
   darkSkinChecked = false;
 
   expertises=[];
-
+  expertisesManu=[];
+  extenseion = [];
+  micro
   /*
   movingInFranceOnly = false;
   movingOutsideFrance = false;
@@ -82,7 +83,67 @@ export class SignupComponent implements OnInit {
   // selectedDept: Department[];
   movings = '1';
 
+  checked(value,type){
+    console.log(value.checked)
+   if(value.checked && type === 'Maquillage'){
+    this.signupService.getExpertises().subscribe((res: any) => {
+      console.log(res);
+      this.expertises = res.filter(data => data .type === type)
+      console.log(this.expertises);
+    });
+   }
+   else {
+     console.log(value.checked)
+    this.expertises = []
+    console.log(this.expertises);
+  }
+  }
+  checkedmanu(value,type){
+    if(value.checked && type === 'Manucure'){
+      this.signupService.getExpertises().subscribe((res: any) => {
+        console.log(res);
+        this.expertisesManu = res.filter(data => data .type === type)
+        console.log(this.expertisesManu);
+      });
 
+     }
+     else {
+
+      this.expertisesManu = []
+      console.log(this.expertisesManu);
+    }
+  }
+  checkedmicro(value,type){
+    if(value.checked && type === 'MicroBlading'){
+      this.signupService.getExpertises().subscribe((res: any) => {
+        console.log(res);
+        this.micro = res.filter(data => data .type === type)
+        console.log(this.micro);
+      });
+
+     }
+     else {
+
+      this.micro = []
+      console.log(this.micro);
+    }
+  }
+  checkedext(value,type){
+    if(value.checked && type === 'extension'){
+      this.signupService.getExpertises().subscribe((res: any) => {
+        console.log(res);
+        this.extenseion = res.filter(data => data .type === type)
+        console.log(this.extenseion);
+      });
+
+     }
+     else {
+
+      this.extenseion = []
+      console.log(this.extenseion);
+    }
+
+  }
   constructor(private _formBuilder: FormBuilder, private profileService: ProfileService,
               private signupService: SignupService, private router: Router,
               private deptService: DepartmentsService) {
@@ -98,16 +159,6 @@ export class SignupComponent implements OnInit {
       if (this.isEmailTaken) {
         this.stepOneGroup.controls['email'].setErrors({'isTaken': true});
       }
-    });
-    this.signupService.getExpertises().subscribe((res: any) => {
-      console.log(res);
-      res.map(item=>{
-        const expertise : expertise={
-          label:item.libelle,
-          checked:false
-        }
-        this.expertises.push(expertise)
-      });
     });
   }
 
