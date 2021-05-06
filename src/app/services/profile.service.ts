@@ -258,6 +258,9 @@ export class ProfileService {
     return this.http.post(Constants.uploadPhotoURL, uploadData);
   }
 
+  getBaniereImages() {
+    return this.http.get('http://localhost:3050/banierePubliciataire/all');
+  }
   formatProfileForUpload(profile) {
     const formattedProfile = cloneDeep(profile);
     let business = '', expertises = '', photosUrl = '', cities = '';
