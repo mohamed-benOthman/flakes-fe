@@ -38,7 +38,14 @@ export class SearchComponent implements OnInit {
     {value: 2, label: 'Peau foncée'},
     {value: 3, label: 'Peau mate'}
   ];
+
+  henneTypes = [
+    {value: 1, label: 'Henné Maghrébin'},
+    {value: 2, label: 'Henné Subsaharien'},
+    {value: 3, label: 'Henné Indien'}
+  ];
   selectedSkins = [];
+  selectedHenne=[];
   selectedCity = null;
   deptList: Observable<any[]>;
   businessType: number; // fonction de la page de recherche affichée
@@ -80,6 +87,10 @@ export class SearchComponent implements OnInit {
     } else if (this.router.url.startsWith('/search-eyelashes')) {
       this.categoryTitle = 'extension de cils';
       this.businessType = 4;
+    }
+    else if (this.router.url.startsWith('/search-henne')) {
+      this.categoryTitle = 'henné';
+      this.businessType = 5;
     }
 
     this.deptService.getJSON().subscribe(data => {

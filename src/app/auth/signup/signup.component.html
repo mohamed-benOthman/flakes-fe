@@ -104,7 +104,7 @@
               </mat-form-field>
 
               <mat-form-field style="width: 100%; margin-top: 25px">
-                <input matInput placeholder="N° et Rue" formControlName="street" required>
+                <input matInput id="ville" placeholder="N° et Rue" formControlName="street" required>
               </mat-form-field>
 
               <app-select-cities [isValid]="selectedCity" [isRequired]="true" [showZipCodeOnly]="false"
@@ -175,15 +175,15 @@
                 <div *ngFor="let item of expertisesManu"  class="col-6 col-lg-3">
                   <mat-checkbox [(ngModel)]="item.checked"  >{{item.libelle}}</mat-checkbox>
                 </div>
-              
-             
+
+
                 <div *ngFor="let item of extenseion"  class="col-6 col-lg-3">
                   <mat-checkbox [(ngModel)]="item.checked"  >{{item.libelle}}</mat-checkbox>
                 </div>
                 <div *ngFor="let item of micro"  class="col-6 col-lg-3">
                   <mat-checkbox [(ngModel)]="item.checked"  >{{item.libelle}}</mat-checkbox>
                 </div>
-             
+
               </div>
             </div>
 
