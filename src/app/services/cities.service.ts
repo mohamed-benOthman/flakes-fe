@@ -36,7 +36,7 @@ export class CitiesService {
       const url = `${Constants.citiesSearchURL}/${term}`;
 
       if (!this.cache[url]) {
-        this.cache[url] = this.http.get<any>(url, this.requestOptions).pipe(
+        this.cache[url] = this.http.get<any>(url).pipe(
           shareReplay(1),
           // @ts-ignore
           map(obj => obj.cities),

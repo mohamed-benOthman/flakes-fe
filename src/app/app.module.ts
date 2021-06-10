@@ -59,6 +59,7 @@ import { ErrorInterceptor } from './utils/helpers/error.interceptor';
 import { AuthGuard } from './utils/helpers/auth.guard';
 import { LoggedInComponent } from './auth/logged-in/logged-in.component';
 import {AuthGuardGuard} from './guards/auth-guard.guard';
+import { ConfirmationComponent } from './auth/confirmation/confirmation.component';
 
 const appRoutes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -72,6 +73,7 @@ const appRoutes: Routes = [
   { path: 'signup', component: SignupComponent },
   { path: 'contact', component: ContactComponent },
   { path: 'about', component: AboutComponent },
+  { path: 'confirmation/:id', component: ConfirmationComponent },
   { path: 'usercharter', component: UserCharterComponent },
   { path: 'partnership', component: PartnershipComponent },
   { path: 'faq', component: FaqComponent },
@@ -107,7 +109,8 @@ const appRoutes: Routes = [
     CgvComponent,
     ConfidentialityComponent,
     LegalsComponent,
-    LoggedInComponent
+    LoggedInComponent,
+    ConfirmationComponent
   ],
   imports: [
     BrowserModule, BrowserAnimationsModule,

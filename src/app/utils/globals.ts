@@ -1,6 +1,6 @@
 'use strict';
 
-export const baseURL = 'http://82.165.253.223:3050';
+export const baseURL = 'http://localhost:3050';
 
 export const businessURL = `${baseURL}/business`;
 export const expertiseURL = `${baseURL}/expertise`;
