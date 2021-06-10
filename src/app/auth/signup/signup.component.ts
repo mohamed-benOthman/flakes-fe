@@ -10,6 +10,8 @@ import {Observable, Subject} from 'rxjs';
 import * as Constants from '../../utils/globals';
 import {DepartmentsService} from '../../services/departments.service';
 import {Department} from '../../models/department.model';
+import {MatDialog} from '@angular/material';
+import {PaymentDialogComponent} from './payment-dialog/payment-dialog.component';
 
 export class PasswordErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -24,7 +26,7 @@ export class PasswordErrorStateMatcher implements ErrorStateMatcher {
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
-  styleUrls: ['./signup.component.css'],
+  styleUrls: ['./signup.component.css', './../../utils/select-cities/select-cities.component.css'],
   encapsulation: ViewEncapsulation.None
 })
 export class SignupComponent implements OnInit {
@@ -33,6 +35,7 @@ export class SignupComponent implements OnInit {
   stepOneGroupPassword: FormGroup;
   stepTwoGroup: FormGroup;
   thirdFormGroup: FormGroup;
+  paymentFormGroup: FormGroup;
   thirdBisFormGroup: FormGroup;
 
   sloganMaxLength = Constants.SLOGAN_MAX_LENGTH;
@@ -41,6 +44,14 @@ export class SignupComponent implements OnInit {
   passwordMinLen = Constants.PASSWORD_MIN_LENGTH;
   usernameMinLen = Constants.USERNAME_MIN_LENGTH;
 
+  packageTypes = [
+    {value: 1, label: 'Une compétence : 7,99euros '},
+    {value: 2, label: 'Deux compétences : 12,99euros'},
+    {value: 3, label: 'Trois compétences : 17,99euros'},
+    {value: 4, label: 'Quatre compétences : 22,99euros'},
+    {value: 5, label: 'Cinq compétences : 22,99euros'},
+    {value: 6, label: 'Six compétences : 22,99euros'}
+  ];
   selectedCity = null;
 
   makeupChecked = false;
@@ -73,10 +84,11 @@ export class SignupComponent implements OnInit {
   deptList: Observable<any[]>;
   // selectedDept: Department[];
   movings = '1';
-
+  payment = '1';
 
   constructor(private _formBuilder: FormBuilder, private profileService: ProfileService,
               private signupService: SignupService, private router: Router,
+              private paymentDialog: MatDialog,
               private deptService: DepartmentsService) {
     this.signupService.search(this.usernameSubject, false).subscribe(result => {
       this.isUsernameTaken = result === true || result === false ? result : false;
@@ -113,6 +125,11 @@ export class SignupComponent implements OnInit {
       lastName: ['', Validators.required],
       street: ['', Validators.required],
       phone: ['', Validators.pattern('[0-9]+')]
+    });
+
+    this.paymentFormGroup = this._formBuilder.group({
+      packageTypeChosen: ['', Validators.required],
+
     });
 
     this.thirdFormGroup = this._formBuilder.group({
@@ -210,7 +227,12 @@ export class SignupComponent implements OnInit {
 
   }
 
+
   submitPost() {
+
+    if (this.payment === '2') {
+      this.paymentDialog.open(PaymentDialogComponent);
+    } else {
     this.isUploading = true;
     this.formatMovingList();
 
@@ -245,6 +267,7 @@ export class SignupComponent implements OnInit {
         this.profileCreatedSuccessfully = false;
       }
     );
+  }
   }
 
   quitSignup() {

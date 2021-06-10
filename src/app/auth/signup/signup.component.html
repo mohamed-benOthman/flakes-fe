@@ -74,18 +74,7 @@
                 </mat-form-field>
               </div>
 
-              <!--Password qui ne match pas-->
-              <!--<div *ngIf="stepOneGroup.get('confirmPassword').hasError('notSame')"
-                   class="alert alert-danger">
-                <p>Les 2 mots de passe doivent correspondre.</p>
-              </div>
 
-              <div *ngIf="stepOneGroup.get('password').hasError('minlength')" class="alert alert-warning">
-                <span>Le mot de passe doit faire entre {{passwordMinLen}} et {{passwordMaxLen}} caractères</span>
-              </div>-->
-              <!--<div style="margin-top: 50px">
-                <button mat-button matStepperNext [disabled]="!stepOneGroup.valid">Suivant</button>
-              </div>-->
             </form>
           </mat-step>
 
@@ -182,40 +171,7 @@
           <!------------------------->
           <mat-step [stepControl]="thirdBisFormGroup">
             <ng-template matStepLabel>Zone d'intervention</ng-template>
-            <!--<p style="margin-bottom: 20px; margin-top: 20px; font-weight: bold">Compétences</p>-->
 
-            <!--<div class="alert alert-warning">
-              <p>Départements d'intervention</p>
-            </div>
-            <div class="container">
-              <div class="row">
-                <div class="col-sm-8">
-                  <ng-select class="custom"
-                             [items]="deptList | async"
-                             [multiple]="true"
-                             [maxSelectedItems]="5"
-                             bindLabel="code"
-                             placeholder="Départements"
-                             notFoundText="Aucun élément trouvé"
-                             [(ngModel)]="selectedDept">
-
-                    <ng-template ng-label-tmp let-item="item" let-clear="clear">
-                      <span class="ng-value-label" style="font-size: small">{{item.code}} &lt;!&ndash; ({{item.name}})&ndash;&gt;</span>
-                      <span class="ng-value-icon right" (click)="clear(item)" aria-hidden="true">×</span>
-                    </ng-template>
-
-                    <ng-template ng-option-tmp let-item="item">
-                      {{item.code}} - {{item.name}}
-                    </ng-template>
-
-                  </ng-select>
-                </div>
-              </div>
-            </div>-->
-
-            <!--<div class="alert alert-warning" style="margin-top: 50px">
-              <p>Déplacement</p>
-            </div>-->
             <div class="container">
               <div class="row">
                 <!--<div class="col-lg-12">
@@ -260,16 +216,57 @@
             </div>-->
           </mat-step>
 
+          <!------------------------->
+          <!--STEP 6 paiememnt-->
+          <!------------------------->
+          <mat-step [stepControl]="stepTwoGroup">
+            <ng-template matStepLabel>Paiement</ng-template>
+            <div class="row pt-2">
+              <mat-radio-group [(ngModel)]="payment" aria-label="Déplacement">
+                <div >
+                  <mat-radio-button value="1" checked="true">Je ne veux pas maintenant payer</mat-radio-button>
+                </div>
+                <div >
+                  <span style="display:inline-block; height: 10px;"></span>
+                </div>
+                <div >
+                  <mat-radio-button value="2">Je veux payer maintenant</mat-radio-button>
+                </div>
+              </mat-radio-group>
+              <form *ngIf="payment=='2'" [formGroup]="paymentFormGroup">
+
+                <div style="width: 100%; margin-top: 25px">
+                  <mat-form-field  style="width: 100%">
+                    <mat-label >Type de pack</mat-label>
+                    <mat-select formControlName="packageTypeChosen">
+                      <mat-option    *ngFor="let item of packageTypes" [value]="item.value">
+                        {{item.label}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+
+                </div>
+
+
+              </form>
+            </div>
+
+
+
+          </mat-step>
+
           <mat-step>
             <ng-template matStepLabel>Terminer</ng-template>
             <div *ngIf="!isReadyToPost()" class="alert alert-danger">
               <p *ngIf="!stepOneGroup.valid">• Des informations sont manquantes dans l'étape 1</p>
               <p *ngIf="!stepTwoGroup.valid">• Des informations sont manquantes dans l'étape 2</p>
               <p *ngIf="!isBusinnessValid()">• Des informations sont manquantes dans l'étape 3</p>
+              <p *ngIf="!paymentFormGroup.valid && this.payment==='2'">• Des informations sont manquantes dans l'étape 6</p>
             </div>
             <div style="margin-top: 50px">
+
               <button class="btn btn-primary-submit hvr-shadow"
-                      [disabled]="!isReadyToPost()"
+
                       (click)="submitPost()">Créer le compte!
               </button>
             </div>
@@ -314,13 +311,18 @@
             <p>Une jolie phrase d'accroche donnera envie aux prospects d'entrer en contact avec vous.</p>
           </ng-container>
           <ng-container *ngIf="selectedStep === 4">
-            <p>Il ne vous reste plus qu'à créer votre compte!</p>
-            <br>
             <p>Une fois la création terminée, vous pourrez ajouter une photo de profil mais également des photos à
               ajouter à votre galerie.</p>
             <br>
             <p><i>Vous pourrez toujours modifier les informations saisies dans cette page (en dehors de votre idenfiant
               et de votre adresse email)</i></p>
+          </ng-container>
+          <ng-container *ngIf="selectedStep === 5">
+            <p>Il ne vous reste plus qu'à créer votre compte!</p>
+            <br>
+            <p>Si vous choisissez pas de payer maintenant , il faut le faire juste aprés l'inscription pour avoir toutes les fonctionalités de l'application</p>
+            <br>
+
           </ng-container>
         </p-card>
       </div>

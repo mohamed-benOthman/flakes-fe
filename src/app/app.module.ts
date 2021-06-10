@@ -23,12 +23,12 @@ import {
   ProgressSpinnerModule, ScrollPanelModule, SplitButtonModule, TabViewModule,
 } from 'primeng/primeng';
 import {
-  MatCheckboxModule,
+  MatCheckboxModule, MatDialogModule,
   MatGridListModule,
   MatIconModule,
   MatInputModule,
   MatPaginatorModule,
-  MatRadioModule,
+  MatRadioModule, MatSelectModule,
   MatStepperModule
 } from '@angular/material';
 import {TruncatePipe} from './pipes/truncate.pipe';
@@ -59,6 +59,7 @@ import { ErrorInterceptor } from './utils/helpers/error.interceptor';
 import { AuthGuard } from './utils/helpers/auth.guard';
 import { LoggedInComponent } from './auth/logged-in/logged-in.component';
 import {AuthGuardGuard} from './guards/auth-guard.guard';
+import { PaymentDialogComponent } from './auth/signup/payment-dialog/payment-dialog.component';
 
 const appRoutes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -107,20 +108,22 @@ const appRoutes: Routes = [
     CgvComponent,
     ConfidentialityComponent,
     LegalsComponent,
-    LoggedInComponent
+    LoggedInComponent,
+    PaymentDialogComponent
   ],
-  imports: [
-    BrowserModule, BrowserAnimationsModule,
-    FormsModule,
-    HttpClientModule,
-    ReactiveFormsModule, NgxGalleryModule,
-    ButtonModule, DialogModule, NgxSmoothDnDModule, ScrollPanelModule, SplitButtonModule,
-    MatInputModule, MultiSelectModule, MatCheckboxModule, GrowlModule, CardModule, BlockUIModule,
-    MatGridListModule, TabViewModule, FileUploadModule, DropdownModule, ProgressSpinnerModule,
-    NgSelectModule, MatPaginatorModule, MatStepperModule, MatIconModule, MatCheckboxModule,
-    RouterModule.forRoot(appRoutes),
-    MatRadioModule,
-  ],
+    imports: [
+        BrowserModule, BrowserAnimationsModule,
+        FormsModule,
+        HttpClientModule,
+        MatDialogModule,
+        ReactiveFormsModule, NgxGalleryModule,
+        ButtonModule, DialogModule, NgxSmoothDnDModule, ScrollPanelModule, SplitButtonModule,
+        MatInputModule, MultiSelectModule, MatCheckboxModule, GrowlModule, CardModule, BlockUIModule,
+        MatGridListModule, TabViewModule, FileUploadModule, DropdownModule, ProgressSpinnerModule,
+        NgSelectModule, MatPaginatorModule, MatStepperModule, MatIconModule, MatCheckboxModule,
+        RouterModule.forRoot(appRoutes),
+        MatRadioModule, MatSelectModule,
+    ],
   providers: [
     AuthGuard,
     AlertService,
@@ -128,6 +131,7 @@ const appRoutes: Routes = [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [PaymentDialogComponent]
 })
 export class AppModule { }

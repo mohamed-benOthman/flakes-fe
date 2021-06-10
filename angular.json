@@ -63,7 +63,10 @@
               "src/assets/js/light-gallery.js",
               //"node_modules/lightgallery.js/dist/js/light-gallery.js",
               "src/assets/js/bootstrap-select.min.js",
-              "src/assets/js/bootstrap.min.js"
+              "src/assets/js/bootstrap.min.js",
+              "src/assets/js/classic.js",
+              "src/assets/js/kr-payment-form.min.js"
+
             ]
           },
           "configurations": {
