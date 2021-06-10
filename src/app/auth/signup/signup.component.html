@@ -266,7 +266,7 @@
             <div style="margin-top: 50px">
 
               <button class="btn btn-primary-submit hvr-shadow"
-
+                      [disabled]="!isReadyToPost()"
                       (click)="submitPost()">Créer le compte!
               </button>
             </div>
