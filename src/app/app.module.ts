@@ -71,6 +71,7 @@ const appRoutes: Routes = [
   { path: 'search-manicure', component: SearchComponent },
   { path: 'search-eyelashes', component: SearchComponent },
   { path: 'search-henne', component: SearchComponent },
+  { path: 'search-lace-frontale', component: SearchComponent },
   { path: 'signup', component: SignupComponent },
   { path: 'contact', component: ContactComponent },
   { path: 'about', component: AboutComponent },

@@ -46,15 +46,15 @@
 
         </app-select-cities>
       </div>
-      <div class="col-sm-6" *ngIf="businessType!=5" >
+      <div class="col-sm-6"  >
         <ng-select #skinSelect
                    class="custom"
-                   [items]="skinTypes"
+                   [items]="expertisesList"
                    [multiple]="true"
                    [closeOnSelect]="false"
-                   placeholder="Type de peau"
+                   [placeholder]="filterText"
                    (change)="updateSearch()"
-                    [(ngModel)]="selectedSkins">
+                   [(ngModel)]="selectedSkins">
 <!--          <ng-template ng-multi-label-tmp></ng-template>-->
 
           <ng-template ng-option-tmp let-item="item" let-index="index" let-item$="item$">
@@ -67,27 +67,7 @@
         </ng-select>
 
       </div>
-      <div class="col-sm-6" *ngIf="businessType===5">
-        <ng-select #skinSelect
-                   class="custom"
-                   [items]="henneTypes"
-                   [multiple]="true"
-                   [closeOnSelect]="false"
-                   placeholder="Type de Henné"
-                   (change)="updateSearch()"
-                   [(ngModel)]="selectedHenne">
-          <!--          <ng-template ng-multi-label-tmp></ng-template>-->
 
-          <ng-template ng-option-tmp let-item="item" let-index="index" let-item$="item$">
-            <div class="custom-control custom-checkbox">
-              <input type="checkbox" [ngModel]="item$.selected" class="custom-control-input"/>
-              <span style="display:inline-block; width: 20px;"></span>
-              <label class="form-check-label ml-2 custom-control-label">{{item.label}}</label>
-            </div>
-          </ng-template>
-        </ng-select>
-
-      </div>
     </div>
 
 
