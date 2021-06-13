@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { AuthOptions, WebAuth } from 'auth0-js';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import * as Constants from '../utils/globals';
+import {HttpClient} from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,7 @@ export class AuthService {
   private _idToken: string;
   private _properties: AuthOptions;
 
-  constructor() {
+  constructor(private http: HttpClient) {
     this._properties = {
       clientID: Constants.AUTH0_CLIENT_ID,
       domain: Constants.AUTH0_DOMAIN,
@@ -103,4 +104,6 @@ export class AuthService {
     delete this._accessToken;
     delete this._idToken;
   }
+
+
 }

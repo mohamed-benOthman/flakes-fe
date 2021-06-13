@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
+import {AfterViewInit, Component, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
 import {Router} from '@angular/router';
 import {DepartmentsService} from '../services/departments.service';
 
@@ -9,6 +9,7 @@ import {Profile} from '../models/profile.model';
 import {Department} from '../models/department.model';
 import * as Constants from '../utils/globals';
 import {MatPaginator, PageEvent} from '@angular/material/paginator';
+import {SignupService} from '../services/signup.service';
 
 @Component({
   selector: 'app-search',
@@ -16,7 +17,7 @@ import {MatPaginator, PageEvent} from '@angular/material/paginator';
   styleUrls: ['./search.component.css'],
   encapsulation: ViewEncapsulation.None
 })
-export class SearchComponent implements OnInit {
+export class SearchComponent implements OnInit, AfterViewInit {
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild('citiesSelect') citiesSelect: SelectCitiesComponent;
@@ -25,9 +26,9 @@ export class SearchComponent implements OnInit {
   departments: Array<any>;
   // selectedDeptObservable: Observable<Department>;
   selectedDept: Department[];
-
+  filterText='';
   artistsProfiles: Profile[];
-
+  expertisesList = [];
   pageLength = 1;
   pageSizeOptions: number[] = Constants.SEARCH_AVAILABLE_ITEMS_PER_PAGE;
   pageSize = Constants.SEARCH_AVAILABLE_ITEMS_PER_PAGE[2];
@@ -39,7 +40,14 @@ export class SearchComponent implements OnInit {
     {value: 2, label: 'Peau foncée'},
     {value: 3, label: 'Peau mate'}
   ];
+
+  henneTypes = [
+    {value: 1, label: 'Henné Maghrébin'},
+    {value: 2, label: 'Henné Subsaharien'},
+    {value: 3, label: 'Henné Indien'}
+  ];
   selectedSkins = [];
+  selectedHenne = [];
   selectedCity = null;
   deptList: Observable<any[]>;
   businessType: number; // fonction de la page de recherche affichée
@@ -47,8 +55,15 @@ export class SearchComponent implements OnInit {
   artistFound = true;
 
 
-  constructor(private router: Router, private deptService: DepartmentsService, private searchService: SearchService) {
+  constructor(private router: Router, private signupService: SignupService, private deptService: DepartmentsService, private searchService: SearchService) {
   }
+
+  maquillageExpertises = [];
+  laceFrontaleExpertises = [];
+  manucureExpertises = [];
+  microBlandingExpertises = [];
+  extensionCilsExpertises = [];
+  henneExpertises = [];
 
   ngOnInit() {
 
@@ -71,16 +86,29 @@ export class SearchComponent implements OnInit {
 
     if (this.router.url.startsWith('/search-makeup')) {
       this.categoryTitle = 'maquillage';
+      this.filterText='Type de peau'
       this.businessType = 1;
     } else if (this.router.url.startsWith('/search-microblading')) {
+      this.filterText='Type de Microblading'
       this.categoryTitle = 'micro blading';
       this.businessType = 2;
     } else if (this.router.url.startsWith('/search-manicure')) {
+      this.filterText='Type de Manuicure'
       this.categoryTitle = 'manucure';
       this.businessType = 3;
     } else if (this.router.url.startsWith('/search-eyelashes')) {
+      this.filterText='Type de cils'
       this.categoryTitle = 'extension de cils';
       this.businessType = 4;
+    } else if (this.router.url.startsWith('/search-henne')) {
+      this.filterText='Type de henné'
+      this.categoryTitle = 'henné';
+      this.businessType = 5;
+    }
+    else if (this.router.url.startsWith('/search-lace-frontale')) {
+      this.filterText='Type de Lade Frontale'
+      this.categoryTitle = 'lace frontale';
+      this.businessType = 6;
     }
 
     this.deptService.getJSON().subscribe(data => {
@@ -89,7 +117,70 @@ export class SearchComponent implements OnInit {
 
 
     this.updateSearch();
+    this.signupService.getExpertises().subscribe((res: any) => {
+      switch (this.businessType) {
+        case 1:
+          this.getCurrentExpertises(res, 'Maquillage');
+          break;
+        case 2 :
+          this.getCurrentExpertises(res,'MicroBlading' );
+          break;
+        case 3 :
+          this.getCurrentExpertises(res,'Manucure');
+          break;
+        case 4:
+          this.getCurrentExpertises(res,'extension');
+          break;
+        case 5:
+          this.getCurrentExpertises(res,'Henné');
+          break;
+        case 6:
+          this.getCurrentExpertises(res,'Lace Frontale');
+          break;
+
+
+        /*           case 'MicroBlading':
+                     this.microBlandingExpertises.push(item);
+                   case 'Henné':
+                     this.henneExpertises.push(item);
+                   case 'extension':
+                     this.extensionCilsExpertises.push(item);
+                   case 'Manucure':
+                     this.manucureExpertises.push(item);
+                   case 'Lace Frontale':
+                     this.laceFrontaleExpertises.push(item);*/
+        default:
+          console.log('hikhkj');
+          break;
+
+      }
+
+
+    });
   }
+
+  getCurrentExpertises(res: any, type: string) {
+    const expertisesLists = [];
+    const expertisesList = res.filter(data => data.type === type);
+    expertisesList.map(item => {
+      const expertise = {
+        value: item.idExpertise,
+        label: item.libelle
+      };
+
+
+      expertisesLists.push(expertise);
+    });
+    console.log(this.expertisesList);
+    this.expertisesList = expertisesLists;
+    console.log(this.expertisesList);
+
+  }
+
+
+   ngAfterViewInit() {
+
+   }
 
   onDeptChanged() {
     /*if (this.selectedCity && this.selectedDept) {
@@ -111,6 +202,8 @@ export class SearchComponent implements OnInit {
   }
 
   updateSearch() {
+
+    console.log(this.selectedSkins);
     // const skin = (!this.selectedSkins || this.selectedSkins.length === 0) ? null : String(this.selectedSkins[0].value);
     const biz = String(this.businessType);
     const city = !this.selectedCity ? null : String(this.selectedCity.code) + ';' + String(this.selectedCity.city);

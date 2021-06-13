@@ -60,12 +60,13 @@ import {
   ToastModule
 } from 'primeng';
 import {MatPaginatorIntlCro} from './utils/intl/MatPaginatorIntlCro';
-import { PricingComponent } from './artist-profile/edit/pricing/pricing.component';
 
 
 
 
 
+import {AuthGuardGuard} from './guards/auth-guard.guard';
+import { ConfirmationComponent } from './auth/confirmation/confirmation.component';
 
 const appRoutes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -76,9 +77,12 @@ const appRoutes: Routes = [
   { path: 'search-microblading', component: SearchComponent },
   { path: 'search-manicure', component: SearchComponent },
   { path: 'search-eyelashes', component: SearchComponent },
+  { path: 'search-henne', component: SearchComponent },
+  { path: 'search-lace-frontale', component: SearchComponent },
   { path: 'signup', component: SignupComponent },
   { path: 'contact', component: ContactComponent },
   { path: 'about', component: AboutComponent },
+  { path: 'confirmation/:id', component: ConfirmationComponent },
   { path: 'usercharter', component: UserCharterComponent },
   { path: 'partnership', component: PartnershipComponent },
   { path: 'faq', component: FaqComponent },
@@ -115,7 +119,7 @@ const appRoutes: Routes = [
     ConfidentialityComponent,
     LegalsComponent,
     LoggedInComponent,
-    PricingComponent
+    ConfirmationComponent
   ],
   imports: [
     BrowserModule, BrowserAnimationsModule,

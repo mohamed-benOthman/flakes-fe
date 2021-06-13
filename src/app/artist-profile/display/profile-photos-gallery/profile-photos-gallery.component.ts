@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import {NgxGalleryAnimation, NgxGalleryImage, NgxGalleryOptions} from 'ngx-gallery-9';
 import {Profile} from '../../../models/profile.model';
 import {ProfileService} from '../../../services/profile.service';
 
@@ -12,8 +11,7 @@ export class ProfilePhotosGalleryComponent implements OnInit {
 
   currentProfile: Profile;
 
-  galleryOptions: NgxGalleryOptions[];
-  galleryImages: NgxGalleryImage[] = [];
+
 
   constructor(private profileService: ProfileService) { }
 

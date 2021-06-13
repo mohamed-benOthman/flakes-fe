@@ -36,4 +36,7 @@ export class SignupService {
       return of([]);
     }
   }
+  public getExpertises():any{
+    return this.http.get('http://localhost:3050/expertise');
+  }
 }

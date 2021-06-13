@@ -16,18 +16,7 @@ export class CitiesService {
   constructor(private http: HttpClient) {
     this.cache = {};
 
-    const headerDict = {
-      'Content-Type': 'application/json',
-      'Accept': 'application/json',
-      'Access-Control-Allow-Headers': 'authorization',
-      /*'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Methods': 'GET,HEAD,OPTIONS,POST,PUT',
-      'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept, Authorization'*/
-    };
 
-    this.requestOptions = {
-      headers: new HttpHeaders(headerDict),
-    };
   }
 
   getCitiesList(term: string = null) {
@@ -36,7 +25,7 @@ export class CitiesService {
       const url = `${Constants.citiesSearchURL}/${term}`;
 
       if (!this.cache[url]) {
-        this.cache[url] = this.http.get<any>(url, this.requestOptions).pipe(
+        this.cache[url] = this.http.get<any>(url).pipe(
           shareReplay(1),
           // @ts-ignore
           map(obj => obj.cities),

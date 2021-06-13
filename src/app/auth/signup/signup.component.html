@@ -74,18 +74,6 @@
                 </mat-form-field>
               </div>
 
-              <!--Password qui ne match pas-->
-              <!--<div *ngIf="stepOneGroup.get('confirmPassword').hasError('notSame')"
-                   class="alert alert-danger">
-                <p>Les 2 mots de passe doivent correspondre.</p>
-              </div>
-
-              <div *ngIf="stepOneGroup.get('password').hasError('minlength')" class="alert alert-warning">
-                <span>Le mot de passe doit faire entre {{passwordMinLen}} et {{passwordMaxLen}} caractères</span>
-              </div>-->
-              <!--<div style="margin-top: 50px">
-                <button mat-button matStepperNext [disabled]="!stepOneGroup.valid">Suivant</button>
-              </div>-->
             </form>
           </mat-step>
 
@@ -104,7 +92,7 @@
               </mat-form-field>
 
               <mat-form-field style="width: 100%; margin-top: 25px">
-                <input matInput placeholder="N° et Rue" formControlName="street" required>
+                <input matInput id="ville" placeholder="N° et Rue" formControlName="street" required>
               </mat-form-field>
 
               <app-select-cities [isValid]="selectedCity" [isRequired]="true" [showZipCodeOnly]="false"
@@ -114,9 +102,7 @@
                 <input matInput placeholder="Téléphone" formControlName="phone" (keypress)="phoneChecker($event)">
               </mat-form-field>
 
-              <!--<div style="margin-top: 50px; margin-bottom: 30px">
-                <button mat-button matStepperNext>Valider</button>
-              </div>-->
+
             </form>
           </mat-step>
 
@@ -131,44 +117,60 @@
             </div>
             <div class="container">
               <div class="row">
-                <div class="col-sm-4">
-                  <mat-checkbox [(ngModel)]="makeupChecked">Maquillages</mat-checkbox>
+                <div class="col-sm-6 col-12">
+                  <mat-checkbox [(ngModel)]="makeupChecked" (change)="checked($event,'Maquillage')">Maquillages</mat-checkbox>
                 </div>
-                <div class="col-sm-4">
-                  <mat-checkbox [(ngModel)]="microbladingChecked">Microblading</mat-checkbox>
+                <div class="col-sm-6 col-12">
+                  <mat-checkbox [(ngModel)]="microbladingChecked" (change)="checkedmicro($event,'MicroBlading')" >Microblading</mat-checkbox>
                 </div>
-                <div class="col-sm-4"></div>
+
+
+                <div class="col-sm-6 col-12">
+                  <mat-checkbox [(ngModel)]="manicureChecked" (change)="checkedmanu($event,'Manucure')" >Manucure</mat-checkbox>
+                </div>
+                <div class="col-sm-6 col-12">
+                  <mat-checkbox [(ngModel)]="eyesExtenChecked" (change)="checkedext($event,'extension')" >Extension de cils</mat-checkbox>
+                </div>
+                <div class="col-sm-6 col-12">
+                  <mat-checkbox [(ngModel)]="henneChecked" (change)="checkedHenne($event,'Henné')" >Henné</mat-checkbox>
+                </div>
+                <div class="col-sm-6 col-12">
+                  <mat-checkbox [(ngModel)]="laceFrontaleChecked" (change)="checkedLaceFrontale($event,'Lace Frontale')" >Lace Frontale</mat-checkbox>
+                </div>
               </div>
-              <div class="row">
-                <div class="col-sm-4">
-                  <mat-checkbox [(ngModel)]="manicureChecked">Manucure</mat-checkbox>
-                </div>
-                <div class="col-sm-4">
-                  <mat-checkbox [(ngModel)]="eyesExtenChecked">Extension de cils</mat-checkbox>
-                </div>
-                <div class="col-sm-4"></div>
-              </div>
+
             </div>
-            <!--<div *ngIf="!makeupChecked && !microbladingChecked && !manicureChecked && !eyesExtenChecked" style="margin-top: 10px">-->
             <div *ngIf="!isBusinnessValid()" style="margin-top: 10px">
               <p style="color: red; font-size: small;">Veuillez sélectionner une compétence au minimum</p>
             </div>
 
-            <!--<p style="margin-bottom: 20px; font-weight: bold">Expertises</p>-->
             <div class="alert alert-warning" style="margin-top: 50px">
               <p>Expertises</p>
             </div>
             <div class="container">
-              <div class="row">
-                <div class="col-lg-12">
-                  <mat-checkbox [(ngModel)]="clearSkinChecked">Peau claire</mat-checkbox>
+              <div class="row expertise-container">
+
+                <div *ngFor="let item of expertises"  class="col-6 col-lg-3">
+                  <mat-checkbox [(ngModel)]="item.checked" (change)="getExpertiseList2($event,item.idExpertise)" >{{item.libelle}}</mat-checkbox>
                 </div>
-                <div class="col-lg-12">
-                  <mat-checkbox [(ngModel)]="tannedSkinChecked">Peau foncée</mat-checkbox>
+                <div *ngFor="let item of expertisesManu"  class="col-6 col-lg-3">
+                  <mat-checkbox [(ngModel)]="item.checked" (change)="getExpertiseList2($event,item.idExpertise)"  >{{item.libelle}}</mat-checkbox>
                 </div>
-                <div class="col-lg-12">
-                  <mat-checkbox [(ngModel)]="darkSkinChecked">Peau mate</mat-checkbox>
+
+
+                <div *ngFor="let item of extenseion"  class="col-6 col-lg-3">
+                  <mat-checkbox [(ngModel)]="item.checked" (change)="getExpertiseList2($event,item.idExpertise)"  >{{item.libelle}}</mat-checkbox>
                 </div>
+                <div *ngFor="let item of micro"  class="col-6 col-lg-3">
+                  <mat-checkbox [(ngModel)]="item.checked"  (change)="getExpertiseList2($event,item.idExpertise)" >{{item.libelle}}</mat-checkbox>
+                </div>
+                <div *ngFor="let item of henneExpertises"  class="col-6 col-lg-3">
+                  <mat-checkbox [(ngModel)]="item.checked"  (change)="getExpertiseList2($event,item.idExpertise)" >{{item.libelle}}</mat-checkbox>
+                </div>
+                <div *ngFor="let item of laceFrontaleExpertise"  class="col-6 col-lg-3">
+                  <mat-checkbox [(ngModel)]="item.checked" (change)="getExpertiseList2($event,item.idExpertise)"  >{{item.libelle}}</mat-checkbox>
+                </div>
+
               </div>
             </div>
 
@@ -182,48 +184,11 @@
           <!------------------------->
           <mat-step [stepControl]="thirdBisFormGroup">
             <ng-template matStepLabel>Zone d'intervention</ng-template>
-            <!--<p style="margin-bottom: 20px; margin-top: 20px; font-weight: bold">Compétences</p>-->
 
-            <!--<div class="alert alert-warning">
-              <p>Départements d'intervention</p>
-            </div>
+
             <div class="container">
               <div class="row">
-                <div class="col-sm-8">
-                  <ng-select class="custom"
-                             [items]="deptList | async"
-                             [multiple]="true"
-                             [maxSelectedItems]="5"
-                             bindLabel="code"
-                             placeholder="Départements"
-                             notFoundText="Aucun élément trouvé"
-                             [(ngModel)]="selectedDept">
 
-                    <ng-template ng-label-tmp let-item="item" let-clear="clear">
-                      <span class="ng-value-label" style="font-size: small">{{item.code}} &lt;!&ndash; ({{item.name}})&ndash;&gt;</span>
-                      <span class="ng-value-icon right" (click)="clear(item)" aria-hidden="true">×</span>
-                    </ng-template>
-
-                    <ng-template ng-option-tmp let-item="item">
-                      {{item.code}} - {{item.name}}
-                    </ng-template>
-
-                  </ng-select>
-                </div>
-              </div>
-            </div>-->
-
-            <!--<div class="alert alert-warning" style="margin-top: 50px">
-              <p>Déplacement</p>
-            </div>-->
-            <div class="container">
-              <div class="row">
-                <!--<div class="col-lg-12">
-                  <mat-checkbox [(ngModel)]="movingInFranceOnly">Je me déplace dans toute la France</mat-checkbox>
-                </div>
-                <div class="col-lg-12">
-                  <mat-checkbox [(ngModel)]="movingOutsideFrance">Je me déplace hors de la France</mat-checkbox>
-                </div>-->
                 <mat-radio-group [(ngModel)]="movings" aria-label="Déplacement">
                   <div class="col-lg-12">
                     <mat-radio-button value="1" checked="true">Je me déplace en France</mat-radio-button>
@@ -333,17 +298,18 @@
   <div *ngIf="profileCreatedSuccessfully; else errorCreation">
     <h3 style="color: #4cae4c"><strong>Le profil a correctement été créé</strong></h3>
     <br>
-    <p>Vous pouvez dès à présent vous connecter pour ajouter une photo de profil et ajouter des photos dans votre
-      galerie!</p>
+    <!--<p>Vous pouvez dès à présent vous connecter pour ajouter une photo de profil et ajouter des photos dans votre
+      galerie!</p>-->
+    <p>Un email de confirmation est envoyé, vous pouver maintenant le vérifier!</p>
   </div>
 
-  <ng-template #errorCreation>
+<!--  <ng-template #errorCreation>
     <h3 style="color: #8b1941"><strong>Le profil n'a pas pu être créé</strong></h3>
     <br>
     <p>Veuillez ré-essayer dans quelques minutes.</p>
-  </ng-template>
+  </ng-template>-->
 
   <p-footer>
-    <button type="button" pButton icon="pi pi-check" (click)="quitSignup()" label="Ok"></button>
+    <button type="button" pButton icon="pi pi-check" (click)="quitSignup()" label="Renvoyer l'email de confirmation"></button>
   </p-footer>
 </p-dialog>

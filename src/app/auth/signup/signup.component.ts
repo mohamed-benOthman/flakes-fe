@@ -19,6 +19,11 @@ export class PasswordErrorStateMatcher implements ErrorStateMatcher {
     return (invalidCtrl || invalidParent);
   }
 }
+interface expertise  {
+  // tslint:disable-next-line:label-position
+  label: String;
+  checked: Boolean;
+}
 
 
 @Component({
@@ -27,6 +32,7 @@ export class PasswordErrorStateMatcher implements ErrorStateMatcher {
   styleUrls: ['./signup.component.css'],
   encapsulation: ViewEncapsulation.None
 })
+
 export class SignupComponent implements OnInit {
 
   stepOneGroup: FormGroup;
@@ -47,11 +53,18 @@ export class SignupComponent implements OnInit {
   microbladingChecked = false;
   manicureChecked = false;
   eyesExtenChecked = false;
-
+  henneChecked = false;
+  laceFrontaleChecked = false;
   clearSkinChecked = false;
   tannedSkinChecked = false;
   darkSkinChecked = false;
 
+  expertises = [];
+  expertisesManu = [];
+  extenseion = [];
+  micro = [];
+  laceFrontaleExpertise = [];
+  henneExpertises = [];
   /*
   movingInFranceOnly = false;
   movingOutsideFrance = false;
@@ -74,7 +87,91 @@ export class SignupComponent implements OnInit {
   // selectedDept: Department[];
   movings = '1';
 
+  checked(value, type) {
+    console.log(value.checked);
+   if (value.checked && type === 'Maquillage') {
+    this.signupService.getExpertises().subscribe((res: any) => {
+      console.log(res);
+      this.expertises = res.filter(data => data .type === type);
+      console.log(this.expertises);
+    });
+   } else {
+     console.log(value.checked);
+    this.expertises = [];
+    console.log(this.expertises);
+  }
+  }
+  checkedmanu(value, type) {
+    if (value.checked && type === 'Manucure') {
+      this.signupService.getExpertises().subscribe((res: any) => {
+        console.log(res);
+        this.expertisesManu = res.filter(data => data .type === type);
+        console.log(this.expertisesManu);
+      });
 
+     } else {
+
+      this.expertisesManu = [];
+      console.log(this.expertisesManu);
+    }
+  }
+
+  checkedmicro(value, type) {
+    if (value.checked && type === 'MicroBlading') {
+      this.signupService.getExpertises().subscribe((res: any) => {
+        console.log(res);
+        this.micro = res.filter(data => data .type === type);
+        console.log(this.micro);
+      });
+
+     } else {
+
+      this.micro = [];
+      console.log(this.micro);
+    }
+  }
+  checkedext(value, type) {
+    if (value.checked && type === 'extension') {
+      this.signupService.getExpertises().subscribe((res: any) => {
+        console.log(res);
+        this.extenseion = res.filter(data => data .type === type);
+        console.log(this.extenseion);
+      });
+
+     } else {
+
+      this.extenseion = [];
+      console.log(this.extenseion);
+    }
+
+  }
+  checkedHenne(value, type) {
+    if (value.checked && type === 'Henné') {
+      this.signupService.getExpertises().subscribe((res: any) => {
+        console.log(res);
+        this.henneExpertises = res.filter(data => data .type === type);
+
+      });
+
+    } else {
+
+      this.henneExpertises = [];
+    }
+
+  }
+  checkedLaceFrontale(value, type) {
+    if (value.checked && type === 'Lace Frontale') {
+      this.signupService.getExpertises().subscribe((res: any) => {
+        console.log(res);
+        this.laceFrontaleExpertise = res.filter(data => data .type === type);
+      });
+
+    } else {
+
+      this.laceFrontaleExpertise = [];
+    }
+
+  }
   constructor(private _formBuilder: FormBuilder, private profileService: ProfileService,
               private signupService: SignupService, private router: Router,
               private deptService: DepartmentsService) {
@@ -141,7 +238,7 @@ export class SignupComponent implements OnInit {
   }
 
   isBusinnessValid() {
-    return this.makeupChecked || this.microbladingChecked || this.manicureChecked || this.eyesExtenChecked;
+    return this.makeupChecked || this.microbladingChecked || this.manicureChecked || this.eyesExtenChecked || this.laceFrontaleExpertise || this.henneExpertises;
   }
 
   isReadyToPost() {
@@ -162,11 +259,33 @@ export class SignupComponent implements OnInit {
     if (this.eyesExtenChecked) {
       biz += '4|';
     }
+    if (this.henneChecked) {
+      biz += '5|';
+    }
+    if (this.laceFrontaleChecked) {
+      biz += '6|';
+    }
 
     if (biz !== null && biz.endsWith('|')) {
       biz = biz.substring(0, biz.length - 1);
     }
     return biz;
+  }
+  expertise = '';
+  getExpertiseList2(value, expertiseId: any) {
+    if (value.checked) {
+  this.expertise += `${expertiseId}|`;
+    } else {
+      console.log(expertiseId);
+      this.expertise=this.expertise.replace(expertiseId + '|', '');
+    }
+
+
+  }
+  convertExpertiseList() {
+    if (this.expertise.endsWith('|')) {
+      this.expertise = this.expertise.substring(0, this.expertise.length - 1);
+    }
   }
 
   getExpertiseList() {
@@ -213,7 +332,7 @@ export class SignupComponent implements OnInit {
   submitPost() {
     this.isUploading = true;
     this.formatMovingList();
-
+    this.convertExpertiseList();
     const newProfile = {
       lastname: this.stepTwoGroup.value.lastName,
       firstname: this.stepTwoGroup.value.firstName,
@@ -225,7 +344,7 @@ export class SignupComponent implements OnInit {
       password: this.stepOneGroupPassword.value.password,
       cities: this.selectedCity.code + ';' + this.selectedCity.city,
       business: this.getBusinnessList(),
-      expertises: this.getExpertiseList(),
+      expertises: this.expertise,
       movings: this.movings
       // departements: this.getDeptsList()
     };

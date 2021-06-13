@@ -8,10 +8,15 @@ import {ProfileService} from '../services/profile.service';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-
+  public images=[];
   constructor(private router: Router, private profileService: ProfileService) { }
 
   ngOnInit() {
+    this.profileService.getBaniereImages().subscribe((res:any)=>{
+      this.images=res;
+      console.log(this.images)
+    });
+
   }
 
   contactClicked() {
@@ -23,6 +28,8 @@ export class HomeComponent implements OnInit {
     console.log('partenership clicked');
     this.router.navigate(['/partnership']);
   }
+
+
 
   aboutClicked() {
     console.log('about clicked');

@@ -46,15 +46,15 @@
 
         </app-select-cities>
       </div>
-      <div class="col-sm-6">
+      <div class="col-sm-6"  >
         <ng-select #skinSelect
                    class="custom"
-                   [items]="skinTypes"
+                   [items]="expertisesList"
                    [multiple]="true"
                    [closeOnSelect]="false"
-                   placeholder="Type de peau"
+                   [placeholder]="filterText"
                    (change)="updateSearch()"
-                    [(ngModel)]="selectedSkins">
+                   [(ngModel)]="selectedSkins">
 <!--          <ng-template ng-multi-label-tmp></ng-template>-->
 
           <ng-template ng-option-tmp let-item="item" let-index="index" let-item$="item$">
@@ -67,6 +67,7 @@
         </ng-select>
 
       </div>
+
     </div>
 
 
