@@ -93,6 +93,7 @@ const appRoutes: Routes = [
   { path: '**', redirectTo: 'home'}
 ];
 
+// @ts-ignore
 @NgModule({
   declarations: [
     AppComponent,
