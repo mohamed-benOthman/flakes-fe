@@ -102,8 +102,6 @@ export class AuthenticationService {
 
     const url = `${Constants.userURL}/forgotpassword/` + email;
     console.log('resetPassword url:      ' + url);
-    return this.http.get<any>(url, requestOptions).subscribe(data => {
-      console.log(data);
-    });
+    return this.http.get<any>(url, requestOptions);
   }
 }

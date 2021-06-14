@@ -303,13 +303,20 @@
     <p>Un email de confirmation est envoyé, vous pouver maintenant le vérifier!</p>
   </div>
 
-<!--  <ng-template #errorCreation>
-    <h3 style="color: #8b1941"><strong>Le profil n'a pas pu être créé</strong></h3>
+
+
+    <h4  style="color: #8b1941; text-align:center" *ngIf="errorResendingEmail===true"><strong>le email n'est pas envoyé</strong></h4>
+    <h4 style="color:  #4cae4c;  text-align:center" *ngIf="emailResent===true"><strong>Un nouveaux email est envoyé</strong></h4>
     <br>
-    <p>Veuillez ré-essayer dans quelques minutes.</p>
-  </ng-template>-->
+
+
 
   <p-footer>
-    <button type="button" pButton icon="pi pi-check" (click)="quitSignup()" label="Renvoyer l'email de confirmation"></button>
+
+    <button type="button" pButton icon="pi pi-check" (click)="quitSignup()" label="Vers la page d'accueil"></button>
+
+
+        <button type="button" pButton icon="pi pi-check" (click)="resendEmail()" label="Renvoyer l'email de confirmation"></button>
+
   </p-footer>
 </p-dialog>

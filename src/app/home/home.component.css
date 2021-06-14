@@ -1,0 +1,40 @@
+
+@media screen and (min-width: 1600px){
+  .carrousel-image{
+    height:480px !important;
+  }
+
+
+}
+@media screen and (max-width: 1600px) and (min-width: 1400px) {
+  .carrousel-image{
+    height:400px !important;
+  }
+
+
+}
+@media screen and (max-width: 1400px)  and (min-width: 1200px){
+  .carrousel-image{
+    height:300px !important;
+  }
+
+
+}
+
+@media screen and (max-width: 1200px)  and (min-width: 900px){
+  .carrousel-image{
+    height:270px !important;
+  }
+
+
+}
+
+@media screen and (max-width: 900px){
+  .carrousel-image{
+    height:230px !important;
+  }
+
+
+}
+
+

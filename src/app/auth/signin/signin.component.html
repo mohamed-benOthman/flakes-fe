@@ -63,6 +63,9 @@
                       <input #resetemail class="form-control input-lg" placeholder="E-mail" name="resetemail" type="email">
                     </div>
                     <input class="btn btn-lg btn-primary btn-block" value="Re-Initialiser mon Mot de Passe" type="submit" (click)="resetPassword()">
+                    <h5 style="color: #cc3300;text-align: center" *ngIf="resetPasswordError===true">Cette utilisateur n'existe pas</h5>
+                    <h5 style="color: #4cae4c;text-align: center" *ngIf="resetPasswordSuccess===true">Un lien est envoyé pour changer votre mot de passe</h5>
+
                   </fieldset>
                 </div>
               </div>

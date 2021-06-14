@@ -12,12 +12,6 @@ import {AlertService} from '../../services/alert.service';
   styleUrls: ['./signin.component.css']
 })
 export class SigninComponent implements OnInit {
-  @ViewChild('resetemail') resetEmail;
-  loginForm: FormGroup;
-  loading = false;
-  submitted = false;
-  returnUrl: string;
-  cantFindUser = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -25,6 +19,16 @@ export class SigninComponent implements OnInit {
     private router: Router,
     private authenticationService: AuthenticationService,
     private alertService: AlertService) {}
+
+  // convenience getter for easy access to form fields
+  get f() { return this.loginForm.controls; }
+  @ViewChild('resetemail') resetEmail;
+  loginForm: FormGroup;
+  loading = false;
+  submitted = false;
+  returnUrl: string;
+  cantFindUser = false;
+  resetPasswordError = false;
 
   ngOnInit() {
 
@@ -45,9 +49,6 @@ export class SigninComponent implements OnInit {
     // @ts-ignore
     this.f.password.value = 'password';
   }
-
-  // convenience getter for easy access to form fields
-  get f() { return this.loginForm.controls; }
 
   onSubmit() {
     this.submitted = true;
@@ -76,11 +77,19 @@ export class SigninComponent implements OnInit {
           this.loading = false;
         });
   }
+ resetPasswordSuccess = false;
+  resetPassword(){
+    this.resetPasswordSuccess=false;
+    this.resetPasswordError=false;
+    this.authenticationService.resetPassword(this.resetEmail.nativeElement.value).subscribe(res => {
+      this.resetPasswordSuccess = true;
+  /*    this.resetEmail.nativeElement.value = '';
+      const element: HTMLElement = document.getElementById('dismissResetPassDialog') as HTMLElement;
+      element.click();*/
+    },
+      error => {
+      this.resetPasswordError = true;
+      });
 
-  resetPassword() {
-    this.authenticationService.resetPassword(this.resetEmail.nativeElement.value);
-    this.resetEmail.nativeElement.value = '';
-    const element: HTMLElement = document.getElementById('dismissResetPassDialog') as HTMLElement;
-    element.click();
   }
 }

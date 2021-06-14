@@ -36,7 +36,22 @@ export class SignupService {
       return of([]);
     }
   }
-  public getExpertises():any{
+
+  public confirmToken(token) {
+    return this.http.post(`${Constants.userURL}/checkConfimationToken`, {token});
+  }
+
+  public checkResetToken(token): Observable<any> {
+    return this.http.post(`${Constants.userURL}/checkResetToken`, {token});
+  }
+
+  public resetPassword(token, password): Observable<any> {
+    return this.http.post(`${Constants.userURL}/resetPassword`, {token: token, password: password});
+  }
+  public resendEmail(id: string): Observable<any> {
+    return this.http.post(`${Constants.userURL}/resendEmail`, {email: id});
+  }
+  public getExpertises(): any {
     return this.http.get('http://localhost:3050/expertise');
   }
 }

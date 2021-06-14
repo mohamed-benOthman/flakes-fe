@@ -34,6 +34,23 @@ interface expertise  {
 })
 
 export class SignupComponent implements OnInit {
+  constructor(private _formBuilder: FormBuilder, private profileService: ProfileService,
+              private signupService: SignupService, private router: Router,
+              private deptService: DepartmentsService) {
+    this.signupService.search(this.usernameSubject, false).subscribe(result => {
+      this.isUsernameTaken = result === true || result === false ? result : false;
+      if (this.isUsernameTaken) {
+        this.stepOneGroup.controls['username'].setErrors({'isTaken': true});
+      }
+    });
+
+    this.signupService.search(this.emailSubject, true).subscribe(result => {
+      this.isEmailTaken = result;
+      if (this.isEmailTaken) {
+        this.stepOneGroup.controls['email'].setErrors({'isTaken': true});
+      }
+    });
+  }
 
   stepOneGroup: FormGroup;
   stepOneGroupPassword: FormGroup;
@@ -86,6 +103,10 @@ export class SignupComponent implements OnInit {
   deptList: Observable<any[]>;
   // selectedDept: Department[];
   movings = '1';
+  expertise = '';
+  private userId;
+  emailResent:boolean= false;
+  errorResendingEmail:boolean= false;
 
   checked(value, type) {
     console.log(value.checked);
@@ -172,23 +193,6 @@ export class SignupComponent implements OnInit {
     }
 
   }
-  constructor(private _formBuilder: FormBuilder, private profileService: ProfileService,
-              private signupService: SignupService, private router: Router,
-              private deptService: DepartmentsService) {
-    this.signupService.search(this.usernameSubject, false).subscribe(result => {
-      this.isUsernameTaken = result === true || result === false ? result : false;
-      if (this.isUsernameTaken) {
-        this.stepOneGroup.controls['username'].setErrors({'isTaken': true});
-      }
-    });
-
-    this.signupService.search(this.emailSubject, true).subscribe(result => {
-      this.isEmailTaken = result;
-      if (this.isEmailTaken) {
-        this.stepOneGroup.controls['email'].setErrors({'isTaken': true});
-      }
-    });
-  }
 
   ngOnInit() {
 
@@ -271,13 +275,12 @@ export class SignupComponent implements OnInit {
     }
     return biz;
   }
-  expertise = '';
   getExpertiseList2(value, expertiseId: any) {
     if (value.checked) {
   this.expertise += `${expertiseId}|`;
     } else {
       console.log(expertiseId);
-      this.expertise=this.expertise.replace(expertiseId + '|', '');
+      this.expertise = this.expertise.replace(expertiseId + '|', '');
     }
 
 
@@ -327,6 +330,19 @@ export class SignupComponent implements OnInit {
       depts += dpt.code + '|';
     });*/
 
+  }
+  resendEmail() {
+    this.emailResent=false;
+    this.errorResendingEmail=false;
+    this.signupService.resendEmail(this.stepOneGroup.value.email).subscribe((res: any) => {
+      console.log(res);
+      console.log(res.succeeded);
+      if (res.succeeded === true) {
+        this.emailResent = true;
+      } else {
+        this.errorResendingEmail = true;
+      }
+    });
   }
 
   submitPost() {

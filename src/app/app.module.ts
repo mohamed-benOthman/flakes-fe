@@ -67,6 +67,7 @@ import {MatPaginatorIntlCro} from './utils/intl/MatPaginatorIntlCro';
 
 import {AuthGuardGuard} from './guards/auth-guard.guard';
 import { ConfirmationComponent } from './auth/confirmation/confirmation.component';
+import { ResetPasswordComponent } from './auth/reset-password/reset-password.component';
 
 const appRoutes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -82,7 +83,8 @@ const appRoutes: Routes = [
   { path: 'signup', component: SignupComponent },
   { path: 'contact', component: ContactComponent },
   { path: 'about', component: AboutComponent },
-  { path: 'confirmation/:id', component: ConfirmationComponent },
+  { path: 'confirmation/:token', component: ConfirmationComponent },
+  { path: 'resetPassword/:token', component: ResetPasswordComponent },
   { path: 'usercharter', component: UserCharterComponent },
   { path: 'partnership', component: PartnershipComponent },
   { path: 'faq', component: FaqComponent },
@@ -120,7 +122,8 @@ const appRoutes: Routes = [
     ConfidentialityComponent,
     LegalsComponent,
     LoggedInComponent,
-    ConfirmationComponent
+    ConfirmationComponent,
+    ResetPasswordComponent
   ],
   imports: [
     BrowserModule, BrowserAnimationsModule,

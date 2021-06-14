@@ -16,7 +16,7 @@
 
           <div class="carousel-inner">
             <div *ngFor="let data of images; let i=index" [ngClass]="(i === 0) ? 'item active' : 'item'">
-              <a  target="_blank" > <img  style="height: 400px"  [src]="data.imageUrl" alt=""></a>
+              <a  target="_blank" > <img class="carrousel-image" style="height: 400px; width: 100%"  [src]="data.imageUrl" alt=""></a>
             </div>
           </div>
 

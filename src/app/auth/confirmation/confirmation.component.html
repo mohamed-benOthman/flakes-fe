@@ -1,12 +1,25 @@
 <div class="app flex-row align-items-center "  style="margin-bottom: 50px">
-  <div class="container w-100 ">
+  <div class="container w-100 " style="height: 58vh;">
     <div class="row justify-content-center">
       <div class="col-6">
-        <div class="clearfix" style="text-align: center">
+        <div  *ngIf="failed" class="clearfix" style="text-align: center">
 
           <h1 class="float-left display-3 mr-4">404</h1>
           <h4 class="pt-3">Oops! </h4>
-          <p class="text-muted">Le token est expiré</p>
+          <h3 class="text-muted">Le token est expiré</h3>
+        </div>
+        <div  *ngIf="verifiedAlready" class="clearfix" style="text-align: center">
+
+          <h1 class="float-left display-3 mr-4">404</h1>
+          <h4 class="pt-3">Oops! </h4>
+          <h3 class="text-muted">L'utilisateur est déja vérifié</h3>
+
+        </div>
+        <div  *ngIf="success" class="clearfix" style="text-align: center">
+
+          <h3 class="text-muted">Votre compte est vérifié</h3>
+          <h4>Vous pouvez dès à présent vous connecter pour ajouter une photo de profil et ajouter des photos dans votre
+            galerie!</h4>
         </div>
         <div class="w-100 row justify-content-center">
         <button
