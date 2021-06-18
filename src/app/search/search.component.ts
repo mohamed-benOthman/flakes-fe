@@ -31,8 +31,7 @@ export class SearchComponent implements OnInit {
   pageSizeOptions: number[] = Constants.SEARCH_AVAILABLE_ITEMS_PER_PAGE;
   pageSize = Constants.SEARCH_AVAILABLE_ITEMS_PER_PAGE[1];
   pageIndex = 0;
-
-
+  
   skinTypes = [
     {value: 1, label: 'Peau claire'},
     {value: 2, label: 'Peau foncée'},
