@@ -44,8 +44,12 @@ export class ProfileEditPhotosComponent implements OnInit {
     this.isUploading = false;
   }
 
-  onDeletePhotoFromGallery(index) {
-    this.currentProfileCopy.photosUrl.splice(index, 1);
+  onDeletePhotoFromGallery(index, url: any) {
+    console.log(url);
+    this.profileService.deletePhoto(url.url).subscribe(res => {
+      this.currentProfileCopy.photosUrl.splice(index, 1);
+    });
+
     // this.profileService.updateProfile(this.currentDisplayedProfile);
     // this.photoDeletedEvent.emit(index);
   }
@@ -97,7 +101,9 @@ export class ProfileEditPhotosComponent implements OnInit {
       console.log('response after uploading all photos = ' + JSON.stringify(results));
       if (results && results.length > 0) {
         for (const photo of results) {
+          this.profileService.savePhoto(photo.url).subscribe(res => console.log(res), error => console.log(error));
           this.currentProfileCopy.photosUrl.push(photo);
+
         }
       }
       this.uploadingEvent.emit(false);

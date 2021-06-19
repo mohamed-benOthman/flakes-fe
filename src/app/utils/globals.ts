@@ -7,6 +7,7 @@ export const baseURL = 'http://localhost:3050';
 export const businessURL = `${baseURL}/business`;
 export const expertiseURL = `${baseURL}/expertise`;
 export const searchURL = `${baseURL}/maquilleuse`;
+export const photosURL = `${baseURL}/photos`;
 export const userURL = `${baseURL}/user`;
 
 export const uploadPhotoURL = `${baseURL}/files/upload`;

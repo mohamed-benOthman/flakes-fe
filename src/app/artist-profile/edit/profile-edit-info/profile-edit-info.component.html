@@ -89,17 +89,40 @@
     </div>
   </div>
 
+    <!------------------------------
+  ----- Compétences (Maquillage, Microblading, Manucure, Extension)
+  ------------------------------>
+    <div class="container-fluid">
+      <div class="row full-width-row">
+        <span style="font-size: 75%; opacity: 0.5; font-weight: bold">Compétences</span>
+        <div *ngFor="let business of currentProfileCopy.business">
+          <div class="col-sm-6">
+            <mat-checkbox class="edit-profile-expertise-checkbox-margin"
+                          [(ngModel)]="business.checked"
+
+                          [ngModelOptions]="{standalone: true}">{{business.libelle}}
+            </mat-checkbox>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <br>
+
   <!------------------------------
   ----- Expertise (type de peau)
   ------------------------------>
   <div>
     <span style="font-size: 75%; opacity: 0.5; font-weight: bold">Expertise</span>
     <section class="edit-profile-expertise-checkbox-section">
-      <div *ngFor="let expertise of currentProfileCopy.expertises">
+      <div class="row ">
+      <div class="col-12 col-sm-6" *ngFor="let expertise of currentProfileCopy.expertises">
         <mat-checkbox class="edit-profile-expertise-checkbox-margin"
                       [(ngModel)]="expertise.checked"
+                      (change)="check($event, expertise)"
                       [ngModelOptions]="{standalone: true}">{{expertise.libelle}}
         </mat-checkbox>
+      </div>
       </div>
     </section>
   </div>
@@ -125,13 +148,16 @@
     <div>
       <span style="font-size: 75%; opacity: 0.5; font-weight: bold">Déplacement</span>
       <section class="edit-profile-expertise-checkbox-section">
-        <mat-radio-group [(ngModel)]="currentProfileCopy.movings"
-                         [ngModelOptions]="{standalone: true}" >
+        <mat-radio-group  (change)="radioChange($event)"
+                        >
           <div class="col-lg-12">
             <mat-radio-button value="1" [checked]="currentProfileCopy.movings == '1'">Je me déplace en France</mat-radio-button>
           </div>
           <div class="col-lg-12">
             <mat-radio-button value="2" [checked]="currentProfileCopy.movings == '2'">Je me déplace hors de France</mat-radio-button>
+          </div>
+          <div class="col-lg-12">
+            <mat-radio-button value="3" [checked]="currentProfileCopy.movings == '3'">Je ne me déplace pas</mat-radio-button>
           </div>
         </mat-radio-group>
       </section>
@@ -139,24 +165,7 @@
 
     <br>
 
-  <!------------------------------
-  ----- Compétences (Maquillage, Microblading, Manucure, Extension)
-  ------------------------------>
-  <div class="container-fluid">
-    <div class="row full-width-row">
-      <span style="font-size: 75%; opacity: 0.5; font-weight: bold">Compétences</span>
-      <div *ngFor="let business of currentProfileCopy.business">
-        <div class="col-sm-6">
-          <mat-checkbox class="edit-profile-expertise-checkbox-margin"
-                        [(ngModel)]="business.checked"
-                        [ngModelOptions]="{standalone: true}">{{business.libelle}}
-          </mat-checkbox>
-        </div>
-      </div>
-    </div>
-  </div>
 
-  <br>
 
   <!------------------------------
   ----- Présentation

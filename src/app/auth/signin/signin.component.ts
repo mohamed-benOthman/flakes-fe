@@ -29,6 +29,7 @@ export class SigninComponent implements OnInit {
   returnUrl: string;
   cantFindUser = false;
   resetPasswordError = false;
+  loginError=false;
 
   ngOnInit() {
 
@@ -45,14 +46,14 @@ export class SigninComponent implements OnInit {
 
     // TODO: REMOVE THIS - TESTS ONLY
     // @ts-ignore
-    this.f.username.value = 'shark@yopmail.com';
+/*    this.f.username.value = 'shark@yopmail.com';
     // @ts-ignore
-    this.f.password.value = 'password';
+    this.f.password.value = 'password';*/
   }
 
   onSubmit() {
     this.submitted = true;
-
+    this.loginError=false;
     // stop here if form is invalid
     if (this.loginForm.invalid) {
       return;
@@ -73,7 +74,8 @@ export class SigninComponent implements OnInit {
           }*/
         },
         error => {
-          this.alertService.error(error);
+          this.loginError=true;
+
           this.loading = false;
         });
   }

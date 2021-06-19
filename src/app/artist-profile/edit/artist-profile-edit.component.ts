@@ -165,6 +165,7 @@ export class ArtistProfileEditComponent implements OnInit {
     this.profileService.updateProfile(this.currentProfile);
 
     const formattedProfile = this.profileService.formatProfileForUpload(this.currentProfile);
+
     this.profileService.updateProfileObserver(formattedProfile).subscribe(
       res => {
         console.log('update profile response: ' + JSON.stringify(formattedProfile));
@@ -191,5 +192,7 @@ export class ArtistProfileEditComponent implements OnInit {
   quitEdit() {
     this.router.navigate(['/profile']);
   }
+
+
 
 }

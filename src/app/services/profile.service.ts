@@ -255,7 +255,30 @@ export class ProfileService {
   }
 
   postPhoto(uploadData) {
-    return this.http.post(Constants.uploadPhotoURL, uploadData);
+
+    return this.http.post('http://82.165.253.223:3050/files/upload', uploadData);
+  }
+
+  savePhoto(photoUrl) {
+    const user = JSON.parse(localStorage.getItem('currentUser')) ;
+    const maquilleuseId = user.idMaquilleuse;
+
+    const data = {
+      id: maquilleuseId,
+      url: photoUrl
+    };
+    return this.http.post(Constants.photosURL + '/add', data);
+  }
+
+  deletePhoto(photoUrl) {
+    const user = JSON.parse(localStorage.getItem('currentUser')) ;
+    const maquilleuseId = user.idMaquilleuse;
+
+    const data = {
+      id: maquilleuseId,
+      url: photoUrl
+    };
+    return this.http.post(Constants.photosURL + '/delete', data);
   }
 
   getBaniereImages() {
@@ -327,5 +350,7 @@ export class ProfileService {
     }
     return null;
   }
+
+
 
 }
