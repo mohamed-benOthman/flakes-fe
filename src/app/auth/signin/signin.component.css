@@ -87,7 +87,6 @@ body {
 }
 
 .form-area {
-  background-image: url("../../../assets/images/ptrn.jpg");
   padding: 9% 15% 16% 14%;
 }
 
@@ -140,7 +139,7 @@ body {
 }
 .btn.btn-primary-submit.hvr-shadow {
   /*background-color: #d11574;*/
-  background-color: #ce9c8f;
+  background-color: #A84A30 ;
   padding: 8px 40px;
   color: #fff;
   font-size: 23px;
@@ -158,7 +157,7 @@ body {
 
 .block-content
 {
-  padding: 4% 5%;
+  padding: 4% 15%;
 }
 
 
@@ -445,7 +444,6 @@ body {
     margin: 0px 7px;
   }
   .form-area {
-    background-image: url(../../../assets/images/ptrn.jpg);
     padding: 2% 15% 8% 14%;
   }
   .form-area .form-text p {
@@ -477,7 +475,7 @@ body {
     font-size: 13px;
   }
 }
-@media(max-width:1400px)
+@media(max-width:2000px)
 {
 
 
@@ -499,7 +497,8 @@ body {
     margin: 0px 0px 16px 0px;
   }
   .form-area {
-    background-image: url("../../../assets/images/ptrn.jpg");
+    border: solid;
+    border-color: #ffffff;
     padding: 7% 15% 8% 14%;
   }
   .btn.btn-primary-submit.hvr-shadow {
@@ -637,7 +636,6 @@ body {
     font-size: 11px;
   }
   .form-area {
-    background-image: url("../../../assets/images/ptrn.jpg");
     padding: 2% 10%;
   }
   .btn.btn-primary-submit.hvr-shadow {
@@ -677,7 +675,7 @@ body {
     margin: 0px 0px 4px 0px;
   }
   .form-area {
-    background-image: url("../../../assets/images/ptrn.jpg");
+
     padding: 4% 10%;
   }
   .icon
@@ -752,7 +750,6 @@ body {
     top: 78%;
   }
   .form-area {
-    background-image: url("../../../assets/images/ptrn.jpg");
     padding: 3% 10%;
   }
   .content-box p {
@@ -779,7 +776,6 @@ body {
 
   }
   .form-area {
-    background-image: url("../../../assets/images/ptrn.jpg");
 
     margin: 26px 0px;
   }
@@ -802,7 +798,6 @@ body {
     padding: 12px 2px;
   }
   .form-area {
-    background-image: url("../../../assets/images/ptrn.jpg");
     padding: 10%;
   }
   .form-area .form-text p {

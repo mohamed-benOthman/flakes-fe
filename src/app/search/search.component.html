@@ -1,11 +1,19 @@
+<section class="search-page">
 <section class="search-banner">
   <div class="container-fluid">
     <div class="row">
       <div class="col-md-12">
-        <div class="search-heading">
-          <h1 style="font-family: 'Tangerine', serif;
-                    text-shadow: 6px 6px 6px #aaa;
-                    font-size: 60px;">{{categoryTitle | titlecase}}</h1>
+        <div *ngIf="businessType==1" class="search-heading-makeup">
+        </div>
+        <div *ngIf="businessType==2" class="search-heading-microblading">
+        </div>
+        <div *ngIf="businessType==3" class="search-heading-manicure">
+        </div>
+        <div *ngIf="businessType==4" class="search-heading-eyelashes">
+        </div>
+        <div *ngIf="businessType==5" class="search-heading-henne">
+        </div>
+        <div *ngIf="businessType==6" class="search-heading-lacefrontal">
         </div>
       </div>
     </div>
@@ -26,13 +34,14 @@
                    [(ngModel)]="selectedDept" (change)="onDeptChanged()">
 
           <ng-template ng-label-tmp let-item="item" let-clear="clear">
-            <span class="ng-value-label" style="font-size: small">{{item.code}} ({{item.name}})</span>
+            <span class="ng-value-label" style="font-size: small;font-weight: bold;">{{item.code}} ({{item.name}})</span>
             <span class="ng-value-icon right" (click)="clear(item)" aria-hidden="true">×</span>
           </ng-template>
 
           <ng-template ng-option-tmp let-item="item">
             {{item.code}} - {{item.name}}
           </ng-template>
+
         </ng-select>
       </div>
       <div class="col-sm-6">
@@ -140,4 +149,5 @@
     </div>-->
   </div>
 
+</section>
 </section>

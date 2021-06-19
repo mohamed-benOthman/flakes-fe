@@ -31,7 +31,8 @@ export class SearchComponent implements OnInit {
   pageSizeOptions: number[] = Constants.SEARCH_AVAILABLE_ITEMS_PER_PAGE;
   pageSize = Constants.SEARCH_AVAILABLE_ITEMS_PER_PAGE[1];
   pageIndex = 0;
-  
+
+
   skinTypes = [
     {value: 1, label: 'Peau claire'},
     {value: 2, label: 'Peau foncée'},
@@ -68,17 +69,25 @@ export class SearchComponent implements OnInit {
     };
 
     if (this.router.url.startsWith('/search-makeup')) {
-      this.categoryTitle = 'maquillage';
+      this.categoryTitle = 'Maquillage';
       this.businessType = 1;
     } else if (this.router.url.startsWith('/search-microblading')) {
-      this.categoryTitle = 'micro blading';
+      this.categoryTitle = 'Micro blading';
       this.businessType = 2;
     } else if (this.router.url.startsWith('/search-manicure')) {
-      this.categoryTitle = 'manucure';
+      this.categoryTitle = 'Manucure';
       this.businessType = 3;
     } else if (this.router.url.startsWith('/search-eyelashes')) {
-      this.categoryTitle = 'extension de cils';
+      this.categoryTitle = 'Extension de cils';
       this.businessType = 4;
+    }
+    else if (this.router.url.startsWith('/search-henne')) {
+      this.categoryTitle = 'Hénné';
+      this.businessType = 5;
+    }
+    else if (this.router.url.startsWith('/search-lacefrontal')) {
+      this.categoryTitle = 'Lasse frontal';
+      this.businessType = 6;
     }
 
     this.deptService.getJSON().subscribe(data => {
