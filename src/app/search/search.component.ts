@@ -110,6 +110,14 @@ export class SearchComponent implements OnInit, AfterViewInit {
       this.categoryTitle = 'lace frontale';
       this.businessType = 6;
     }
+    else if (this.router.url.startsWith('/search-henne')) {
+      this.categoryTitle = 'Hénné';
+      this.businessType = 5;
+    }
+    else if (this.router.url.startsWith('/search-lacefrontal')) {
+      this.categoryTitle = 'Lasse frontal';
+      this.businessType = 6;
+    }
 
     this.deptService.getJSON().subscribe(data => {
       this.departments = data;

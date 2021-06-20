@@ -60,16 +60,41 @@
      font-family: 'Gotham';
 }  */
 
-.main-header {
-  padding: 1% 5%;
+.top-header {
+  background: rgb(174,85,58);
+  background: linear-gradient(180deg, rgba(174,85,58,1) 0%, rgba(186,105,78,1) 64%, rgba(209,146,119,1) 94%);
+  height: 90px;
+  margin-top: -20px;
+  padding-top: 22px;
+  text-align: center;
+  color: #ffffff;
 
 }
+.top-header-title{
+  position: relative;
+  top:25%;
+
+}
+.top-header.h4{
+  color: #ffffff;
+}
+
+.main-header {
+  padding: 1% 5%;
+background-color: #FFFFFF;
+}
+
 td a:hover {
   text-decoration: none;
 }
 
+.main-content{
+  background-image: url("assets/images/fond_site-min.jpg");
+}
+
 .sliders {
-  padding: 0 5%;
+
+  padding: 3% 5%;
 }
 .navigation-bar {
   margin: 42px 0 0 0;
@@ -82,20 +107,23 @@ td a:hover {
 
 .navigation-bar .navbar-inverse .navbar-nav li a:focus, .navbar-inverse .navbar-nav li a:hover {
 
-  background-color: #ce9c8f;
-  color: #fff !important;
+  background-color: #000000;
+  color: #ffffff !important;
+  border-style: solid;
+  border-color: #fff;
+  border-width: 2px;;
 }
 
 
 .navigation-bar .navbar-inverse .navbar-nav li a {
-  color: #000000;
+  color: #fff;
   font-size: 16px;
   padding: 12px 11px;
   margin: 0px 22px;
 
 }
 .navigation-bar .navbar-inverse .navbar-nav .active a, .navbar-inverse .navbar-nav .active a:focus, .navbar-inverse .navbar-nav .active a:hover:first-child {
-  color: #fff;
+  color: #000000;
   background-color: #ce9c8f;
   padding: 12px 11px;
 }
@@ -105,8 +133,12 @@ td a:hover {
   filter: none !important;
 }
 
+.cadre-login {
+  background-color: #000000;
+  padding: 8%;
+}
 .form-area {
-  background-image: url("assets/images/ptrn.jpg");
+  background-color: #000000;
   padding: 8%;
 }
 
@@ -158,7 +190,7 @@ td a:hover {
   margin: 0px 0px 38px 0px;
 }
 .btn.btn-primary-submit.hvr-shadow {
-   background-color: #ce9c8f;
+   background-color: #A84A30 ;
    padding: 8px 40px;
    color: #fff;
    font-size: 23px;
@@ -173,7 +205,7 @@ td a:hover {
  }
 
 .btn.btn-primary-submit.sendmessage {
-  background-color: #ce9c8f;
+  background-color: #A84A30;
   padding: 8px 10px;
   color: #fff;
   font-size: 23px;
@@ -200,14 +232,13 @@ td a:hover {
   -webkit-box-pack: start;
   -ms-flex-pack: start;
   justify-content: flex-start;
-  padding: 12px 2px;
-
+  padding: 1px 2px;
 }
 
 .main-block {
 
   border-top: 5px solid #ce9c8f;
-  padding: 40px 26px;
+  padding: 1px 1px;
   border-right: 1px solid #eee;
   border-bottom: 1px solid #eee;
   border-left: 1px solid #eee;
@@ -226,7 +257,7 @@ td a:hover {
 
 }
 .btn.btn-primary.read {
-  background-color: #ce9c8f;
+  background-color: #000000;
   border: 0;
   border-radius: 0;
   font-size: 15px;
@@ -794,7 +825,7 @@ a.text-primary:focus, a.text-primary:hover {
     margin: 0px 7px;
   }
   .form-area {
-    background-image: url(assets/images/ptrn.jpg);
+    background-color: #000000;
     padding: 2% 15% 8% 14%;
   }
   .form-area .form-text p {
@@ -805,6 +836,7 @@ a.text-primary:focus, a.text-primary:hover {
   }
   .content-box p {
     font-size: 13px;
+    font-color:#000000;
   }
   .quote-text p {
     font-size: 11px;
@@ -820,7 +852,7 @@ a.text-primary:focus, a.text-primary:hover {
     margin: 4px 0;
   }
   .quote-text span {
-    color: #ce9c8f;
+    color: #A84A30 ;
     text-align: center;
     display: block;
     font-size: 13px;
@@ -894,10 +926,10 @@ a.text-primary:focus, a.text-primary:hover {
   }
 }
 
-@media (max-width: 1400px) {
+@media (max-width: 2200px) {
 
   .navigation-bar .navbar-inverse .navbar-nav li a {
-    color: #000000;
+    color: #ffffff;
     font-size: 13px;
     padding: 10px 12px;
   }
@@ -914,7 +946,7 @@ a.text-primary:focus, a.text-primary:hover {
     margin: 0px 0px 16px 0px;
   }
   .form-area {
-    background-image: url("assets/images/ptrn.jpg");
+    background-color: #000000;
     padding: 7% 15% 8% 14%;
   }
   .btn.btn-primary-submit.hvr-shadow {
@@ -944,11 +976,10 @@ a.text-primary:focus, a.text-primary:hover {
     padding: 0;
     margin: 0;
     line-height: 31px;
-
   }
   .main-block {
-    border-top: 5px solid #ce9c8f;
-    padding: 21px 10px;
+    border-top: 5px solid #000000;
+    padding: 1px 1px;
   }
   .quote-text p {
     font-size: 12px;
@@ -971,6 +1002,7 @@ a.text-primary:focus, a.text-primary:hover {
   }
   .read-more {
     padding: 0px 39px;
+    text-align: center;
   }
   .content-box p {
     font-size: 12px;
@@ -1146,10 +1178,11 @@ a.text-primary:focus, a.text-primary:hover {
     font-size: 23px;
   }
   .search-banner {
-    padding: 0 3%;
+    padding: 1% 3%;
   }
   .main-header {
     padding: 1% 3%;
+    background-color: #000;
   }
   .border-left .table > tbody > tr > td, .table > tbody > tr > th, .table > tfoot > tr > td, .table > tfoot > tr > th, .table > thead > tr > td, .table > thead > tr > th {
     padding: 0px 3px;
@@ -1215,7 +1248,7 @@ a.text-primary:focus, a.text-primary:hover {
     font-size: 11px;
   }
   .form-area {
-    background-image: url("assets/images/ptrn.jpg");
+    background-color: #000000;
     padding: 2% 10%;
   }
   .btn.btn-primary-submit.hvr-shadow {
@@ -1255,7 +1288,7 @@ a.text-primary:focus, a.text-primary:hover {
     margin: 0px 0px 4px 0px;
   }
   .form-area {
-    background-image: url("assets/images/ptrn.jpg");
+    background-color: #000000;
     padding: 4% 10%;
   }
 
@@ -1441,7 +1474,7 @@ a.text-primary:focus, a.text-primary:hover {
     top: 78%;
   }
   .form-area {
-    background-image: url("assets/images/ptrn.jpg");
+    background-color: #000000;
     padding: 6%;
     background-size: cover;
   }
@@ -1597,6 +1630,7 @@ a.text-primary:focus, a.text-primary:hover {
   }
   .logo a img {
     max-width: 98px;
+    color:#FFFFFF;
   }
   .navigation-bar {
 
@@ -1604,8 +1638,7 @@ a.text-primary:focus, a.text-primary:hover {
 
   }
   .form-area {
-    background-image: url("assets/images/ptrn.jpg");
-
+    background-color: #000000;
     margin: 26px 0px;
   }
   .read-more {
@@ -1627,7 +1660,7 @@ a.text-primary:focus, a.text-primary:hover {
     padding: 12px 2px;
   }
   .form-area {
-    background-image: url("assets/images/ptrn.jpg");
+    background-color: #000000;
     padding: 10%;
   }
   .form-area .form-text p {

@@ -1,8 +1,9 @@
+<section class="main-content">
 <section class="sliders">
   <div class="container-fluid">
     <div class="row">
-      <div class="col-xs-12 col-sm-8 col-md-8">
-        <div id="myCarousel" class="carousel slide" data-ride="carousel">
+      <div class="col-xs-12 col-sm-8 col-md-8 mb-2 carrousel-container" >
+        <div id="myCarousel" class="carousel slide carrousel-container-2" data-ride="carousel">
           <!-- Indicators -->
           <ol class="carousel-indicators">
             <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
@@ -45,121 +46,43 @@
   </div>
 </section>
 
-<section class="block-content">
+<section >
   <div class="container-fluid">
     <div class="row">
-      <div class="col-xs-12 col-sm-6 col-md-3">
-        <div class="main-block animated fadeInLeft">
-          <div class="content-box">
-            <span class="img-icon-box"><img src="assets/images/user-icon.png"> </span>
-            <p>A PROPOS</p>
+      <div class="col-xs-12 col-sm-6 col-md-3 hvr-float-shadow big-box"    (click)="aboutClicked()">
+        <div class="animated fadeInLeft big-container">
+          <div class="title-box">
+            <h4><b>A PROPOS</b></h4>
           </div>
-          <div class="read-more">
-            <button type="button"
-                    name="submit"
-                    class="btn btn-primary read hvr-float-shadow"
-                    (click)="aboutClicked()">Lire la suite
-            </button>
+          <div  class="icon-box">
+            <img style="height: 30px; width:30px;" src="assets/images/info.svg">
           </div>
         </div>
       </div>
-      <div class=" col-xs-12 col-sm-6 col-md-3">
-        <div class="main-block animated fadeInLeft">
-          <div class="content-box">
-            <span class="img-icon-box"><img src="assets/images/noteb-icon.png"> </span>
-            <p>DEMANDE DE PARTENARIAT</p>
+      <div class="col-xs-12 col-sm-6 col-md-3 hvr-float-shadow big-box"    (click)="partenershipClicked()">
+        <div class="animated fadeInLeft big-container">
+          <div class="title-box">
+            <h4><b>DEMANDE DE PARTENARIAT</b></h4>
           </div>
-          <div class="read-more">
-            <button type="button"
-                    name="submit"
-                    class="btn btn-primary read hvr-float-shadow"
-                    (click)="partenershipClicked()">Lire la suite
-            </button>
+          <div  class="icon-box">
+            <img style="height: 30px; width:30px;" src="assets/images/edit.svg">
           </div>
         </div>
       </div>
-      <div class=" col-xs-12 col-sm-6 col-md-3">
-        <div class="main-block animated fadeInLeft">
-          <div class="content-box">
-            <span class="img-icon-box"> <img src="assets/images/call-icon.png"></span>
-            <p>CONTACT</p>
-
+      <div class="col-xs-12 col-sm-6 col-md-3 hvr-float-shadow big-box"    (click)="contactClicked()">
+        <div class="animated fadeInLeft big-container">
+          <div class="title-box">
+            <h4><b>CONTACT</b></h4>
           </div>
-          <div class="read-more">
-            <button type="button"
-                    name="submit"
-                    class="btn btn-primary read hvr-float-shadow"
-                    (click)="contactClicked()">Nous Contacter
-            </button>
+          <div  class="icon-box">
+            <img style="height: 30px; width:30px;" src="assets/images/at-sign.svg">
           </div>
         </div>
       </div>
 
-      <div class=" col-xs-12 col-sm-6 col-md-3 ">
-        <div class="main-block quote animated fadeInLeft">
-          <div class="content-box">
-            <div class="carousel slide" data-ride="carousel" id="quote-carousel">
-              <!-- Bottom Carousel Indicators -->
-              <ol class="carousel-indicators">
-                <li data-target="#quote-carousel" data-slide-to="0" class="active"></li>
-                <li data-target="#quote-carousel" data-slide-to="1"></li>
-                <li data-target="#quote-carousel" data-slide-to="2"></li>
-              </ol>
-              <!-- Carousel Slides / Quotes -->
-              <div class="carousel-inner">
-                <!-- Quote 1 -->
-                <div class="item active">
-                  <div class="row">
-                    <div class="col-sm-12">
 
-                      <div class="quote-text"><p>Various versions have evolved over the years, sometimes by accident,
-                        sometimes on purpose</p>
-                        <h2>Laara Deo</h2>
-                        <span>
-								        </span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <!-- Quote 2 -->
-                <div class="item">
-                  <div class="row">
-                    <div class="col-sm-12">
 
-                      <div class="quote-text"><p>Various versions have evolved over the years, sometimes by accident,
-                        sometimes on purpose</p>
-                        <h2>Laara Deo</h2>
-                        <span>
-								        </span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <!-- Quote 3 -->
-                <div class="item">
-                  <div class="row">
-                    <div class="col-sm-12">
-
-                      <div class="quote-text"><p>Various versions have evolved over the years, sometimes by accident,
-                        sometimes on purpose</p>
-                        <h2>Laara Deo</h2>
-                        <span>
-								        </span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <a class="carousel-control left carousel-control-prev" href="#quote-carousel" data-slide="prev">
-              <img src="assets/images/back.png">
-            </a>
-            <a class="carousel-control right carousel-control-next" href="#quote-carousel" data-slide="next">
-              <img src="assets/images/right-arrow.png">
-            </a>
-          </div>
-        </div>
-      </div>
     </div>
   </div>
+</section>
 </section>
