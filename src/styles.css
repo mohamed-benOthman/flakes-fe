@@ -56,9 +56,12 @@
   font-style: normal;
 }
 
-/*  body {
-     font-family: 'Gotham';
-}  */
+  body {
+    background-image: url("./assets/images/fond_site.jpg"); /* The image used */
+    background-position: center; /* Center the image */
+    background-repeat: no-repeat; /* Do not repeat the image */
+    background-size: cover; /* Resize the background image to cover the entire container */
+}
 
 .top-header {
   background: rgb(174,85,58);
@@ -481,7 +484,7 @@ td a:hover {
 
 .profile-heading {
   background-repeat: no-repeat;
-  background: url(assets/images/profile-banner.png);
+  background: url(assets/images/profile.jpg);
   background-size: cover;
 }
 

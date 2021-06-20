@@ -5,9 +5,10 @@
 }
 
 .search-heading-manicure {
-  background-repeat: no-repeat;
-  background: url(../../assets/images/ongles_2.jpg);
-  padding: 90px;
+  backgrounrepeat: no-repeat;
+  background: url(../../assets/images/ongles-3.jpg);
+  background-size: contain;
+  height: 130px;
 
 }
 
@@ -15,35 +16,35 @@
   backgrounrepeat: no-repeat;
   background: url(../../assets/images/makeup_2.jpg);
   background-size: contain;
-  height: 159px;
+  height: 130px;
 }
 
 .search-heading-microblading {
   background-repeat: no-repeat;
   background: url(../../assets/images/micro_2.jpg);
   background-size: contain;
-  height: 159px;
+  height: 130px;
 }
 
 .search-heading-eyelashes {
   background-repeat: no-repeat;
   background: url(../../assets/images/extencion_2.jpg);
   background-size: contain;
-  height: 159px;
+  height: 130px;
 }
 
  .search-heading-henne {
    background-repeat: no-repeat;
    background: url(../../assets/images/henna_2.jpg);
    background-size: contain;
-   height: 159px;
+   height: 130px;
  }
 
 .search-heading-lacefrontal {
   background-repeat: no-repeat;
   background: url(../../assets/images/perruque_2.jpg);
   background-size: contain;
-  height: 159px;
+  height: 130px;
 }
 
 

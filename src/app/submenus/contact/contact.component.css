@@ -1,6 +1,7 @@
 .submenus-heading {
   background-repeat: no-repeat;
-  background: url(../../../assets/images/profile-banner.png);
+  background: url(../../../assets/images/contact.jpg);
   background-size: cover;
   padding: 10px;
+  height: 130px;
 }
