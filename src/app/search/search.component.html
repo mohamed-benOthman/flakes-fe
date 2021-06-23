@@ -3,18 +3,7 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col-md-12">
-        <div *ngIf="businessType==1" class="search-heading-makeup">
-        </div>
-        <div *ngIf="businessType==2" class="search-heading-microblading">
-        </div>
-        <div *ngIf="businessType==3" class="search-heading-manicure">
-        </div>
-        <div *ngIf="businessType==4" class="search-heading-eyelashes">
-        </div>
-        <div *ngIf="businessType==5" class="search-heading-henne">
-        </div>
-        <div *ngIf="businessType==6" class="search-heading-lacefrontal">
-        </div>
+        <img class="image-container" [src]="this.imageSrc+this.imageName">
       </div>
     </div>
   </div>

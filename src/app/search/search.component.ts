@@ -33,8 +33,8 @@ export class SearchComponent implements OnInit, AfterViewInit {
   pageSizeOptions: number[] = Constants.SEARCH_AVAILABLE_ITEMS_PER_PAGE;
   pageSize = Constants.SEARCH_AVAILABLE_ITEMS_PER_PAGE[2];
   pageIndex = 0;
-
-
+  imageName="";
+  imageSrc="../../assets/images/";
   skinTypes = [
     {value: 1, label: 'Peau claire'},
     {value: 2, label: 'Peau foncée'},
@@ -86,38 +86,40 @@ export class SearchComponent implements OnInit, AfterViewInit {
 
     if (this.router.url.startsWith('/search-makeup')) {
       this.categoryTitle = 'maquillage';
-      this.filterText='Type de peau'
+      this.filterText='Type de peau';
+      this.imageName="makeup_2.jpg";
       this.businessType = 1;
     } else if (this.router.url.startsWith('/search-microblading')) {
       this.filterText='Type de Microblading'
+
+
       this.categoryTitle = 'micro blading';
+      this.imageName="micro_2.jpg";
       this.businessType = 2;
     } else if (this.router.url.startsWith('/search-manicure')) {
       this.filterText='Type de Manuicure'
       this.categoryTitle = 'manucure';
+      this.imageName="ongles-3.jpg";
       this.businessType = 3;
     } else if (this.router.url.startsWith('/search-eyelashes')) {
       this.filterText='Type de cils'
+      this.imageName="extencion_2.jpg";
       this.categoryTitle = 'extension de cils';
       this.businessType = 4;
     } else if (this.router.url.startsWith('/search-henne')) {
       this.filterText='Type de henné'
       this.categoryTitle = 'henné';
+      this.imageName="henna_2.jpg";
       this.businessType = 5;
     }
     else if (this.router.url.startsWith('/search-lace-frontale')) {
       this.filterText='Type de Lade Frontale'
       this.categoryTitle = 'lace frontale';
+      this.imageName="perruque_2.jpg";
       this.businessType = 6;
     }
-    else if (this.router.url.startsWith('/search-henne')) {
-      this.categoryTitle = 'Hénné';
-      this.businessType = 5;
-    }
-    else if (this.router.url.startsWith('/search-lacefrontal')) {
-      this.categoryTitle = 'Lasse frontal';
-      this.businessType = 6;
-    }
+
+
 
     this.deptService.getJSON().subscribe(data => {
       this.departments = data;

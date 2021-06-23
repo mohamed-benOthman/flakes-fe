@@ -1,0 +1,17 @@
+<form  #form  method="POST" action="https://sogecommerce.societegenerale.eu/vads-payment/">
+  <input type="hidden" name="vads_action_mode" [value]="actionMode" />
+  <input type="hidden" name="vads_amount" [value]="amount" />
+  <input type="hidden" name="vads_ctx_mode" [value]="mode" />
+  <input type="hidden" name="vads_currency" [value]="currency" />
+  <input type="hidden" name="vads_page_action" [value]="action" />
+  <input type="hidden" name="vads_payment_config" [value]="config" />
+  <input type="hidden" name="vads_site_id" [value]="siteId" />
+  <input type="hidden" name="vads_trans_date" [value]="transDate" />
+  <input type="hidden" name="vads_trans_id" [value]="transId" />
+  <input type="hidden" name="vads_version" [value]="version" />
+  <input type="hidden" name="signature" [value]="signature"/>
+  <!--
+                <input type="submit" name="pay" (click)="form.submit()" value="Pay"/>
+  -->
+  <button (click)="form.submit()">Pay</button>
+</form>

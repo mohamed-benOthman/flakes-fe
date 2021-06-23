@@ -68,6 +68,7 @@ import {MatPaginatorIntlCro} from './utils/intl/MatPaginatorIntlCro';
 import {AuthGuardGuard} from './guards/auth-guard.guard';
 import { ConfirmationComponent } from './auth/confirmation/confirmation.component';
 import { ResetPasswordComponent } from './auth/reset-password/reset-password.component';
+import { PaymentComponent } from './utils/payment/payment.component';
 
 const appRoutes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -123,7 +124,8 @@ const appRoutes: Routes = [
     LegalsComponent,
     LoggedInComponent,
     ConfirmationComponent,
-    ResetPasswordComponent
+    ResetPasswordComponent,
+    PaymentComponent
   ],
   imports: [
     BrowserModule, BrowserAnimationsModule,

@@ -12,6 +12,10 @@
 
 }
 
+.image-container{
+  width: 100%;
+}
+
 .search-heading-makeup {
   backgrounrepeat: no-repeat;
   background: url(../../assets/images/makeup_2.jpg);
