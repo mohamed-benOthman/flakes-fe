@@ -11,10 +11,14 @@ export class PaymentComponent implements OnInit {
   public actionMode = 'INTERACTIVE';
   @Input() amount: string;
   public transId: string;
+  @Input() email: string;
+  @Input() subAmount: string;
   @Input() secretKey: string;
+  public subDesc = 'RRULE:FREQ=MONTHLY;' + 'COUNT=12;BYMONTHDAY=10';
+  public subEffectDate = this.getUtcDate().substring(0, 8);
   public mode = 'TEST';
   public currency = '978';
-  public action = 'PAYMENT';
+  public action = 'REGISTER_PAY_SUBSCRIBE';
   public config = 'SINGLE';
   public transDate = this.getUtcDate();
   public  siteId = '68757694';
@@ -25,9 +29,13 @@ export class PaymentComponent implements OnInit {
   ngOnInit(): void {
     this.transId = this.makeid(6);
     this.signature = this.compute(this.joinElements(), this.secretKey);
+    console.log(this.getUtcDate());
+    console.log(this.getUtcDate().substring(0, 8));
   }
 
    makeid(length) {
+    console.log(this.getUtcDate());
+    console.log(this.getUtcDate().substring(0, 9));
     let result           = '';
     const characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
     const  charactersLength = characters.length;
@@ -47,7 +55,7 @@ export class PaymentComponent implements OnInit {
 
   joinElements() {
     // tslint:disable-next-line:max-line-length
-    return this.actionMode + '+' + this.amount + '+' + this.mode + '+' + this.currency + '+' + this.action + '+' + this.config + '+' + this.siteId + '+' + this.transDate + '+' + this.transId + '+' + this.version + '+' + this.secretKey;
+    return this.actionMode + '+' + this.amount + '+' + this.mode + '+' + this.currency + '+' + this.email + '+' + this.action + '+' + this.config + '+' + this.siteId + '+' + this.subAmount + '+' + this.currency + '+' + this.subDesc + '+' + this.subEffectDate + '+' + this.transDate + '+' + this.transId + '+' + this.version + '+' + this.secretKey;
   }
 
   pad2(n) { return n < 10 ? '0' + n : n; }
