@@ -69,6 +69,7 @@ import {AuthGuardGuard} from './guards/auth-guard.guard';
 import { ConfirmationComponent } from './auth/confirmation/confirmation.component';
 import { ResetPasswordComponent } from './auth/reset-password/reset-password.component';
 import { PaymentComponent } from './utils/payment/payment.component';
+import { MatSelectModule } from '@angular/material/select';
 
 const appRoutes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -134,6 +135,7 @@ const appRoutes: Routes = [
     ReactiveFormsModule, NgxGalleryModule,
     ButtonModule, DialogModule, NgxSmoothDnDModule, ScrollPanelModule, SplitButtonModule,
     MatInputModule, MultiSelectModule, MatCheckboxModule, ToastModule, CardModule, BlockUIModule,
+    MatSelectModule,
     MatGridListModule, TabViewModule, FileUploadModule, DropdownModule, ProgressSpinnerModule,
     NgSelectModule, MatPaginatorModule, MatStepperModule, MatIconModule, MatCheckboxModule,
     RouterModule.forRoot(appRoutes),

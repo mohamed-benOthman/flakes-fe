@@ -16,7 +16,6 @@ export class CitiesService {
   constructor(private http: HttpClient) {
     this.cache = {};
 
-
   }
 
   getCitiesList(term: string = null) {

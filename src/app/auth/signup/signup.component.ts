@@ -56,6 +56,7 @@ export class SignupComponent implements OnInit {
   stepOneGroupPassword: FormGroup;
   stepTwoGroup: FormGroup;
   thirdFormGroup: FormGroup;
+  paymentFormGroup: FormGroup;
   thirdBisFormGroup: FormGroup;
 
   sloganMaxLength = Constants.SLOGAN_MAX_LENGTH;
@@ -64,6 +65,14 @@ export class SignupComponent implements OnInit {
   passwordMinLen = Constants.PASSWORD_MIN_LENGTH;
   usernameMinLen = Constants.USERNAME_MIN_LENGTH;
 
+  packageTypes = [
+    {value: 1, label: 'Une compétence : 7,99euros '},
+    {value: 2, label: 'Deux compétences : 12,99euros'},
+    {value: 3, label: 'Trois compétences : 17,99euros'},
+    {value: 4, label: 'Quatre compétences : 22,99euros'},
+    {value: 5, label: 'Cinq compétences : 22,99euros'},
+    {value: 6, label: 'Six compétences : 22,99euros'}
+  ];
   selectedCity = null;
 
   makeupChecked = false;
@@ -72,6 +81,7 @@ export class SignupComponent implements OnInit {
   eyesExtenChecked = false;
   henneChecked = false;
   laceFrontaleChecked = false;
+
   clearSkinChecked = false;
   tannedSkinChecked = false;
   darkSkinChecked = false;
@@ -104,6 +114,7 @@ export class SignupComponent implements OnInit {
   // selectedDept: Department[];
   movings = '1';
   expertise = '';
+  payment = '1';
   private userId;
   emailResent:boolean= false;
   errorResendingEmail:boolean= false;
@@ -122,6 +133,7 @@ export class SignupComponent implements OnInit {
     console.log(this.expertises);
   }
   }
+
   checkedmanu(value, type) {
     if (value.checked && type === 'Manucure') {
       this.signupService.getExpertises().subscribe((res: any) => {
@@ -214,6 +226,11 @@ export class SignupComponent implements OnInit {
       lastName: ['', Validators.required],
       street: ['', Validators.required],
       phone: ['', Validators.pattern('[0-9]+')]
+    });
+
+    this.paymentFormGroup = this._formBuilder.group({
+      packageTypeChosen: ['', Validators.required],
+
     });
 
     this.thirdFormGroup = this._formBuilder.group({

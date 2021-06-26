@@ -102,7 +102,6 @@
                 <input matInput placeholder="Téléphone" formControlName="phone" (keypress)="phoneChecker($event)">
               </mat-form-field>
 
-
             </form>
           </mat-step>
 
@@ -115,10 +114,27 @@
             <div class="alert alert-warning">
               <p>Compétences</p>
             </div>
+           
             <div class="container">
+              <form  [formGroup]="paymentFormGroup">
+
+                <div style="width: 100%; margin-top: 25px">
+                  <mat-form-field  style="width: 70%">
+                    <mat-label >Type de pack</mat-label>
+                    <mat-select formControlName="packageTypeChosen">
+                      <mat-option     *ngFor="let item of packageTypes" [value]="item.value">
+                        {{item.label}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+  
+                </div>
+  
+  
+              </form>
               <div class="row">
                 <div class="col-sm-6 col-12">
-                  <mat-checkbox [(ngModel)]="makeupChecked" (change)="checked($event,'Maquillage')">Maquillages</mat-checkbox>
+                  <mat-checkbox [(ngModel)]="makeupChecked" (change)="checked($event,'Maquillage')"  (click)="$event.preventDefault()">Maquillages</mat-checkbox>
                 </div>
                 <div class="col-sm-6 col-12">
                   <mat-checkbox [(ngModel)]="microbladingChecked" (change)="checkedmicro($event,'MicroBlading')" >Microblading</mat-checkbox>
@@ -231,14 +247,40 @@
             </div>-->
           </mat-step>
 
+          <!------------------------->
+          <!--STEP 6 paiememnt-->
+          <!------------------------->
+          <mat-step [stepControl]="stepTwoGroup">
+            <ng-template matStepLabel>Paiement</ng-template>
+            <div class="row pt-2">
+              <mat-radio-group [(ngModel)]="payment" aria-label="Déplacement">
+                <div >
+                  <mat-radio-button value="1" checked="true">Je ne veux pas maintenant payer</mat-radio-button>
+                </div>
+                <div >
+                  <span style="display:inline-block; height: 10px;"></span>
+                </div>
+                <div >
+                  <mat-radio-button value="2">Je veux payer maintenant</mat-radio-button>
+                </div>
+              </mat-radio-group>
+             
+            </div>
+
+
+
+          </mat-step>
+
           <mat-step>
             <ng-template matStepLabel>Terminer</ng-template>
             <div *ngIf="!isReadyToPost()" class="alert alert-danger">
               <p *ngIf="!stepOneGroup.valid">• Des informations sont manquantes dans l'étape 1</p>
               <p *ngIf="!stepTwoGroup.valid">• Des informations sont manquantes dans l'étape 2</p>
               <p *ngIf="!isBusinnessValid()">• Des informations sont manquantes dans l'étape 3</p>
+              <p *ngIf="!paymentFormGroup.valid && this.payment==='2'">• Des informations sont manquantes dans l'étape 6</p>
             </div>
             <div style="margin-top: 50px">
+
               <button class="btn btn-primary-submit hvr-shadow"
                       [disabled]="!isReadyToPost()"
                       (click)="submitPost()">Créer le compte!
