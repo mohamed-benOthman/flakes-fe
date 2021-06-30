@@ -1,6 +1,6 @@
 <form  #form  method="POST" action="https://sogecommerce.societegenerale.eu/vads-payment/">
   <input type="hidden" name="vads_action_mode" [value]="actionMode" />
-  <input type="hidden" name="vads_amount" [value]="amount" />
+
   <input type="hidden" name="vads_ctx_mode" [value]="mode" />
   <input type="hidden" name="vads_currency" [value]="currency" />
   <input type="hidden" name="vads_cust_email" [value]="email" />
@@ -18,5 +18,44 @@
   <!--
                 <input type="submit" name="pay" (click)="form.submit()" value="Pay"/>
   -->
-  <button (click)="form.submit()">Pay</button>
+  <button    style="width: 50%" class="btn btn-primary-submit hvr-shadow" style="width: 35%; border: none;background-color: #000000"  (click)="form.submit()">{{buttonText.length>0 ? buttonText : "Payer"}}</button>
 </form>
+
+
+
+
+<!--<form  #form  method="POST" action="https://sogecommerce.societegenerale.eu/vads-payment/">-->
+<!--  <input type="hidden" name="vads_action_mode" [value]="actionMode" />-->
+<!--  &lt;!&ndash;-->
+<!--    <input type="hidden" name="vads_amount" [value]="amount" />-->
+<!--  &ndash;&gt;-->
+<!--  <input type="hidden" name="vads_ctx_mode" [value]="mode" />-->
+<!--  &lt;!&ndash;-->
+<!--    <input type="hidden" name="vads_currency" [value]="currency" />-->
+<!--  &ndash;&gt;-->
+<!--  <input type="hidden" name="vads_cust_email" [value]="email" />-->
+<!--  <input type="hidden" name="vads_page_action" [value]="action" />-->
+<!--  &lt;!&ndash;-->
+<!--    <input type="hidden" name="vads_payment_config" [value]="config" />-->
+<!--  &ndash;&gt;-->
+<!--  <input type="hidden" name="vads_site_id" [value]="siteId" />-->
+
+<!--  <input type="hidden" name="vads_identifier" [value]="token" />-->
+<!--  <input type="hidden" name="vads_identifier_status	" [value]="status" />-->
+<!--  &lt;!&ndash;-->
+<!--    <input type="hidden" name="vads_sub_amount" [value]="subAmount" />-->
+<!--  &ndash;&gt;-->
+<!--  &lt;!&ndash;<input type="hidden" name="vads_sub_currency" [value]="currency" />-->
+<!--  <input type="hidden" name="vads_sub_desc" [value]="subDesc" />-->
+<!--  <input type="hidden" name="vads_sub_effect_date" [value]="this.subEffectDate" />&ndash;&gt;-->
+<!--  <input type="hidden" name="vads_trans_date" [value]="transDate" />-->
+<!--  &lt;!&ndash;-->
+<!--    <input type="hidden" name="vads_trans_id" [value]="transId" />-->
+<!--  &ndash;&gt;-->
+<!--  <input type="hidden" name="vads_version" [value]="version" />-->
+<!--  <input type="hidden" name="signature" [value]="signature"/>-->
+<!--  &lt;!&ndash;-->
+<!--                <input type="submit" name="pay" (click)="form.submit()" value="Pay"/>-->
+<!--  &ndash;&gt;-->
+<!--  <button (click)="form.submit()">Pay</button>-->
+<!--</form>-->

@@ -14,16 +14,28 @@ export class ConfirmationComponent implements OnInit {
   success = false;
   failed = false;
   verifiedAlready = false;
+  offer:any;
+  userEmail:string;
   ngOnInit() {
     this.token = this.route.snapshot.paramMap.get('token');
     this.signupService.confirmToken(this.token).subscribe((res: any) => {
+      console.log(res);
      if (res.verified === false) {
        this.verifiedAlready = true;
      }
      else
       this.success = true;
+     this.offer=res.offre;
+     this.userEmail=res.email;
+     console.log(this.offer);
+     console.log(this.userEmail);
     },
       error => this.failed = true);
+  }
+
+  convertAmount(amount:string){
+    return amount.replace('.', '');
+
   }
 
 }

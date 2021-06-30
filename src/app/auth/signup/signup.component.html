@@ -114,44 +114,44 @@
             <div class="alert alert-warning">
               <p>Compétences</p>
             </div>
-           
+
             <div class="container">
               <form  [formGroup]="paymentFormGroup">
 
                 <div style="width: 100%; margin-top: 25px">
                   <mat-form-field  style="width: 70%">
                     <mat-label >Type de pack</mat-label>
-                    <mat-select formControlName="packageTypeChosen">
-                      <mat-option     *ngFor="let item of packageTypes" [value]="item.value">
+                    <mat-select  formControlName="packageTypeChosen">
+                      <mat-option     *ngFor="let item of packageTypes" (click)="addNbPacks(item.value)" [value]="item.value">
                         {{item.label}}
                       </mat-option>
                     </mat-select>
                   </mat-form-field>
-  
+
                 </div>
-  
-  
+
+
               </form>
               <div class="row">
                 <div class="col-sm-6 col-12">
-                  <mat-checkbox [(ngModel)]="makeupChecked" (change)="checked($event,'Maquillage')"  (click)="$event.preventDefault()">Maquillages</mat-checkbox>
+                  <mat-checkbox [(ngModel)]="makeupChecked" (change)="checked($event,'Maquillage')"  (click)="checkClickableCompetence($event, 'Maquillage')">Maquillages</mat-checkbox>
                 </div>
                 <div class="col-sm-6 col-12">
-                  <mat-checkbox [(ngModel)]="microbladingChecked" (change)="checkedmicro($event,'MicroBlading')" >Microblading</mat-checkbox>
+                  <mat-checkbox [(ngModel)]="microbladingChecked" (change)="checkedmicro($event,'MicroBlading')" (click)="checkClickableCompetence($event, 'MicroBlading')" >Microblading</mat-checkbox>
                 </div>
 
 
                 <div class="col-sm-6 col-12">
-                  <mat-checkbox [(ngModel)]="manicureChecked" (change)="checkedmanu($event,'Manucure')" >Manucure</mat-checkbox>
+                  <mat-checkbox [(ngModel)]="manicureChecked" (change)="checkedmanu($event,'Manucure')" (click)="checkClickableCompetence($event, 'Manucure')" >Manucure</mat-checkbox>
                 </div>
                 <div class="col-sm-6 col-12">
-                  <mat-checkbox [(ngModel)]="eyesExtenChecked" (change)="checkedext($event,'extension')" >Extension de cils</mat-checkbox>
+                  <mat-checkbox [(ngModel)]="eyesExtenChecked" (change)="checkedext($event,'extension')" (click)="checkClickableCompetence($event, 'extension')" >Extension de cils</mat-checkbox>
                 </div>
                 <div class="col-sm-6 col-12">
-                  <mat-checkbox [(ngModel)]="henneChecked" (change)="checkedHenne($event,'Henné')" >Henné</mat-checkbox>
+                  <mat-checkbox [(ngModel)]="henneChecked" (change)="checkedHenne($event,'Henné')" (click)="checkClickableCompetence($event,'Henné')" >Henné</mat-checkbox>
                 </div>
                 <div class="col-sm-6 col-12">
-                  <mat-checkbox [(ngModel)]="laceFrontaleChecked" (change)="checkedLaceFrontale($event,'Lace Frontale')" >Lace Frontale</mat-checkbox>
+                  <mat-checkbox [(ngModel)]="laceFrontaleChecked" (change)="checkedLaceFrontale($event,'Lace Frontale')" (click)="checkClickableCompetence($event, 'Lace Frontale')" >Lace Frontale</mat-checkbox>
                 </div>
               </div>
 
@@ -264,7 +264,7 @@
                   <mat-radio-button value="2">Je veux payer maintenant</mat-radio-button>
                 </div>
               </mat-radio-group>
-             
+
             </div>
 
 
@@ -333,7 +333,7 @@
               ajouter à votre galerie.</p>
             <br>
             <p><i>Vous pourrez toujours modifier les informations saisies dans cette page (en dehors de votre idenfiant
-              et de votre adresse email)</i></p>
+              et de votre adresse email</i></p>
           </ng-container>
         </p-card>
       </div>

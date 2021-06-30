@@ -85,7 +85,7 @@ export class SignupComponent implements OnInit {
   clearSkinChecked = false;
   tannedSkinChecked = false;
   darkSkinChecked = false;
-
+  nbPacksAvailable: any = 0;
   expertises = [];
   expertisesManu = [];
   extenseion = [];
@@ -109,48 +109,55 @@ export class SignupComponent implements OnInit {
 
   emailSubject = new Subject<string>();
   usernameSubject = new Subject<string>();
-
+  selectedElementsPack: any[] = [];// this array is the array of the selected competences in the selected pack
+  firstTime = true;
   deptList: Observable<any[]>;
+
   // selectedDept: Department[];
   movings = '1';
   expertise = '';
   payment = '1';
   private userId;
-  emailResent:boolean= false;
-  errorResendingEmail:boolean= false;
+  emailResent = false;
+  errorResendingEmail = false;
 
   checked(value, type) {
-    console.log(value.checked);
    if (value.checked && type === 'Maquillage') {
+     this.nbPacksAvailable--;
+     this.selectedElementsPack.push(type);
     this.signupService.getExpertises().subscribe((res: any) => {
       console.log(res);
       this.expertises = res.filter(data => data .type === type);
       console.log(this.expertises);
     });
    } else {
-     console.log(value.checked);
+     this.deleteFromStecltedPacks(type);
     this.expertises = [];
-    console.log(this.expertises);
   }
   }
 
   checkedmanu(value, type) {
     if (value.checked && type === 'Manucure') {
+      this.nbPacksAvailable--;
+      this.selectedElementsPack.push(type);
       this.signupService.getExpertises().subscribe((res: any) => {
+
         console.log(res);
         this.expertisesManu = res.filter(data => data .type === type);
         console.log(this.expertisesManu);
       });
 
      } else {
-
+      this.deleteFromStecltedPacks(type);
       this.expertisesManu = [];
-      console.log(this.expertisesManu);
+
     }
   }
 
   checkedmicro(value, type) {
     if (value.checked && type === 'MicroBlading') {
+      this.nbPacksAvailable--;
+      this.selectedElementsPack.push(type);
       this.signupService.getExpertises().subscribe((res: any) => {
         console.log(res);
         this.micro = res.filter(data => data .type === type);
@@ -158,28 +165,33 @@ export class SignupComponent implements OnInit {
       });
 
      } else {
-
+      this.deleteFromStecltedPacks(type);
       this.micro = [];
-      console.log(this.micro);
+
     }
   }
+
+
+
+
   checkedext(value, type) {
     if (value.checked && type === 'extension') {
+        this.nbPacksAvailable--;
+      this.selectedElementsPack.push(type);
       this.signupService.getExpertises().subscribe((res: any) => {
-        console.log(res);
         this.extenseion = res.filter(data => data .type === type);
-        console.log(this.extenseion);
       });
 
      } else {
-
+     this.deleteFromStecltedPacks(type);
       this.extenseion = [];
-      console.log(this.extenseion);
     }
 
   }
   checkedHenne(value, type) {
     if (value.checked && type === 'Henné') {
+      this.nbPacksAvailable--;
+      this.selectedElementsPack.push(type);
       this.signupService.getExpertises().subscribe((res: any) => {
         console.log(res);
         this.henneExpertises = res.filter(data => data .type === type);
@@ -187,25 +199,44 @@ export class SignupComponent implements OnInit {
       });
 
     } else {
-
+      this.deleteFromStecltedPacks(type);
       this.henneExpertises = [];
     }
 
   }
   checkedLaceFrontale(value, type) {
     if (value.checked && type === 'Lace Frontale') {
+      this.nbPacksAvailable--;
+      this.selectedElementsPack.push(type);
       this.signupService.getExpertises().subscribe((res: any) => {
         console.log(res);
         this.laceFrontaleExpertise = res.filter(data => data .type === type);
       });
 
     } else {
-
+      this.deleteFromStecltedPacks(type);
       this.laceFrontaleExpertise = [];
     }
 
   }
+  checkClickableCompetence(event, type) {
+    const element = this.selectedElementsPack.filter(item => item === type);
 
+    if (this.nbPacksAvailable === 0 && element.length===0) {
+      event.preventDefault();
+    }
+  }
+  addNbPacks(nbPacks: Number) {
+    console.log(nbPacks);
+    this.resetCompetenceCheckBoxes();
+    this.nbPacksAvailable = nbPacks;
+
+  }
+
+  deleteFromStecltedPacks(type){
+    this.nbPacksAvailable++;
+    this.selectedElementsPack= this.selectedElementsPack.filter(item=>item!=type);
+  }
   ngOnInit() {
 
     this.deptList = this.deptService.getJSON();
@@ -265,7 +296,35 @@ export class SignupComponent implements OnInit {
   isReadyToPost() {
     return this.stepOneGroup.valid && this.stepOneGroupPassword.valid && this.stepTwoGroup.valid && this.isBusinnessValid();
   }
+   resetCompetenceCheckBoxes(){
+     this.makeupChecked=false;
+     this.microbladingChecked=false;
+     this.manicureChecked=false;
+     this.eyesExtenChecked=false;
+     this.henneChecked=false;
+     this.laceFrontaleChecked=false;
+     this.selectedElementsPack=[];
+     this.nbPacksAvailable=0;
+     for(let item of this.expertises){
+       item.checked=false
+     };
+     for(let item of this.expertisesManu){
+       item.checked=false
+     };
+     for(let item of this.extenseion){
+       item.checked=false
+     };
+     for(let item of this.micro){
+       item.checked=false
+     };
+     for(let item of this.henneExpertises){
+       item.checked=false
+     };
+     for(let item of this.laceFrontaleExpertise){
+       item.checked=false
+     };
 
+}
   getBusinnessList() {
     let biz = '';
     if (this.makeupChecked) {
@@ -349,8 +408,8 @@ export class SignupComponent implements OnInit {
 
   }
   resendEmail() {
-    this.emailResent=false;
-    this.errorResendingEmail=false;
+    this.emailResent = false;
+    this.errorResendingEmail = false;
     this.signupService.resendEmail(this.stepOneGroup.value.email).subscribe((res: any) => {
       console.log(res);
       console.log(res.succeeded);
@@ -378,7 +437,8 @@ export class SignupComponent implements OnInit {
       cities: this.selectedCity.code + ';' + this.selectedCity.city,
       business: this.getBusinnessList(),
       expertises: this.expertise,
-      movings: this.movings
+      movings: this.movings,
+      idOffre: this.paymentFormGroup.value.packageTypeChosen
       // departements: this.getDeptsList()
     };
 

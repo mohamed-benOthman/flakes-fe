@@ -17,16 +17,19 @@
         </div>
         <div  *ngIf="success" class="clearfix" style="text-align: center">
 
-          <h3 class="text-muted">Votre compte est vérifié</h3>
-          <h4>Vous pouvez dès à présent vous connecter pour ajouter une photo de profil et ajouter des photos dans votre
-            galerie!</h4>
+          <h3 >Votre compte est vérifié</h3>
+          <h4>Vous devez maintenant ajouter votre coordonnées bancaires afin de continuer, sinon vous pouvez les ajouter dans vovtre espace personnel mais vous ne serez pas visibles jusqu'à l'inscription à l'abonnement </h4>
+     <!--     <h4>Vous pouvez dès à présent vous connecter pour ajouter une photo de profil et ajouter des photos dans votre
+            galerie!</h4>-->
         </div>
         <div class="w-100 row justify-content-center">
         <button
+          *ngIf="failed"
           [routerLink]="['/home']"
           style="width: 50%" class="btn btn-primary-submit hvr-shadow"
                >Vers la page d'accueil
         </button>
+          <app-payment *ngIf="success" buttonText="Continuer" [subAmount]="convertAmount(offer.price)"  [email]="userEmail"   ></app-payment>
 
         </div>
 

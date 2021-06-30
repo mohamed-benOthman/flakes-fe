@@ -2,6 +2,8 @@ import { Component, OnInit, Input } from '@angular/core';
 import sha256 from 'crypto-js/sha256';
 import hmacSHA256 from 'crypto-js/hmac-sha256';
 import Base64 from 'crypto-js/enc-base64';
+import {environment} from '../../../environments/environment';
+
 @Component({
   selector: 'app-payment',
   templateUrl: './payment.component.html',
@@ -9,16 +11,17 @@ import Base64 from 'crypto-js/enc-base64';
 })
 export class PaymentComponent implements OnInit {
   public actionMode = 'INTERACTIVE';
-  @Input() amount: string;
+  //@Input() amount: string;
   public transId: string;
   @Input() email: string;
   @Input() subAmount: string;
-  @Input() secretKey: string;
-  public subDesc = 'RRULE:FREQ=MONTHLY;' + 'COUNT=12;BYMONTHDAY=10';
+  secretKey: string= environment.paymentSercretKey;
+  @Input() buttonText: string;
+  public subDesc = 'RRULE:FREQ=MONTHLY' ;
   public subEffectDate = this.getUtcDate().substring(0, 8);
   public mode = 'TEST';
   public currency = '978';
-  public action = 'REGISTER_PAY_SUBSCRIBE';
+  public action = 'REGISTER_SUBSCRIBE';
   public config = 'SINGLE';
   public transDate = this.getUtcDate();
   public  siteId = '68757694';
@@ -55,7 +58,9 @@ export class PaymentComponent implements OnInit {
 
   joinElements() {
     // tslint:disable-next-line:max-line-length
-    return this.actionMode + '+' + this.amount + '+' + this.mode + '+' + this.currency + '+' + this.email + '+' + this.action + '+' + this.config + '+' + this.siteId + '+' + this.subAmount + '+' + this.currency + '+' + this.subDesc + '+' + this.subEffectDate + '+' + this.transDate + '+' + this.transId + '+' + this.version + '+' + this.secretKey;
+    //return this.actionMode + /*'+' + this.amount +*/ '+' + this.mode + /*'+' + this.currency +*/ '+' + this.email + '+' + this.token + '+' + this.status + '+' + this.action + /*'+' + this.config +*/ '+' + this.siteId + /*'+' + this.subAmount + '+' + this.currency + '+' + this.subDesc + '+' + this.subEffectDate +*/ '+' + this.transDate +/* '+' + this.transId +*/ '+' + this.version + '+' + this.secretKey;
+
+    return this.actionMode + /*'+' + this.amount +*/ '+' + this.mode + '+' + this.currency + '+' + this.email + '+' + this.action + '+' + this.config + '+' + this.siteId + '+' + this.subAmount + '+' + this.currency + '+' + this.subDesc + '+' + this.subEffectDate + '+' + this.transDate + '+' + this.transId + '+' + this.version + '+' + this.secretKey;
   }
 
   pad2(n) { return n < 10 ? '0' + n : n; }
