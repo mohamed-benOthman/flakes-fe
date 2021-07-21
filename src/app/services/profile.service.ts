@@ -258,7 +258,9 @@ export class ProfileService {
 
     return this.http.post('http://82.165.253.223:3050/files/upload', uploadData);
   }
-
+  getPaymentAndSubscription(username: string) {
+    return this.http.get(Constants.searchURL + `/payment-details/${username}` );
+  }
   savePhoto(photoUrl) {
     const user = JSON.parse(localStorage.getItem('currentUser')) ;
     const maquilleuseId = user.idMaquilleuse;

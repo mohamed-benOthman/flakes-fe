@@ -32,13 +32,11 @@ export class PaymentComponent implements OnInit {
   ngOnInit(): void {
     this.transId = this.makeid(6);
     this.signature = this.compute(this.joinElements(), this.secretKey);
-    console.log(this.getUtcDate());
-    console.log(this.getUtcDate().substring(0, 8));
+
   }
 
    makeid(length) {
-    console.log(this.getUtcDate());
-    console.log(this.getUtcDate().substring(0, 9));
+
     let result           = '';
     const characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
     const  charactersLength = characters.length;

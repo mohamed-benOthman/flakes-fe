@@ -18,7 +18,7 @@
   <!--
                 <input type="submit" name="pay" (click)="form.submit()" value="Pay"/>
   -->
-  <button    style="width: 50%" class="btn btn-primary-submit hvr-shadow" style="width: 35%; border: none;background-color: #000000"  (click)="form.submit()">{{buttonText.length>0 ? buttonText : "Payer"}}</button>
+  <button    style="width: 50%" class="btn btn-primary-submit hvr-shadow" style="width: 35%; border: none;background-color: #000000"  (click)="form.submit()">{{buttonText!=undefined ? buttonText : "Payer"}}</button>
 </form>
 
 

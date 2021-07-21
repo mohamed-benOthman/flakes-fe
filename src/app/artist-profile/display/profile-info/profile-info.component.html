@@ -68,7 +68,7 @@
   <tr >
     <td><b>Déplacements</b></td>
     <td><span style="display:inline-block; width: 15px;"></span></td>
-    <td class="detail">
+    <td >
       <div *ngIf="isFranceOnly(); else movingOutsideTemplate">
       Je me déplace en France
       </div>
@@ -91,6 +91,13 @@
     <td><span style="display:inline-block; width: 15px;"></span></td>
     <td>
       {{ currentProfile?.slogan }}
+    </td>
+  </tr>
+  <tr>
+    <td><b>Abonnement</b></td>
+    <td><span style="display:inline-block; width: 15px;"></span></td>
+    <td>
+      {{ currentProfile?.offre.libelle + ' ' + currentProfile?.offre.price+'€'  }}
     </td>
   </tr>
   </tbody>

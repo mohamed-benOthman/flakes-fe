@@ -27,8 +27,7 @@ export class ConfirmationComponent implements OnInit {
       this.success = true;
      this.offer=res.offre;
      this.userEmail=res.email;
-     console.log(this.offer);
-     console.log(this.userEmail);
+
     },
       error => this.failed = true);
   }

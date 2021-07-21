@@ -26,15 +26,15 @@ export class SearchComponent implements OnInit, AfterViewInit {
   departments: Array<any>;
   // selectedDeptObservable: Observable<Department>;
   selectedDept: Department[];
-  filterText='';
+  filterText = '';
   artistsProfiles: Profile[];
   expertisesList = [];
   pageLength = 1;
   pageSizeOptions: number[] = Constants.SEARCH_AVAILABLE_ITEMS_PER_PAGE;
   pageSize = Constants.SEARCH_AVAILABLE_ITEMS_PER_PAGE[2];
   pageIndex = 0;
-  imageName="";
-  imageSrc="../../assets/images/";
+  imageName = '';
+  imageSrc = '../../assets/images/';
   skinTypes = [
     {value: 1, label: 'Peau claire'},
     {value: 2, label: 'Peau foncée'},
@@ -86,36 +86,35 @@ export class SearchComponent implements OnInit, AfterViewInit {
 
     if (this.router.url.startsWith('/search-makeup')) {
       this.categoryTitle = 'maquillage';
-      this.filterText='Type de peau';
-      this.imageName="makeup_2.jpg";
+      this.filterText = 'Type de peau';
+      this.imageName = 'makeup_2.jpg';
       this.businessType = 1;
     } else if (this.router.url.startsWith('/search-microblading')) {
-      this.filterText='Type de Microblading'
+      this.filterText = 'Type de Microblading';
 
 
       this.categoryTitle = 'micro blading';
-      this.imageName="micro_2.jpg";
+      this.imageName = 'micro_2.jpg';
       this.businessType = 2;
     } else if (this.router.url.startsWith('/search-manicure')) {
-      this.filterText='Type de Manuicure'
+      this.filterText = 'Type de Manuicure';
       this.categoryTitle = 'manucure';
-      this.imageName="ongles-3.jpg";
+      this.imageName = 'ongles-3.jpg';
       this.businessType = 3;
     } else if (this.router.url.startsWith('/search-eyelashes')) {
-      this.filterText='Type de cils'
-      this.imageName="extencion_2.jpg";
+      this.filterText = 'Type de cils';
+      this.imageName = 'extencion_2.jpg';
       this.categoryTitle = 'extension de cils';
       this.businessType = 4;
     } else if (this.router.url.startsWith('/search-henne')) {
-      this.filterText='Type de henné'
+      this.filterText = 'Type de henné';
       this.categoryTitle = 'henné';
-      this.imageName="henna_2.jpg";
+      this.imageName = 'henna_2.jpg';
       this.businessType = 5;
-    }
-    else if (this.router.url.startsWith('/search-lace-frontale')) {
-      this.filterText='Type de Lade Frontale'
+    } else if (this.router.url.startsWith('/search-lace-frontale')) {
+      this.filterText = 'Type de Lade Frontale';
       this.categoryTitle = 'lace frontale';
-      this.imageName="perruque_2.jpg";
+      this.imageName = 'perruque_2.jpg';
       this.businessType = 6;
     }
 
@@ -133,19 +132,19 @@ export class SearchComponent implements OnInit, AfterViewInit {
           this.getCurrentExpertises(res, 'Maquillage');
           break;
         case 2 :
-          this.getCurrentExpertises(res,'MicroBlading' );
+          this.getCurrentExpertises(res, 'MicroBlading' );
           break;
         case 3 :
-          this.getCurrentExpertises(res,'Manucure');
+          this.getCurrentExpertises(res, 'Manucure');
           break;
         case 4:
-          this.getCurrentExpertises(res,'extension');
+          this.getCurrentExpertises(res, 'extension');
           break;
         case 5:
-          this.getCurrentExpertises(res,'Henné');
+          this.getCurrentExpertises(res, 'Henné');
           break;
         case 6:
-          this.getCurrentExpertises(res,'Lace Frontale');
+          this.getCurrentExpertises(res, 'Lace Frontale');
           break;
 
 
@@ -225,8 +224,11 @@ export class SearchComponent implements OnInit, AfterViewInit {
 
     forkJoin([searchObs, countObs]).subscribe(results => {
       this.artistsProfiles = results[0] as Profile[];
+      this.artistsProfiles = this.artistsProfiles.filter(item => item.subsciptionPaid === true);
+/*
       const count = results[1] as number;
-
+*/
+      const count = this.artistsProfiles.length;
       this.artistFound = count > 0;
 
       const remainder = count % this.pageSize === 0 ? 0 : 1;

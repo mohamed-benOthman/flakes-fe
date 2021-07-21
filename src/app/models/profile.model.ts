@@ -33,5 +33,8 @@ export interface Profile {
   photo_profile: string;
   movings: string;
   departements: any[];
+  subsciptionPaid?:boolean;
+  offre?:any;
+  paymentMethod?:any;
 }
 

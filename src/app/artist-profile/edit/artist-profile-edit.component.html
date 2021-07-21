@@ -50,7 +50,7 @@
 <!--
             <iframe name="nameFrame" src="payment_form.php"    scrolling="no" />
 -->
-            <app-payment  subAmount="900" email="aminebenothman1999@gmail.com"  secretKey="j9OylbhOQQ6KhwXq"></app-payment>
+            <app-payment *ngIf="!currentProfile.subsciptionPaid"  [subAmount]="convertAmount(currentProfile?.offre.price)"  [email]="currentProfile.emailAdress"   secretKey="j9OylbhOQQ6KhwXq"></app-payment>
           </div>
         </div>
         <div class="col-xs-4"></div>

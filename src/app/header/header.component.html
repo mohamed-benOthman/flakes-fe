@@ -36,20 +36,20 @@
                 <li><a routerLink="/search-manicure" routerLinkActive="active"><span
                   class="img-icon main maquillages-icon_scn"></span> Manucure</a></li>
                 <li><a routerLink="/search-eyelashes" routerLinkActive="active"><span
-                  class="img-icon main maquillages-icon_thr"></span> EXTENSION DE CILS</a></li>
+                  class="img-icon main maquillages-icon_thr"></span> Extension de cils </a></li>
                 <li><a routerLink="/search-henne" routerLinkActive="active"><span
-                  class="img-icon main maquillages-icon_thr"></span>HENNÉ</a></li>
+                  class="img-icon main maquillages-icon_thr"></span>Henné</a></li>
                 <li><a routerLink="/search-lace-frontale" routerLinkActive="active"><span
-                  class="img-icon main maquillages-icon_thr"></span> LACE FRONTALE</a></li>
+                  class="img-icon main maquillages-icon_thr"></span> Lace Frontale</a></li>
                 <li *ngIf="profileService.isAuthenticated()" class="nav-item dropdown">
                   <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                      data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
                      style="background-color: rgba(206,156,143,0.61); border-radius: 5px; text-decoration: none; color: white">
                     Connecté(e)
                   </a>
-                  <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <li><a class="dropdown-item" routerLink="/profile">Votre profil</a></li>
-                    <li><a class="dropdown-item" (click)="authService.logout()">Se déconnecter</a></li>
+                  <ul class="dropdown-menu" aria-labelledby="navbarDropdown" style="background-color: #000000 ">
+                    <li><a  routerLink="/profile">Votre profil</a></li>
+                    <li><a  (click)="authService.logout()">Se déconnecter</a></li>
                   </ul>
                 </li>
               </ul>

@@ -76,11 +76,17 @@
   ----- BOTTOM BUTTONS (EDIT / ADD PHOTOS)
   ------------------------------>
   <ng-container *ngIf="isEditEnabled()">
-    <button pButton type="button" label="Editer le profil" class="ui-button-raised"
+    <div class="row">
+      <div class="col-12">
+
+
+    <button style="background-color: #000000; border-color: #000000; margin-left: 20px" pButton type="button" label="Editer le profil" class="ui-button-raised"
             (click)="editProfileClicked()"></button>
     <span style="display:inline-block; width: 25px;"></span>
     <!--<button pButton type="button" label="Editer les photos" class="ui-button-raised"
             (click)="editPhotosClicked()"></button>-->
+      </div>
+    </div>
   </ng-container>
 
   <!------------------------------

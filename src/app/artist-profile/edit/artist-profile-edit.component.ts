@@ -45,7 +45,14 @@ export class ArtistProfileEditComponent implements OnInit {
       if (res.username == '' && this.profileService.isAuthenticated())
         this.profileService.loadProfile(this.profileService.getAuthUsername());
       else
+      {
         this.currentProfile = res;
+        this.profileService.getPaymentAndSubscription(this.currentProfile.username).subscribe((res: any) => {
+          this.currentProfile.offre = res.offre;
+          this.currentProfile.paymentMethod = res.paymentMethod;
+        });
+      }
+
     });
     this.initConfig();
   }
@@ -188,6 +195,11 @@ export class ArtistProfileEditComponent implements OnInit {
   cancelEditProfile() {
     console.log('cancelEditProfile');
     this.router.navigate(['/profile']);
+  }
+
+  convertAmount(amount:string){
+    return amount.replace('.', '');
+
   }
 
   quitEdit() {
