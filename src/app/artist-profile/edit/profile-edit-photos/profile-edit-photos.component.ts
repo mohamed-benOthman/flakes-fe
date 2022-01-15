@@ -1,19 +1,25 @@
-import {Component, EventEmitter, OnInit, Output, ViewChild, ViewEncapsulation} from '@angular/core';
-import {Profile} from '../../../models/profile.model';
-import {ProfileService} from '../../../services/profile.service';
-import {forkJoin} from 'rxjs';
-import * as cloneDeep from 'lodash/cloneDeep';
-import * as Constants from '../../../utils/globals';
-import {SelectCitiesComponent} from '../../../utils/select-cities/select-cities.component';
+import {
+  Component,
+  EventEmitter,
+  OnInit,
+  Output,
+  ViewChild,
+  ViewEncapsulation,
+} from "@angular/core";
+import { Profile } from "../../../models/profile.model";
+import { ProfileService } from "../../../services/profile.service";
+import { forkJoin } from "rxjs";
+import * as cloneDeep from "lodash/cloneDeep";
+import * as Constants from "../../../utils/globals";
+import { SelectCitiesComponent } from "../../../utils/select-cities/select-cities.component";
 
 @Component({
-  selector: 'app-profile-edit-photos',
-  templateUrl: './profile-edit-photos.component.html',
-  styleUrls: ['./profile-edit-photos.component.css'],
-  encapsulation: ViewEncapsulation.None
+  selector: "app-profile-edit-photos",
+  templateUrl: "./profile-edit-photos.component.html",
+  styleUrls: ["./profile-edit-photos.component.css"],
+  encapsulation: ViewEncapsulation.None,
 })
 export class ProfileEditPhotosComponent implements OnInit {
-
   isPhotoValid = true;
   currentProfileCopy: Profile;
 
@@ -22,16 +28,14 @@ export class ProfileEditPhotosComponent implements OnInit {
 
   isUploading = false;
 
-
   @Output() photoDeletedEvent = new EventEmitter<number>();
   @Output() photoSentEvent = new EventEmitter<any>();
   @Output() uploadingEvent = new EventEmitter<any>();
 
-  constructor(private profileService: ProfileService) {
-  }
+  constructor(private profileService: ProfileService) {}
 
   ngOnInit() {
-    this.profileService.currentDisplayedProfile.subscribe(res => {
+    this.profileService.currentDisplayedProfile.subscribe((res) => {
       // this.currentDisplayedProfile = res;
       this.currentProfileCopy = cloneDeep(res);
     });
@@ -46,7 +50,7 @@ export class ProfileEditPhotosComponent implements OnInit {
 
   onDeletePhotoFromGallery(index, url: any) {
     console.log(url);
-    this.profileService.deletePhoto(url.url).subscribe(res => {
+    this.profileService.deletePhoto(url.url).subscribe((res) => {
       this.currentProfileCopy.photosUrl.splice(index, 1);
     });
 
@@ -57,7 +61,6 @@ export class ProfileEditPhotosComponent implements OnInit {
   savePhotosProfile() {
     this.profileService.updateProfile(cloneDeep(this.currentProfileCopy));
   }
-
 
   /************************
    --- Add Tab ---
@@ -79,7 +82,8 @@ export class ProfileEditPhotosComponent implements OnInit {
 
         const reader = new FileReader();
         reader.readAsDataURL(event.target.files[0]); // read file as data url
-        reader.onload = (evn: Event) => { // called once readAsDataURL is completed
+        reader.onload = (evn: Event) => {
+          // called once readAsDataURL is completed
           this.photosUrl.push(reader.result);
         };
       }
@@ -97,18 +101,24 @@ export class ProfileEditPhotosComponent implements OnInit {
     }
 
     forkJoin(observables).subscribe(
-      results => {
-      console.log('response after uploading all photos = ' + JSON.stringify(results));
-      if (results && results.length > 0) {
-        for (const photo of results) {
-          this.profileService.savePhoto(photo.url).subscribe(res => console.log(res), error => console.log(error));
-          this.currentProfileCopy.photosUrl.push(photo);
-
+      (results: any) => {
+        console.log(
+          "response after uploading all photos = " + JSON.stringify(results)
+        );
+        if (results && results.length > 0) {
+          for (const photo of results) {
+            this.profileService.savePhoto(photo.url).subscribe(
+              (res) => console.log(res),
+              (error) => console.log(error)
+            );
+            this.currentProfileCopy.photosUrl.push(photo);
+          }
         }
-      }
-      this.uploadingEvent.emit(false);
-      this.resetAll();
-    }, error1 => this.uploadingEvent.emit(false));
+        this.uploadingEvent.emit(false);
+        this.resetAll();
+      },
+      (error1) => this.uploadingEvent.emit(false)
+    );
   }
 
   removePhotoFromAddTab(position) {
@@ -116,13 +126,11 @@ export class ProfileEditPhotosComponent implements OnInit {
     this.files.splice(position, 1);
   }
 
-
-
   /************************
    --- Drag n Drop ---
    ************************/
   applyDrag(arr, dragResult) {
-    const {removedIndex, addedIndex, payload} = dragResult;
+    const { removedIndex, addedIndex, payload } = dragResult;
     if (removedIndex === null && addedIndex === null) {
       return arr;
     }
@@ -142,7 +150,9 @@ export class ProfileEditPhotosComponent implements OnInit {
   }
 
   onDropImage(dropResult) {
-    this.currentProfileCopy.photosUrl = this.applyDrag(this.currentProfileCopy.photosUrl, dropResult);
+    this.currentProfileCopy.photosUrl = this.applyDrag(
+      this.currentProfileCopy.photosUrl,
+      dropResult
+    );
   }
-
 }
