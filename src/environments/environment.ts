@@ -4,8 +4,7 @@
 
 export const environment = {
   production: false,
-  paymentSercretKey: "j9OylbhOQQ6KhwXq"
-
+  paymentSercretKey: "j9OylbhOQQ6KhwXq",
 };
 
 /*
