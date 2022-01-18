@@ -65,6 +65,6 @@ export class SignupService {
     return this.http.post(`${Constants.userURL}/resendEmail`, { email: id });
   }
   public getExpertises(): any {
-    return this.http.get(`${Constants.userURL}/expertise`);
+    return this.http.get(`${Constants.baseURL}/expertise`);
   }
 }
