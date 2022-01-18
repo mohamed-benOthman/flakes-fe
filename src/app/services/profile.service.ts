@@ -301,7 +301,7 @@ export class ProfileService {
   }
 
   getBaniereImages() {
-    return this.http.get("http://localhost:3050/banierePubliciataire/all");
+    return this.http.get(Constants.photosURL + "/all");
   }
   formatProfileForUpload(profile) {
     const formattedProfile = cloneDeep(profile);

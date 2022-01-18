@@ -1,21 +1,29 @@
-import { Injectable } from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {debounceTime, distinctUntilChanged, map, switchMap} from 'rxjs/operators';
-import {Observable, of} from 'rxjs';
-import * as Constants from '../utils/globals';
+import { Injectable } from "@angular/core";
+import { HttpClient } from "@angular/common/http";
+import {
+  debounceTime,
+  distinctUntilChanged,
+  map,
+  switchMap,
+} from "rxjs/operators";
+import { Observable, of } from "rxjs";
+import * as Constants from "../utils/globals";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root",
 })
 export class SignupService {
-
   constructor(private http: HttpClient) {}
 
   search(terms: Observable<string>, checkEmail = true, checkUsername = false) {
     return terms.pipe(
       debounceTime(400),
       distinctUntilChanged(),
-      switchMap(term => checkEmail ? this.checkEmailNotTaken(term) : this.checkUsernameNotTaken(term))
+      switchMap((term) =>
+        checkEmail
+          ? this.checkEmailNotTaken(term)
+          : this.checkUsernameNotTaken(term)
+      )
     );
   }
 
@@ -38,20 +46,25 @@ export class SignupService {
   }
 
   public confirmToken(token) {
-    return this.http.post(`${Constants.userURL}/checkConfimationToken`, {token});
+    return this.http.post(`${Constants.userURL}/checkConfimationToken`, {
+      token,
+    });
   }
 
   public checkResetToken(token): Observable<any> {
-    return this.http.post(`${Constants.userURL}/checkResetToken`, {token});
+    return this.http.post(`${Constants.userURL}/checkResetToken`, { token });
   }
 
   public resetPassword(token, password): Observable<any> {
-    return this.http.post(`${Constants.userURL}/resetPassword`, {token: token, password: password});
+    return this.http.post(`${Constants.userURL}/resetPassword`, {
+      token: token,
+      password: password,
+    });
   }
   public resendEmail(id: string): Observable<any> {
-    return this.http.post(`${Constants.userURL}/resendEmail`, {email: id});
+    return this.http.post(`${Constants.userURL}/resendEmail`, { email: id });
   }
   public getExpertises(): any {
-    return this.http.get('http://localhost:3050/expertise');
+    return this.http.get(`${Constants.userURL}/expertise`);
   }
 }
