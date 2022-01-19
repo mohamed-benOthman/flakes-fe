@@ -3,7 +3,7 @@
 /*export const baseURL = 'http://82.165.253.223:3050';*/
 // export const baseURL = 'http://localhost:3050';
 
-export const baseURL = "http://82.165.48.48/api";
+export const baseURL = "https://82.165.48.48/api";
 
 export const businessURL = `${baseURL}/business`;
 export const expertiseURL = `${baseURL}/expertise`;
