@@ -33,11 +33,12 @@ export class ArtistProfileComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.displayEditProfileDialog = false;
     this.displayEditPhotosDialog = false;
-
     const routeParams = this.activeRoute.snapshot.params;
+
     if (routeParams && routeParams.username) {
       this.profileService.loadProfile(String(routeParams.username));
     } else if (this.profileService.isAuthenticated()) {
+
       this.profileService.loadProfile(this.profileService.getAuthUsername());
     }
 
